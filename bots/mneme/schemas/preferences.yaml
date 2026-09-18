@@ -1,0 +1,13 @@
+# /workspace/agora/preferences.yaml — what do they want?
+
+target_roles: []       # e.g. Senior Backend Engineer, Engineering Manager
+career_notes: ""       # narrative, strengths, general direction
+markets: []            # e.g. London, remote-EU
+work_mode: ""          # remote | hybrid | onsite | open
+must_haves: []
+deal_breakers: []
+salary_floor: ""       # optional; include currency
+emphasize: []
+de_emphasize: []
+resume_voice: ""       # short hint for Kairos later
+updated: ""

@@ -1,0 +1,14 @@
+# /workspace/agora/profile.yaml — who is the candidate?
+
+name: ""
+locations: []          # City, Country — one or more
+email: ""
+phone: ""              # optional
+links:
+  - name: LinkedIn
+    url: ""
+  - name: GitHub
+    url: ""
+  - name: Portfolio
+    url: ""
+updated: ""            # YYYY-MM-DD
