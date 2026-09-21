@@ -1,13 +1,19 @@
 # /workspace/agora/preferences.yaml — what do they want?
+# Wants/constraints only. Mneme sole-writes after user confirm.
+# Euodia may propose; do not persist a proposal until the user confirms.
+# Not a job search, not a JD score, not a tailored resume.
+# Overflow (visa, notice period, company size, etc. with no field): career_notes.
+# emphasize / de_emphasize / resume_voice are stored for Kairos — Mneme must not
+#   apply them by trimming master-resume.md.
 
-target_roles: []       # e.g. Senior Backend Engineer, Engineering Manager
-career_notes: ""       # narrative, strengths, general direction
+target_roles: []       # general roles of interest, not a single headline, not a query string
+career_notes: ""       # narrative, strengths, general direction; also resume objective/summary from imports
 markets: []            # e.g. London, remote-EU
-work_mode: ""          # remote | hybrid | onsite | open
+work_mode: ""          # remote | hybrid | onsite | open | "" if unset — do not invent
 must_haves: []
 deal_breakers: []
-salary_floor: ""       # optional; include currency
-emphasize: []
-de_emphasize: []
-resume_voice: ""       # short hint for Kairos later
-updated: ""
+salary_floor: ""       # optional; include currency; omit key if they refuse to state
+emphasize: []          # themes/skills to prefer later — do not delete master bullets
+de_emphasize: []       # themes to play down later — still keep the evidence in master-resume
+resume_voice: ""       # short hint for Kairos later; Mneme keeps curator voice in files
+updated: ""            # YYYY-MM-DD
