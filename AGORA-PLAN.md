@@ -1,6 +1,6 @@
 # Agora plan
 
-Status: planning. No bots created. Repo not created yet.
+Status: repo + Mneme blueprint in progress. Agora/Euodia skills and execution bots not authored.
 
 ## System
 
@@ -78,18 +78,18 @@ bots/<name>/skills/*.md     # installed after create
 
 ## Mneme (foundation SoT)
 
-One job: gather/organize/confirm career truth. No tailored HTML, no JD scoring, no search.
+One job: gather/organize/confirm career truth. No tailored HTML/markdown/PDF (including in chat), no JD scoring, no search, no CreateAgent, no apply.
 
 Writes only:
 
-- `/workspace/agora/profile.yaml`
-- `/workspace/agora/preferences.yaml`
-- `/workspace/agora/master-resume.md` (`variant: master`)
+- `/workspace/agora/profile.yaml` — identity
+- `/workspace/agora/preferences.yaml` — wants (Euodia may propose; confirm before persist)
+- `/workspace/agora/master-resume.md` — YAML story/evidence (`variant: master`)
 
 Kairos writes `/workspace/agora/applications/resume_<company>_<role>.md`.
 
-Intake v1: interview · resume/PDF · LinkedIn PDF/paste. English only. No fabricate. No apply.
+Intake v1: interview · resume/PDF · LinkedIn PDF/paste. Mixed JD+resume → evidence only. English only. No fabricate. Re-import is union; conflicts are questions.
 
 ## Next
 
-Grill Mneme one-job boundary and career-profile artifact.
+Author Agora skills (`first-run`, `need-bot`, `fetch-blueprint`). Euodia blueprint after that.

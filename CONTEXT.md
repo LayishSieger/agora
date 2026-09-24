@@ -6,7 +6,7 @@
 
 **Euodia (Εὐοδία)** — Career Pathfinder. Explores career directions and growth opportunities. Optional to *use* when direction is unclear. Does not gate Mneme. Must not CreateAgent; messages Agora if a later bot is needed.
 
-**Mneme (Μνήμη)** — Career Curator. Interviews, collects experiences, maintains the master career profile (source of truth). Always present after first-run. Must not CreateAgent; messages Agora if a later bot is needed.
+**Mneme (Μνήμη)** — Career Curator. Interviews, collects experiences, maintains the master career profile (source of truth). Always present after first-run. Must not CreateAgent, tailor resumes, score JDs, search jobs, or apply; messages Agora `need <Name>` if a later bot is needed. Refuses those jobs in chat as well as in files.
 
 **Zetesis (Ζήτησις)** — Job Finder. Searches opportunities from profile and preferences. Lazy-created by Agora on demand.
 
@@ -32,11 +32,11 @@
 
 **install event** — Anonymous telemetry fired by Agora after a successful CreateAgent (`event=install`, bot name, tag, `agora=1`). Not a raw GitHub zip download count. Honors `DO_NOT_TRACK`.
 
-**profile.yaml** — Who is the candidate? Mneme sole-writes. Path: `/workspace/agora/profile.yaml`.
+**profile.yaml** — Who is the candidate? Identity only (name, locations, email, optional phone, links). Mneme sole-writes. Path: `/workspace/agora/profile.yaml`.
 
-**preferences.yaml** — What does the candidate want? Mneme sole-writes (Euodia may propose; Mneme persists after confirm). Path: `/workspace/agora/preferences.yaml`.
+**preferences.yaml** — What does the candidate want? Mneme sole-writes (Euodia may propose; Mneme persists after confirm). Kairos hints (`emphasize`, `de_emphasize`, `resume_voice`) are stored here, not applied by trimming the master story. Path: `/workspace/agora/preferences.yaml`.
 
-**master-resume.md** — Professional story / evidence. Human+agent authored source of truth. Frontmatter includes `variant: master`. Mneme sole-writes. Path: `/workspace/agora/master-resume.md`.
+**master-resume.md** — Professional story / evidence. YAML document at a `.md` path. Human+agent authored source of truth. Top-level `variant: master` and `updated`. No contact/objective/target_roles. Optional `variants` are same-fact rephrasings, not per-job forks. Mneme sole-writes. Path: `/workspace/agora/master-resume.md`.
 
 **resume_<company>_<role>.md** — Job-specific presentation of the story. Kairos sole-writes. Path: `/workspace/agora/applications/resume_<company>_<role>.md`.
 

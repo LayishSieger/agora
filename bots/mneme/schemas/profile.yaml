@@ -1,14 +1,16 @@
 # /workspace/agora/profile.yaml — who is the candidate?
+# Identity only. Mneme sole-writes. English.
+# Not here: headline, summary, target roles, salary, skills list, work-auth essay,
+#   photo, pronouns-as-required, or anything job-specific.
+# Required keys always present. Optional keys: omit if unused (do not invent values).
+# Unknown required text → "" and ask, or keep prior confirmed value on delta.
+# Dates: updated is YYYY-MM-DD.
 
-name: ""
-locations: []          # City, Country — one or more
+name: ""               # how they want to be named on file (confirm spelling)
+locations: []          # City, Country — one or more; [] if unknown
 email: ""
-phone: ""              # optional
-links:
-  - name: LinkedIn
+phone: ""              # optional; omit key if unused
+links:                 # omit entries with empty url; omit whole key if none
+  - name: LinkedIn     # name is a label, not a skill
     url: ""
-  - name: GitHub
-    url: ""
-  - name: Portfolio
-    url: ""
-updated: ""            # YYYY-MM-DD
+updated: ""            # YYYY-MM-DD; set on every confirmed write of this file

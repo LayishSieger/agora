@@ -2,6 +2,8 @@
 
 Use this checklist while capturing content. Core rule: **every bullet = strong verb + what you did + quantified result — and every skill is proven inline, never claimed as a bare word.**
 
+This guide is for the **master record** (complete, untrimmed). It is not a tailoring guide. Do not drop bullets, restack order for a posting, or keyword-stuff from a JD. Page limits, ATS overlays, and company-specific versions are Kairos.
+
 ## Bullet Formula
 
 ```
@@ -36,14 +38,16 @@ The master resume has no standalone skills section. A claimed skill only belongs
 
 ## Tag Format & Naming Rules
 
-Every bullet that demonstrates a skill gets 0-N tags in `[Tag]` format, placed alongside the bullet (see `schemas/master-resume.md`). Tags make the document fast to scan and ATS-friendly without needing a separate skills list. The naming rule depends on the type of skill:
+Every bullet that demonstrates a skill gets 0-N tags in `[Tag]` format, stored on the bullet’s `tags` list (see `schemas/master-resume.md`). Tags make the master record scannable for **later** bots (Zetesis/Kairos). Mneme must not treat tags as a JD match score.
+
+The naming rule depends on the type of skill. Names should be stable industry terms — not copied from one posting:
 
 | Skill type | Naming rule | Example |
 |---|---|---|
 | **Hard tools & software** | Tool name + the specific high-value feature(s) used | `[Microsoft Excel (XLOOKUP, PivotTables)]` |
 | **Methodologies / frameworks** | The official, recognized industry name | `[Agile / Scrum Methodologies]` |
 | **Broad soft skills** | The highest-level corporate umbrella term, with a swappable alias | `[Client Relations (Alias: Client Success)]` |
-| **Process & strategy** | A standard, widely-searched ATS job-posting title | `[Process Improvement]` |
+| **Process & strategy** | A standard, widely-searched skill name | `[Process Improvement]` |
 
 **Full examples (bullet + tag together):**
 
@@ -71,12 +75,16 @@ Every bullet that demonstrates a skill gets 0-N tags in `[Tag]` format, placed a
    Bullet: "Built a full-stack relational database management application using Python and PostgreSQL, applying Normalization (3NF) and complex SQL JOINs to manage 50,000+ mock user records."
    Tag: `[PostgreSQL (Normalization, SQL Joins)]`
 
-**When to ask the user for the tag vs. just deciding it yourself:** for standard, well-known skills, name the tag yourself using the rules above — don't ask the user to weigh in on something like "Excel" or "Agile," since the naming convention is predictable and asking adds friction for no benefit. Only ask when the skill is unusual, ambiguous, niche, or could plausibly go by more than one name in job postings you're unsure about — e.g., "What would you call this in a job posting — any other name it might go by?"
+**When to ask the user for the tag vs. just deciding it yourself:** for standard, well-known skills, name the tag yourself using the rules above — don't ask the user to weigh in on something like "Excel" or "Agile." Only ask when the skill is unusual, ambiguous, niche, or could plausibly go by more than one name — e.g., "What would you call this skill — any other name it might go by?" Never ask ChatGPT-style “what does this JD call it?”
+
+## Variants vs tailoring
+
+`variants` = same facts, different wording (e.g. shorter vs more technical). Not a per-job fork. No `audience`, `company`, or `jd` keys.
 
 ## Structure and Length
 
 - **Reverse-chronological**: most recent experience/education first.
-- No page limit in the master resume — completeness matters more than brevity here (page-length rules apply later, at the tailoring/rendering stage).
+- No page limit in the master resume — completeness matters more than brevity here (page-length rules apply later, at Kairos, not here).
 - **Tense**: present tense for current role, past tense for previous roles (English).
 - **Drop first-person**: bullets shouldn't use "I / My."
 
@@ -88,6 +96,8 @@ Every bullet that demonstrates a skill gets 0-N tags in `[Tag]` format, placed a
 - [ ] A skill is claimed as a bare word or list item instead of being written into a specific, tagged bullet
 - [ ] Tag is missing from a bullet that clearly demonstrates a tool, method, or skill
 - [ ] Tag uses an inconsistent or overly generic name (fix using the naming table above)
-- [ ] Unexplained gaps in the timeline
+- [ ] Tag or bullet rewritten to match a pasted JD
+- [ ] Unexplained gaps in the timeline (ask; do not invent jobs)
 - [ ] Inconsistent formatting (date format, punctuation)
 - [ ] Typos / mixed tenses
+- [ ] Contact, objective, or target role leaked into the master resume
