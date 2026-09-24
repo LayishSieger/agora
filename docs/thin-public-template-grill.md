@@ -1,6 +1,6 @@
 # Grill — Thin Agora public template (installer Add link)
 
-Status: **round 1 answered; round 2 asked.** Do not implement the export pack, mint an `x.ai/bot/…` link, or change CreateAgent wiring / fetch-blueprint / steward skills until this grill is closed and someone says **implement**.
+Status: **Rounds 1–2 locked. v1 frontier empty.** Stopped — wait for Layish to say **implement**. Do not implement the export pack, mint an `x.ai/bot/…` link, or change CreateAgent wiring / fetch-blueprint / steward skills until then.
 
 This grill is the **installer template**: the one published Grok Bot recipe users Add. It is **not** child blueprints (except the Q1 override that Agora may fetch **its own** authorship tree the same way children do), not zipball internals, not `/t` protocol, not Euodia/Mneme one-jobs.
 
@@ -17,19 +17,20 @@ Answers: letter + one line if you override the recommendation.
 | Template ships **thin** Agora: persona + create/steward skills — not the whole fleet packed into Add | ADR 0004, `AGORA-PLAN.md` Distribution; **R1-Q1 override** (skills still frozen in the recipe) |
 | First-run creates Euodia + Mneme, greets **once**, then quiet; execution bots are lazy `need` | ADR 0003, ADR 0002, `first-run.md`; **R1-Q3 A** (no extra routine; first model turn) |
 | Fetch latest **published** Release, not `main`; do not pin a version in the Agora skill | ADR 0007 |
-| Agora **self-materialize**: out-of-scope / supporting playbooks fetch from latest Release into `/workspace/bots/agora/` on the **same route** as child bots. Lift fetch-blueprint **Not Agora** for that self-fetch only. Recipe still **freezes** `profile.md` + `first-run` / `need-bot` / `fetch-blueprint` (not ultra-thin bootstrap; not a fourth Grok skill; not paste-only). **Supersedes** the previous “Fetch does not pull Agora” row. | **R1-Q1 override** (closest letter **C** for the fetch path). Round 2 still owns extract-scope / when / overwrite. |
+| Agora **self-materialize**: lift fetch-blueprint **Not Agora** for Agora’s own tree only. Extract the **whole** `bots/agora/` tree like children (`profile.md` required; `RELEASE` written). **Running** Grok skill slots stay the Add snapshot — do **not** re-enable or replace them from disk. Run on **first-run**, after resolving latest Release, **before** Euodia/Mneme fetches; if a later steward turn needs a playbook and `prompts/out-of-scope.md` is missing, fetch Agora again. Always **overwrite** `/workspace/bots/agora/` to that Release; **no ask**. Not CreateAgent Agora. Recipe still **freezes** `profile.md` + `first-run` / `need-bot` / `fetch-blueprint`. **Supersedes** the previous “Fetch does not pull Agora” row. | **R1-Q1 override**; **R2-Q9 A**, **R2-Q10 A**, **R2-Q11 A** |
 | **Install event** = roster CreateAgent only. Template Add is **not** an install event. First Agora turn / first-run is the registration hook | install-telemetry grill T-R1-Q1 **A**, T-R3-Q2 **A**, ADR 0010 |
 | Telemetry URL lives in the skill; `DO_NOT_TRACK` skips; failure never blocks create | T-R1-Q4, ADR 0004 / 0010 |
 | First **mint** has **no** telemetry client bytes. `first-run` / `need` skip `/r` `/t` until a later **Update template** (when those recipe files ship) | **R1-Q7 B** |
 | Layish owns the template; installing user gets a **fresh** fleet | ADR 0001 |
 | Career work is refused in Agora chat | `prompts/out-of-scope.md` |
 | Recipe memories: **none**. Strip before Publish / mint from a clean bot | **R1-Q2 A** |
-| Add-preview description **is** `profile.md`. Display name **Agora**. No second marketing doc | **R1-Q4 A** |
+| Add-preview description **is** `profile.md`. Identity / display name field **`Agora`** (no Greek in the name field). No second marketing doc | **R1-Q4 A**, **R2-Q12 A** |
 | Visibility: public `https://x.ai/bot/…` share link. Gallery/catalog is nice-to-have, not a v1 gate | **R1-Q5 A** |
 | **Update template** only when shipped `bots/agora/` **recipe** files change. Child-only Releases do **not** bump the template | **R1-Q6 A** |
 | **No plugins** in the v1 recipe. Anonymous HTTPS zipball. No GitHub/Cursor reconnect on Add | **R1-Q8 A** |
+| **Mint vehicle:** new **empty** Grok Bot named Agora. Paste `profile.md`; enable the three public steward skills; no plugins, memories, or routines; Publish public. Not Duplicate staging. Not the working/dev box | **R2-Q13 A** |
 
-Do **not** re-grill: install telemetry rounds 1–3, blueprint fetch contract (except the Q1 lift of **Not Agora** for Agora self-materialize), Euodia v1, steward skill semantics (`first-run` / `need-bot` / `fetch-blueprint`) except playbook-on-disk vs frozen Grok skills.
+Do **not** re-grill: install telemetry rounds 1–3, blueprint fetch contract (except the Q1 lift of **Not Agora** for Agora self-materialize), Euodia v1, steward skill semantics (`first-run` / `need-bot` / `fetch-blueprint`) except the locked self-materialize rows above. Disk `install-telemetry.md` (if a later Release drops it under `bots/agora/skills/`) is **not** a live skill until **Update template** enables it — R1-Q7 **B** + R2-Q9 **A** (do not re-enable disk skills; skip `/r` `/t` until Update).
 
 ---
 
@@ -45,6 +46,16 @@ Do **not** re-grill: install telemetry rounds 1–3, blueprint fetch contract (e
 | R1-Q6 | **A** | Update template only when shipped `bots/agora/` recipe files change. Child-only Releases do not bump template. |
 | R1-Q7 | **B** | Mint without telemetry bytes. first-run/need skip `/r` `/t` until later Update template. |
 | R1-Q8 | **A** | No plugins in v1 recipe. Anonymous HTTPS zipball. No GitHub/Cursor reconnect on Add. |
+
+## Round 2 answers (Layish)
+
+| ID | Letter | Note |
+|---|---|---|
+| R2-Q9 | **A** | Whole `bots/agora/` tree like children. Grok skill slots stay the Add snapshot — do not re-enable disk skills. |
+| R2-Q10 | **A** | Self-materialize on first-run before child fetches. |
+| R2-Q11 | **A** | Always overwrite `/workspace/bots/agora/` to the resolved Release; no ask. |
+| R2-Q12 | **A** | Identity / display name field: `Agora`. |
+| R2-Q13 | **A** | Publish from a new empty Agora — not Duplicate staging, not working box. |
 
 ---
 
@@ -67,28 +78,30 @@ Do **not** re-grill: install telemetry rounds 1–3, blueprint fetch contract (e
 
 ---
 
-## Design tree
+## Design tree (v1 frontier empty)
 
 ```
 thin public Agora template
 ├── what Add copies                    ✓ R1-Q1 override (frozen skills + live playbook fetch)
-│   ├── extract scope of bots/agora/   Q9
-│   ├── when self-materialize runs     Q10
-│   └── overwrite / RELEASE ask        Q11
+│   ├── extract scope of bots/agora/   ✓ R2-Q9 A (whole tree; Grok slots frozen)
+│   ├── when self-materialize runs     ✓ R2-Q10 A (first-run before children)
+│   └── overwrite / RELEASE ask        ✓ R2-Q11 A (always overwrite; no ask)
 ├── memories in the recipe             ✓ R1-Q2 A
 ├── first-run trigger                  ✓ R1-Q3 A
 ├── preview / gallery copy             ✓ R1-Q4 A
-│   └── display-name field vs heading  Q12
+│   └── display-name field vs heading  ✓ R2-Q12 A (`Agora`)
 ├── visibility                         ✓ R1-Q5 A
 ├── when to Update template            ✓ R1-Q6 A
 ├── telemetry bytes in first mint      ✓ R1-Q7 B
 ├── plugins in the recipe              ✓ R1-Q8 A
-└── mint vehicle (clean bot vs box)    Q13
+└── mint vehicle (clean bot vs box)    ✓ R2-Q13 A (new empty Agora)
 ```
 
-Not in this round: CreateAgent wiring, child template merchandising (deferred ADR 0004), zipball internals, `/t` fields, Euodia/Mneme authorship, avatar art, custom domain, gallery SEO, production telemetry host string, routine text.
+Leftover branches are **out of v1**, not unanswered product calls: avatar art, search keywords, gallery SEO, production telemetry host string (when those recipe files ship), Update-template changelog copy, zipball internals, `/t` fields, child merchandising (ADR 0004 deferred).
 
 **Closed by R1 (do not re-ask):** fourth Grok skill for out-of-scope (**B**); paste-only with no disk file; drop steward skills from Add (pure **C**); curated memories; first-run routine; consent gate; marketing blurb / career-help preview; gallery-as-gate; team-only; Update-on-every-Release; mint-once-never-Update; wait-for-telemetry-before-mint; fetch telemetry skill instead of Update template; GitHub/Cursor plugins.
+
+**Closed by R2 (do not re-ask):** prompts-only extract; live re-enable of disk skills; lazy-only Agora fetch; fetch-Agora on every `need`; ask-before-overwrite Agora files; write-if-missing only; Greek or marketing name in the identity field; Duplicate staging or working-box Publish.
 
 **v1 out of scope** (closed unless you reopen): publishing Euodia/Mneme/Kairos as their own Add links; packing child `bots/<name>/` trees into the Agora **recipe** as an offline fallback; secrets / custom MCP / scripts; routines that CreateAgent Zetesis→Peitho; Duplicate of Layish’s working box (history, logins, career files).
 
@@ -222,11 +235,9 @@ Add copies plugin *slots*; the recipient **reconnects**. Fetch is **anonymous HT
 
 ---
 
-## Round 2
+## Round 2 (asked; answered above)
 
-Frontier unblocked by R1-Q1’s self-materialize + leftover mint/identity mapping. Q9–Q11 hang off Q1; Q12 hangs off Q4 **A**; Q13 is the mint vehicle. Do **not** answer “extract whole tree **and** treat disk `skills/*.md` as live Grok skills” in the same breath as Q9 **C** unless you mean to reopen the freeze.
-
-If Q9 is **B** (supporting files only), a later round can skip “disk `install-telemetry.md` vs frozen recipe.” If Q9 is **A**, that question waits until round 3.
+Frontier unblocked by R1-Q1’s self-materialize + leftover mint/identity mapping. Q9–Q11 hang off Q1; Q12 hangs off Q4 **A**; Q13 is the mint vehicle. Disk telemetry vs frozen recipe does **not** need a Round 3: R1-Q7 **B** already skips `/r` `/t` until Update template, and R2-Q9 **A** forbids re-enabling disk skills.
 
 ---
 
@@ -242,6 +253,8 @@ R1-Q1: same **route** as children (latest Release zip → `/workspace/bots/agora
 
 ➡️ **A.** Honors “same route as child bots” and “at least out-of-scope.md” without a special extract dialect. Freeze stays on the **Grok skill slots**, not on whether the zip also contains skill markdown. **B** if you do not want newer `first-run.md` sitting on disk next to an older enabled skill (operators will get confused). **C** fights R1-Q1.
 
+**Answer: A.** Whole tree like children; Grok skill slots stay the Add snapshot — do not re-enable disk skills.
+
 ---
 
 ❓ **Q10** - **When does Agora self-materialize run?**
@@ -253,6 +266,8 @@ R1-Q1: same **route** as children (latest Release zip → `/workspace/bots/agora
 **C.** **Every** first-run **and** every `need-bot`, always re-fetch Agora to latest (no missing-file check).
 
 ➡️ **A.** Refusals on the first user turn need the file on disk before chat work; first-run is already the network round. **B** races the first anti-job message against a missing file. **C** is extra zip traffic on every `need` for no product gain (Q11 owns overwrite).
+
+**Answer: A.** Self-materialize on first-run before child fetches.
 
 ---
 
@@ -268,6 +283,8 @@ ADR 0008: if a **child** bot already exists and `RELEASE` is stale, **ask** befo
 
 ➡️ **A.** Playbooks should match the same Release as the children you are about to CreateAgent. Asking the installer user “refresh Agora files?” is ceremony, not a second bot. **C** freezes a stale refusal script on disk forever. **B** if you want the human to see skill-markdown diffs; that is mostly noise under Q9 **A** because Grok slots stay frozen anyway.
 
+**Answer: A.** Always overwrite `/workspace/bots/agora/` to the resolved Release; no ask.
+
 ---
 
 ❓ **Q12** - **Grok identity name field vs `profile.md` heading**
@@ -281,6 +298,8 @@ R1-Q4 **A**: display name **Agora**; preview description is `profile.md`. The pr
 **C.** Identity name field is a longer label (e.g. `Agora — career fleet installer`).
 
 ➡️ **A.** Matches the letter you already gave. Greek lives in the profile body. **C** is a second marketing name after you refused a second marketing doc.
+
+**Answer: A.** Identity / display name field: `Agora`.
 
 ---
 
@@ -296,23 +315,18 @@ R1-Q2 **A**: strip memories / mint from a clean bot. Palmer: Add copies that sou
 
 ➡️ **A.** Least way to ship `/workspace/agora/` gossip. **B** is acceptable if the UI makes empty-bot skill enable painful — still not **C**. **C** is R1-Q2 **C** with extra steps.
 
----
-
-## After this round (do not answer now)
-
-- Exact Grok UI field checklist at mint time (author notes once Q13 lands).
-- If Q9 **A**: whether a later Release that adds `install-telemetry.md` on **disk** may be executed before Update template enables it (R1-Q7 **B** says skip `/r` `/t` until Update — likely already settled; confirm only if Q9 **A**).
-- Avatar art, search keywords, gallery SEO.
-- Production telemetry host string (when telemetry recipe files ship).
-- Changelog copy for Update template.
-- ADR / glossary edits (after grill close, not this PR).
+**Answer: A.** Publish from a new empty Agora — not Duplicate staging, not working box.
 
 ---
 
-## Glossary / ADR after close
+## v1 author checklist (when told **implement** — not this turn)
 
-- Q1 override: short ADR for Agora self-materialize + **Not Agora** lift; ADR 0004’s “template ships create/steward skills” **stays**. Do **not** write it here.
-- Q3 **C** was the other ADR trigger (0003 consent gate) — **not** chosen.
-- Glossary: optional note that Agora can be an **installed blueprint** slug on disk without being a CreateAgent child. Do **not** edit `CONTEXT.md` in this PR.
+- **Mint:** new empty Grok Bot, identity name `Agora`, instructions = `profile.md`, enable public `first-run` / `need-bot` / `fetch-blueprint`, no memories, no routines, no plugins, Publish public `https://x.ai/bot/…`. Never Publish the working box.
+- **Skills (later PR):** lift **Not Agora** for self-materialize only; first-run fetches whole `bots/agora/` before children; overwrite `/workspace/bots/agora/` + `RELEASE`; do not re-enable disk skills; do not CreateAgent Agora. Telemetry client still skipped until Update template.
+- **Docs after implement (or a follow-on docs PR):** short ADR for the Not Agora exception; glossary note that Agora can be an installed-blueprint slug on disk. Do **not** invent `export pack` until that work.
 
-Do **not** implement fetch-blueprint, first-run, mint, or CreateAgent wiring from these answers until the frontier is empty and someone says **implement**.
+---
+
+## Stop
+
+Shared understanding for the installer template. Round 2 **closes the frontier**. Do not author fetch-blueprint, first-run, mint, or CreateAgent wiring until Layish says **implement**.
