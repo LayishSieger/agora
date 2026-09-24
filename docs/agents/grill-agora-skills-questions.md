@@ -4,6 +4,8 @@ Skill bodies are **not** written until this grill is settled or you say proceed.
 
 Round 1 (GitHub zip / CreateAgent mechanics) is **paused**. Layish asked to check official install first. Facts: `docs/agents/grok-bot-install-facts.md`.
 
+Layish also shared a Grok.com chat (capture: `docs/agents/grok-share-template-update.md`): that Grok advised **publish the installer template only**, pin GitHub blueprints, **CreateAgent** children in-app; child templates optional merchandising; **Update template** keeps the same `x.ai/bot` URL. That is **not** recorded as Agora’s decision until he maps it onto Round 2 letters.
+
 **Still true unless you contradict:** thin public Agora template; only Agora coordinates fleet create; first-run aims at Euodia + Mneme then greet/quiet; later bots via `need <Name>`; Mneme grilled on main; Euodia stub; telemetry hosting and Agora template *publish* later.
 
 **Conflicts if we switch to template Add:** ADR 0004 §3 (fetch zip then CreateAgent) and §5 (independent child templates deferred to v2). Do not rewrite those ADRs until you pick a letter below.
