@@ -92,4 +92,6 @@ Intake v1: interview · resume/PDF · LinkedIn PDF/paste. Mixed JD+resume → ev
 
 ## Next
 
-Author Euodia blueprint (`profile.md` + skills) so first-run can CreateAgent Euodia instead of recording `FAILED`. Execution-bot stubs after that.
+Euodia blueprint authored → install telemetry (`/t`) → **blueprint fetch contract** → thin Agora template. Execution stubs later.
+
+Fetch contract: round 1 grill in `docs/blueprint-fetch-contract-grill.md` (unanswered). Do not implement fetch until that grill closes.
