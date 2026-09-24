@@ -28,8 +28,10 @@
 
 **agora repo** — Public GitHub source of truth: `layishsieger/agora`. Holds bot blueprints (`bots/<name>/profile.md`, skills), docs, and the Vercel install-telemetry route. All system authorship lives here.
 
-**blueprint** — The whole `bots/<name>/` tree in the agora repo (profile, skills, prompts, guides, schemas). Agora fetches it to CreateAgent a child. Not a public `x.ai/bot` template.
+**blueprint** — Authorship tree in this GitHub repo: `bots/<name>/` (profile, skills, prompts, guides, schemas). Not a public `x.ai/bot` template.
 _Avoid_: child template, nested template
+
+**installed blueprint** — Copy on the **Grok Bot computer** after Agora fetches a release: `/workspace/bots/<name>/`, plus a `RELEASE` file (e.g. `v1.2.0`). Same layout as the repo, different machine. Career files stay `/workspace/agora/`. If that bot already exists and `RELEASE` is stale, Agora asks before refresh; it never CreateAgents a second copy.
 
 **blueprint release** — A GitHub Release of this repo (a named snapshot, usually `v1.2.0`). Agora fetches the **latest** release at CreateAgent time and should remember which release it used. A later upgrade skill can compare that to a newer latest. The Agora skill does not pin one version forever.
 
