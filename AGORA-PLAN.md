@@ -56,10 +56,10 @@ bots/<name>/skills/*.md     # installed after create
 
 ### Telemetry
 
-- After successful CreateAgent, Agora fire-and-forget install event to Vercel `/t` in the same repo (`agora=1`).
-- Counts Agora installs, not anonymous GitHub zip downloads.
-- On by default; honor `DO_NOT_TRACK` / user opt-out.
-- Failure must not block create.
+- Two meters: **Agora registration** (installer in use) and **install event** (successful CreateAgent). Not zip downloads. Not template Add-as-CreateAgent.
+- First turn: if `/workspace/bots/INSTALL_ID` missing and `DO_NOT_TRACK` unset, client-mint UUID, write the file, `GET /r?agora=1&id=` upsert, then CreateAgent as usual.
+- After successful CreateAgent: one-shot `GET /t?event=install&bot=…&release=…&agora=1&id=…` (known id only). Ignore result. Never retry `/t`. Never block create.
+- `DO_NOT_TRACK` skips `/r` and `/t`. Owner-only Blob. Agora registration counts untrusted until rate-limit. See ADR 0004 and 0010.
 
 ## Lifecycle
 
