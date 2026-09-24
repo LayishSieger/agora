@@ -2,7 +2,7 @@
 
 ## Glossary
 
-**Agora (Ἀγορά)** — Career-fleet creator and steward. Creates, configures, repairs, and upgrades career-fleet bots and skills. Only bot allowed to CreateAgent. After install: greets once, points to Euodia or Mneme, then stays quiet unless asked or messaged `need <Name>`. Public template is thin: Agora persona + create/steward skills only.
+**Agora (Ἀγορά)** — Career-fleet creator and steward. Creates, configures, repairs, and upgrades career-fleet bots and skills. Only bot allowed to CreateAgent. After install: greets once, points to Euodia or Mneme, then stays quiet unless asked or messaged `need <Name>`. The only public Grok Bot template in v1 (installer). Children are not published as their own templates.
 
 **Euodia (Εὐοδία)** — Career Pathfinder. Explores career directions and growth opportunities. Optional to *use* when direction is unclear. Does not gate Mneme. Must not CreateAgent; messages Agora if a later bot is needed.
 
@@ -28,7 +28,11 @@
 
 **agora repo** — Public GitHub source of truth: `layishsieger/agora`. Holds bot blueprints (`bots/<name>/profile.md`, skills), docs, and the Vercel install-telemetry route. All system authorship lives here.
 
-**blueprint** — Versioned files in the agora repo that Agora fetches to CreateAgent a child and install its skills.
+**blueprint** — Versioned files in the agora repo that Agora fetches to CreateAgent a child and install its skills. Not a public `x.ai/bot` template.
+_Avoid_: child template, nested template
+
+**installer template** — The one published Grok Bot Add link: Agora. User Adds Agora once; Agora CreateAgents the rest of the flow from blueprints.
+_Avoid_: publishing each stage as its own template in v1
 
 **install event** — Anonymous telemetry fired by Agora after a successful CreateAgent (`event=install`, bot name, tag, `agora=1`). Not a raw GitHub zip download count. Honors `DO_NOT_TRACK`.
 
