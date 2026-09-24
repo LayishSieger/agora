@@ -1,149 +1,163 @@
 # Grill — Agora install telemetry (Vercel `/t`)
 
-**Status:** Round 1 asked. Waiting for answers. Do not implement the route or Agora client until an explicit **implement**.
+**Status:** Round 1 answered. Round 2 asked. Waiting. Do not implement until an explicit **implement**.
 
-**Scope:** `apps/telemetry/`, Agora skill telemetry steps, related docs. Not Euodia/Mneme blueprints (`bots/euodia/` is another agent).
-
-**Skills:** `/grill-with-docs` (grilling + domain-modeling). Glossary terms stay as in `CONTEXT.md` until a question resolves a new term.
+**Scope:** `apps/telemetry/`, Agora skill telemetry steps, related docs. Not `bots/euodia/`.
 
 ---
 
 ## Settled (do not re-ask)
 
-From `CONTEXT.md`, ADR 0004, `AGORA-PLAN.md`, `bots/agora/skills/need-bot.md`, `first-run.md`, `fetch-blueprint.md`:
+### Pre-grill (CONTEXT, ADR 0004, Agora skills)
 
 | Decision | Source |
 |---|---|
-| **install event** fires only after **successful CreateAgent** | glossary, ADR 0004 |
-| Payload: `event=install`, **bot name**, **blueprint-release** name, `agora=1` | glossary |
-| Not a GitHub zip download count | glossary, ADR 0004 |
-| Telemetry **on by default**; honor **`DO_NOT_TRACK`** | ADR 0004, plan |
+| Host: Vercel **`/t`** in this repo (`apps/telemetry/` stub) | ADR 0004 |
+| Telemetry **on by default**; honor **`DO_NOT_TRACK`** | ADR 0004 |
 | Failure **must not block** create | ADR 0004 |
-| Host: Vercel **`/t`** in this repo (`apps/telemetry/` stub) | ADR 0004, domain layout |
-| Fetch blueprint: **no** telemetry | `fetch-blueprint.md` |
-| Need-bot **upgrade in place**: **no** install event (not CreateAgent) | `need-bot.md` |
-| Existing bot, `RELEASE` already latest: **no** telemetry | `need-bot.md` |
-| Failed fetch / no CreateAgent: **no** event | `first-run.md` / `need-bot.md` |
+| Fetch / upgrade-in-place / already-latest: **no** event | Agora skills |
+| Failed fetch / no CreateAgent: **no** event | Agora skills |
 | Do not send names, resumes, or career files | `need-bot.md` |
-| If no install URL yet: **skip** | `need-bot.md` (current skill) |
 
-**Not CreateAgent:** user **Add** of the thin Agora **installer template**. That path has no install event in the glossary today.
+**Fact (looked up, not a question):** Layish’s Vercel team has **no** project named `agora`. Existing projects include `lafamiglia`, `my-resume-flow-web`, `layishsieger`, `layish`, `workpath`, and others. `/t` does not exist until a project is created or an existing one is reused.
 
 **Code today:** `apps/telemetry/README.md` is a stub. No `vercel.json`, no route handler.
 
+### Round 1 (Layish, 2026-09-24 — do not re-ask)
+
+| ID | Decision |
+|---|---|
+| T-R1-Q1 | **A** — One install = one roster **CreateAgent**. Agora template Add and blueprint **fetch** stay quiet in v1. (Revised in chat after a CreateAgent-vs-fetch question; final letter is A, not fetch.) |
+| T-R1-Q2 | **A** — Fire as soon as CreateAgent returns an id, even if skill enable failed. |
+| T-R1-Q3 | **A** — `GET /t?event=install&bot=…&release=…&agora=1` |
+| T-R1-Q4 | **A** — Public `/t` URL in Agora’s skill. `DO_NOT_TRACK` env on the Grok computer skips the request. |
+| T-R1-Q5 | **A** — Four fields only; no bot id/account; do not persist IP/UA as product data. |
+| T-R1-Q6 | **B** — Append-only: four fields + **server** timestamp. |
+
+Glossary **install event** updated to match Q1/Q2/Q5. No new ADR this round (ADR 0004 still holds; store/host wait on Round 2).
+
 ---
 
-## Design tree (frontier = Round 1)
+## Design tree
 
 ```
 install telemetry
-├── what to count (Q1)          ← open
-├── when vs skills (Q2)         ← open; CreateAgent success is settled
-├── HTTP shape of /t (Q3)       ← open
-├── where client reads URL + DNT (Q4) ← open
-├── anonymity floor (Q5)        ← open (“anonymous” is fuzzy)
-└── v1 sink (Q6)                ← open
-    └── authenticity / anti-spam  (blocked on Q6: only if we persist counts we trust)
-        └── store product         (blocked on Q6 persist)
+├── what to count          T-R1-Q1 A ✓
+├── when vs skills         T-R1-Q2 A ✓
+├── HTTP shape             T-R1-Q3 A ✓
+├── URL + DNT location     T-R1-Q4 A ✓
+├── anonymity floor        T-R1-Q5 A ✓
+└── v1 sink                T-R1-Q6 B ✓
+    ├── authenticity / anti-spam     T-R2-Q1  ← frontier
+    ├── which Vercel project hosts /t T-R2-Q2  ← frontier (URL is baked into the published skill)
+    ├── append medium                T-R2-Q3  ← frontier
+    ├── who may read the log         T-R2-Q4  ← frontier
+    ├── retention                    T-R2-Q5  ← frontier
+    └── client retry                 T-R2-Q6  ← frontier
+        └── public stats / badge     (blocked on Q4: only if the log isn’t owner-only)
+            └── custom domain        (blocked on Q2)
 ```
 
 ---
 
-## Round 1
+## Round 1 (answered)
 
-Answer with the letter (and a correction if you reject the default). One question at a time from Agora Grok Bot is fine; this file keeps the full round.
-
----
-
-❓ **Q1** - **What is one install?** First-run CreateAgents Euodia (if the blueprint exists) and Mneme — that is **two** install events. Adding the Agora template is **not** CreateAgent.
-
-**A.** Only roster **CreateAgent** (Euodia, Mneme, later `need`). Agora template Add is invisible to telemetry. First-run can emit 1–2 events.
-
-**B.** Same as A, plus a **separate** event when Agora itself is Added (`event=installer` or similar). That needs a new glossary term and a client that can run on template Add (not only after CreateAgent).
-
-**C.** One event per **foundation** (collapse Euodia+Mneme into a single first-run ping). Lazy `need` still one event per CreateAgent.
-
-➡️ **A.** Matches the glossary. **B** is a different product (installer-template count). **C** hides Euodia `FAILED` vs Mneme success.
+Questions T-R1-Q1–Q6: see git history of this file or the table above. Letters: A, A, A, A, A, B.
 
 ---
 
-❓ **Q2** - **Fire if CreateAgent succeeded but skill enable failed?** `need-bot` CreateAgents, then enables `skills/*.md`, then telemetry. Glossary says after successful **CreateAgent**, not after a complete skill install.
+## Round 2
 
-**A.** Fire as soon as CreateAgent returns an id. Skill failure is not a reason to omit the event.
-
-**B.** Fire only if CreateAgent **and** every `skills/*.md` enabled.
-
-**C.** Fire only if CreateAgent succeeded **and** at least `profile.md` is on disk with `RELEASE` written.
-
-➡️ **A.** Aligns with CONTEXT. Skill enable is a separate failure; we still created a bot. **C** is almost always true on the success path anyway.
+Answer with the letter (and a correction if you reject the default). One question at a time from Agora Grok Bot is fine.
 
 ---
 
-❓ **Q3** - **HTTP contract for `/t`?** Agora on a Grok computer must fire-and-forget. skills.sh-style CLIs often `GET` a query string.
+❓ **T-R2-Q1** - **Open GET vs spam?** `/t` is a public GET anyone can hit. A shared secret in Agora’s skill would leak (public repo + published template). We will persist rows we might quote.
 
-**A.** `GET /t?event=install&bot=Mneme&release=v1.2.0&agora=1` (query only).
+**A.** Open GET. Require `event=install`, `agora=1`, roster **Latin** bot name (Euodia…Peitho), and a non-empty `release`. Drop anything else with 4xx. No secret. Accept that a nuisance client can inflate counts.
 
-**B.** `POST /t` with JSON `{ event, bot, release, agora }`.
+**B.** Shared secret (query or header) anyway, knowing it will leak from the skill.
 
-**C.** `GET` for the bot; `POST` allowed for tests. Same fields.
+**C.** Open GET as in A, but also reject `release` values that are not a published GitHub Release tag of `LayishSieger/agora` (still spoofable; extra GitHub dependency on every ping).
 
-➡️ **A.** Smallest thing a skill can `curl` without a body. No extra headers to forget. **C** if you want a test harness later; still implement **A** as the Agora path.
-
----
-
-❓ **Q4** - **Where does Agora get the install URL, and where is `DO_NOT_TRACK`?** Today the skill says “if an install URL is configured.” Template users will not have a private env unless we document one.
-
-**A.** **Public** `/t` URL written in Agora’s skill (this repo’s Vercel deployment). `DO_NOT_TRACK` = env var on the **Grok Bot computer** (any truthy value → do not send). No URL in career files.
-
-**B.** URL and DNT both env vars on the Grok computer (`AGORA_TELEMETRY_URL`, `DO_NOT_TRACK`). No URL in the skill. Template Add does not send until someone sets the URL.
-
-**C.** Always send; only the **server** honors DNT (header or query). Client never skips.
-
-➡️ **A.** ADR already names the host. Baking the public URL means installs work without extra config; DNT stays a local opt-out. **B** keeps today’s “skip if no URL” forever for most users. **C** still leaves a network beacon (worse privacy).
+➡️ **A.** Secret-in-the-skill is theater. Tag-check (C) couples telemetry to GitHub availability and still does not prove CreateAgent happened.
 
 ---
 
-❓ **Q5** - **What does “anonymous” forbid?** Glossary forbids career SoT. It does not say bot **id**, account, IP, or User-Agent.
+❓ **T-R2-Q2** - **Which Vercel project serves `/t`?** The URL is baked into Agora’s skill (T-R1-Q4). Changing it later means an Agora **template republish**. There is no `agora` project today.
 
-**A.** Client sends **only** the four fields. No bot id, no account, no user name. Server **must not** persist IP / User-Agent as product data (platform access logs may still exist; do not build features on them).
+**A.** **New** Vercel project on `LayishSieger/agora` (name e.g. `agora`). URL like `agora-*.vercel.app/t` until you add a domain.
 
-**B.** Also send a **hash** of bot id or account so we can dedupe double-fires without storing the id.
+**B.** Mount `/t` on an **existing** project (which one: `layishsieger`, `layish`, `web`, …). Stable if that domain already exists; mixes this fleet’s telemetry with another product.
 
-**C.** Send bot id in the clear (easier debug; not anonymous).
+**C.** Leave the URL as a placeholder in the skill until a domain is chosen; most installs send nothing until then.
 
-➡️ **A.** Deduping (B) is Round 2 if we care about double-count. **C** contradicts the glossary.
-
----
-
-❓ **Q6** - **What does `/t` do with a valid event in this implementation pass?** Stub today. Authenticity (shared secret vs open GET) waits until we know whether we persist numbers we will quote.
-
-**A.** **204 + drop.** Prove the pipe; no store. Counts stay “we’ll add a sink later.”
-
-**B.** **Append-only** records: the four fields + server timestamp. Enough to answer “did Mneme @ v1.2.0 fire?”
-
-**C.** **Counters only** (e.g. `Mneme` × `v1.2.0` += 1). No per-event log.
-
-➡️ **B.** ADR wants Agora-attributed install stats, not a no-op. Counters (C) lose first-run vs `need` timing. Drop (A) is a fine spike but not the ADR. Round 2: retention, who can read, anti-spam.
+➡️ **A.** Matches ADR 0004 (“in the same repo”). **C** undoes T-R1-Q4. **B** only if you already want this on a personal site.
 
 ---
 
-## Held for later rounds (do not answer yet)
+❓ **T-R2-Q3** - **Where do we append the four fields + server timestamp?** Product data must not include IP/UA (T-R1-Q5). Platform access logs may still exist; we do not treat those as the install log.
 
-- Shared secret vs open `/t` (spam)
-- Retention, who can read the log, public badge
-- Retry after a failed ping (double-count risk)
-- Whether `agora=1` is a literal query flag or a marker we infer
-- New glossary terms (`installer Add` vs install event) unless Q1 = B
-- ADR 0004 reopen only if Q1/Q6 contradict it
+**A.** **Vercel Blob** on that project: append-only object(s) with `event`, `bot`, `release`, `agora`, `ts` (UTC).
 
-## Domain-modeling notes (no CONTEXT edit this round)
+**B.** **Neon (or other SQL)** table, same columns. Heavier for this volume.
 
-- **install event** is already defined; Q1 tests whether **installer template Add** is the same concept (it is not, unless you choose B).
-- **anonymous** is fuzzy until Q5.
-- Do not add HTTP or Vercel details to `CONTEXT.md`.
+**C.** Function logs only (no Blob/DB). Easy to lose; not a durable append-only log.
+
+➡️ **A.** Smallest durable store on Vercel for a few fields per CreateAgent. **C** fails T-R1-Q6. SQL (B) if you already want queries in v1.
+
+---
+
+❓ **T-R2-Q4** - **Who may read the raw log in this pass?**
+
+**A.** **Owner only** (Blob/private store / Vercel dashboard). No public `/t` read of rows. `GET /t` only **writes**.
+
+**B.** Public **aggregates** later (`Mneme` × `v1.2.0` counts); raw rows still private. Aggregates are **not** built in the first implement unless you insist.
+
+**C.** Public raw log.
+
+➡️ **A** for the first implement. **B** is a later product. **C** makes spam and scraping the default.
+
+---
+
+❓ **T-R2-Q5** - **How long do we keep rows?** Volume is one row per successful CreateAgent.
+
+**A.** Keep until you choose to delete. No TTL in v1.
+
+**B.** 90 days.
+
+**C.** 1 year, then drop.
+
+➡️ **A.** Low volume; TTL can wait. Deleting later is easier than reconstructing dropped rows.
+
+---
+
+❓ **T-R2-Q6** - **Retry if the GET fails?** Failure must not block CreateAgent. We have **no** bot id to dedupe (T-R1-Q5). A retry after a silent success double-counts.
+
+**A.** **One** GET, ignore result, never retry, never queue on disk.
+
+**B.** Retry once immediately on network error.
+
+**C.** Write a local marker and retry on a later turn (high double-count risk).
+
+➡️ **A.** Lost pings beat duplicate rows. Matches fire-and-forget.
+
+---
+
+## Held for later (do not answer yet)
+
+- Public stats / badge (only if T-R2-Q4 is not owner-only forever)
+- Custom domain (after a project exists)
+- Rate limits / Vercel Firewall numbers
+- ADR for store+host (offer after this round if A/A/A-style choices stick — hard to reverse, surprising, real trade-off)
+
+## Domain-modeling
+
+- **install event** glossary tightened after Round 1.
+- Still no HTTP verbs or Vercel product names in `CONTEXT.md`.
 
 ---
 
 ## Stop
 
-Wait for Layish (via Agora Grok Bot / Cloud Agent relay). Do not start Round 2 until this round is answered. Do not author `apps/telemetry` route code until **implement**.
+Wait for Layish (Agora Grok Bot / Cloud Agent relay). Do not start Round 3 until this round is answered. Do not author `apps/telemetry` route code until **implement**.
