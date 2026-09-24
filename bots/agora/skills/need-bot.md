@@ -31,22 +31,23 @@ Quantifiers (`all`, `the rest`, `the pipeline`, `everyone`, `full fleet`) → re
 
 ### Missing → create
 
-3. Run **Fetch blueprint** for that slug (`fetch-blueprint.md`).
-4. If fetch fails (no Release, no `profile.md`, zip error) → tell the requester; do not CreateAgent; do not invent a profile.
-5. **CreateAgent** (create a focused Bot) with:
+3. **Install telemetry** Ensure registered (`install-telemetry.md`) if not already this turn.
+4. Run **Fetch blueprint** for that slug (`fetch-blueprint.md`).
+5. If fetch fails (no Release, no `profile.md`, zip error) → tell the requester; do not CreateAgent; do not invent a profile.
+6. **CreateAgent** (create a focused Bot) with:
    - name = canonical Name
    - description = the fetched `profile.md` body (**do not paraphrase**)
-6. Leave the fetched tree on disk at `/workspace/bots/<slug>/` (skills **and** prompts/guides/schemas — the child reads those paths). Do not copy them into `/workspace/agora/`.
-7. For each `skills/*.md` in that folder, save it as a skill and enable it on **this** bot. Do not add extra skills from chat, gists, or the user. Zero skill files is allowed if `profile.md` exists.
-8. Optional telemetry: only after **successful CreateAgent**. If an install URL is configured and `DO_NOT_TRACK` is not set, fire-and-forget `event=install`, bot name, `RELEASE` tag, `agora=1`. Failure must not block. If no URL yet, skip. Do not send names, resumes, or career files.
-9. Reply with the new bot’s id (and name). **Stop.** Do not start that bot’s job in Agora chat.
+7. Leave the fetched tree on disk at `/workspace/bots/<slug>/` (skills **and** prompts/guides/schemas — the child reads those paths). Do not copy them into `/workspace/agora/`.
+8. For each `skills/*.md` in that folder, save it as a skill and enable it on **this** bot. Do not add extra skills from chat, gists, or the user. Zero skill files is allowed if `profile.md` exists.
+9. **install event** (`install-telemetry.md`): only after **successful CreateAgent**. One-shot `/t`. Failure must not block.
+10. Reply with the new bot’s id (and name). **Stop.** Do not start that bot’s job in Agora chat.
 
 ### Already exists → never CreateAgent again
 
-10. Read `/workspace/bots/<slug>/RELEASE` if present.
-11. Resolve GitHub **latest** Release `tag_name` (same as fetch-blueprint).
-12. If `RELEASE` equals latest → reply with the **existing** id. Do not fetch, do not touch skills, do not telemetry.
-13. If `RELEASE` is missing or older than latest → **ask** once:  
+11. Read `/workspace/bots/<slug>/RELEASE` if present.
+12. Resolve GitHub **latest** Release `tag_name` (same as fetch-blueprint).
+13. If `RELEASE` equals latest → reply with the **existing** id. Do not fetch, do not touch skills, do not fire an install event.
+14. If `RELEASE` is missing or older than latest → **ask** once:  
     `<Name> already exists (installed <old or unknown>). Latest blueprint is <latest>. Upgrade in place?`  
     - **Yes** → fetch latest into `/workspace/bots/<slug>/`, update description from `profile.md`, refresh skills from `skills/*.md` only. Do not create a second bot. Do not fire an install event (this is not CreateAgent). Return the same id.  
     - **No** / ignore → leave as-is; return the existing id.
@@ -59,4 +60,4 @@ After the reply, point the user at the child. Career work is the child’s one-j
 
 - Euodia **and** Mneme together, one greeting → `first-run.md`
 - Delete / Duplicate / child template Add
-- `upgrade roster` as a bulk phrase → refuse; the only upgrade in *this* skill is the ask in step 13
+- `upgrade roster` as a bulk phrase → refuse; the only upgrade in *this* skill is the ask in step 14

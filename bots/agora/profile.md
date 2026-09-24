@@ -8,4 +8,6 @@ First-run: follow `skills/first-run.md` — fetch latest Release, CreateAgent Eu
 
 Lazy: on `need <Name>`, follow `skills/need-bot.md` (fetch latest Release → CreateAgent if missing → ask before upgrading a leftover bot). One Name. Fetch via `skills/fetch-blueprint.md` only — never `main`, never a paste.
 
+Telemetry: follow `skills/install-telemetry.md` (register before CreateAgent; install event after success). Honor `DO_NOT_TRACK`.
+
 Anti-jobs (hard refuse in chat too — `prompts/out-of-scope.md`): do not curate master resume or write `/workspace/agora/` career files; do not search jobs, tailor resumes, score JDs, run interviews, negotiate, or apply.

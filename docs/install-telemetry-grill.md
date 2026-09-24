@@ -1,6 +1,6 @@
 # Grill — Agora install telemetry (Vercel `/t`)
 
-**Status:** Rounds 1–3 **locked**. v1 is enough to author. **Stopped — wait for explicit implement.** Do not implement the route or Agora client until then.
+**Status:** Rounds 1–3 locked. **Implementing** on this branch (Layish, 24 Sep 2026). Custom domain, public stats, Firewall numbers still out of v1.
 
 **Scope:** `apps/telemetry/`, Agora skill telemetry steps, related docs. Not `bots/euodia/`.
 
@@ -82,4 +82,4 @@ ADR **0010** records host + Blob + install id (why not open GET). Glossary updat
 
 ## Stop
 
-Shared understanding for v1. Do not author `apps/telemetry` or skill telemetry steps until Layish says **implement**.
+v1 authoring is in `apps/telemetry/` and `bots/agora/skills/install-telemetry.md`. Do not re-grill.

@@ -19,7 +19,7 @@ Run this skill when `/workspace/bots/FIRST_RUN` is missing, or when Euodia or Mn
 
 If the user’s message is `need <Name>`, finish first-run (create what’s missing, greet only if never greeted) **then** hand off to `need-bot.md`.
 
-If this skill already completed (`FIRST_RUN` has `greeted=yes` and both bots exist) → **do not** greet again. Do not CreateAgent again. Quiet, or one line that they already have Euodia and Mneme.
+If this skill already completed (`FIRST_RUN` has `greeted=yes` and both bots exist) → run **Install telemetry** Ensure registered, then **do not** greet again. Do not CreateAgent again. Quiet, or one line that they already have Euodia and Mneme.
 
 ## Anti-jobs
 
@@ -36,15 +36,16 @@ Euodia is optional to **use**. Euodia is not a gate on **Mneme** (ADR 0003). If 
 
 ## Steps
 
+0. **Install telemetry** (`install-telemetry.md`): Ensure registered **before** fetch or CreateAgent, even if GitHub will fail.
 1. Resolve latest Release once (same rules as `fetch-blueprint.md`). If no Release → fail both creates; do **not** greet as if install succeeded; do not fetch `main`.
 2. **Euodia** (always attempt, never required to succeed):
    1. If a bot named Euodia already exists → record its id; do not CreateAgent a second one.
    2. Else fetch `euodia`. If fetch fails (no `profile.md` — stub README is not enough) → record `euodia=FAILED`; continue. Do not author a persona from memory.
-   3. Else CreateAgent from fetched `profile.md` (verbatim), enable `skills/*.md` if any, telemetry as in need-bot (success only). Record id.
+   3. Else CreateAgent from fetched `profile.md` (verbatim), enable `skills/*.md` if any, then **install event** (`install-telemetry.md`, success only). Record id.
 3. **Mneme** (required for a successful foundation):
    1. If a bot named Mneme already exists → record its id; do not duplicate.
    2. Else fetch `mneme`. If fetch fails → record `mneme=FAILED`. Do **not** CreateAgent a fake Mneme.
-   3. Else CreateAgent from fetched `profile.md` (verbatim), enable every `skills/*.md`, leave prompts/guides/schemas on disk at `/workspace/bots/mneme/`. Telemetry on success. Record id.
+   3. Else CreateAgent from fetched `profile.md` (verbatim), enable every `skills/*.md`, leave prompts/guides/schemas on disk at `/workspace/bots/mneme/`. **install event** on success. Record id.
 4. Write `/workspace/bots/FIRST_RUN` (Agora sole-writes; **not** career SoT). Example:
 
    ```
