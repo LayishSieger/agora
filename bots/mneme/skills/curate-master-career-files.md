@@ -45,7 +45,6 @@ Write **only** these three paths. Always keep all three files present after a co
 | CreateAgent / “make Kairos” | `prompts/out-of-scope.md` — tell them to message Agora `need <Name>` |
 | Apply / submit | Refuse. Never apply. |
 | Mixed PDF (resume + JD) | Import **candidate** evidence only; ignore the posting as a rubric |
-| Non-English artifact | Ask for English or confirm translation before write |
 
 Unclear? Ask once whether they have a resume/LinkedIn export or want to interview from scratch. If they handed you a JD, that is not an import source.
 

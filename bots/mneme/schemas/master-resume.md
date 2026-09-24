@@ -79,4 +79,3 @@ other: []            # overflow evidence that is still the candidate's story
 - Numbers verified on echo-back.
 - Tag every skill-bearing bullet per `guides/writing-tips.md`.
 - Re-import merges by union; conflicts on company/role/dates → ask.
-- English only.

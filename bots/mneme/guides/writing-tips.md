@@ -85,7 +85,7 @@ The naming rule depends on the type of skill. Names should be stable industry te
 
 - **Reverse-chronological**: most recent experience/education first.
 - No page limit in the master resume — completeness matters more than brevity here (page-length rules apply later, at Kairos, not here).
-- **Tense**: present tense for current role, past tense for previous roles (English).
+- **Tense**: present tense for current role, past tense for previous roles.
 - **Drop first-person**: bullets shouldn't use "I / My."
 
 ## Common Mistakes Checklist (go through this item by item when diagnosing)

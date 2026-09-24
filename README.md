@@ -6,6 +6,6 @@ Career-fleet source of truth for Grok Bot.
 - **This repo:** versioned blueprints under `bots/`, docs, install telemetry.
 - **Installer SoT (per user box):** `/workspace/agora/profile.yaml`, `preferences.yaml`, `master-resume.md`, `applications/`.
 
-Owner: Layish Sieger. English only.
+Owner: Layish Sieger.
 
 See `AGORA-PLAN.md` and `CONTEXT.md`.
