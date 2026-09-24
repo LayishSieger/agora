@@ -47,6 +47,8 @@ Do **not** re-grill: install telemetry rounds 1–3, blueprint fetch contract (e
 | R1-Q7 | **B** | Mint without telemetry bytes. first-run/need skip `/r` `/t` until later Update template. |
 | R1-Q8 | **A** | No plugins in v1 recipe. Anonymous HTTPS zipball. No GitHub/Cursor reconnect on Add. |
 
+---
+
 ## Round 2 answers (Layish)
 
 | ID | Letter | Note |
