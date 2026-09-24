@@ -22,7 +22,7 @@
 
 **Career foundation** — Euodia and Mneme (both created on first-run). Euodia’s CreateAgent may fail (no `profile.md` in the Release); Mneme must still be created. Euodia does not gate Mneme.
 
-**first-run** — Agora’s one-time foundation path: fetch latest blueprint release, CreateAgent Euodia and Mneme, greet once, quiet. Not `need`. Not the execution pipeline. Marker file: `/workspace/bots/FIRST_RUN` (Agora sole-writes). Not career SoT.
+**first-run** — Agora’s one-time foundation path: blueprint-fetch Euodia and Mneme from latest (each fetch may see a different latest), CreateAgent both (Mneme even if Euodia fails), greet once, quiet. Not `need`. Not the execution pipeline. Marker file: `/workspace/bots/FIRST_RUN` (Agora sole-writes). Not career SoT.
 
 **CreateAgent** — Agora creating a focused child Bot on the same Grok account from an installed blueprint (`profile.md` verbatim + `skills/*.md`). Not template Add, not Duplicate, not a second bot of the same name.
 _Avoid_: Add child template, Duplicate Agora
