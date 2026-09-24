@@ -1,6 +1,9 @@
 # Install telemetry
 
-Vercel project **agora**, root `apps/telemetry`. Private Blob. **Owner-only** reads (dashboard/Blob). `GET /r` and `GET /t` write only. Agora registration counts are **untrusted** until rate-limit exists.
+Live production (this PR deployed it): `https://agora-layish-siegers-projects.vercel.app`  
+Also: `https://agora-gold-tau.vercel.app`
+
+Vercel project **agora**, GitHub `LayishSieger/agora`, root `apps/telemetry`. Private Blob store **agora-telemetry**. **Owner-only** reads (dashboard/Blob). `GET /r` and `GET /t` write only. Agora registration counts are **untrusted** until rate-limit exists.
 
 ## Routes
 
