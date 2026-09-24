@@ -92,4 +92,4 @@ Intake v1: interview · resume/PDF · LinkedIn PDF/paste. Mixed JD+resume → ev
 
 ## Next
 
-Author `fetch-blueprint` and `need-bot` after the remaining grill. **Do not author `first-run` until Euodia’s blueprint exists** (then first-run creates both Euodia + Mneme). Grill Euodia next for that.
+Author `first-run.md` **after** Euodia’s blueprint exists (creates Euodia + Mneme on first message). `fetch-blueprint` and `need-bot` are in `bots/agora/skills/`.
