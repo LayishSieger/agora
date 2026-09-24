@@ -21,14 +21,14 @@ This is the contract for **blueprint fetch**: bytes from GitHub → disk on the 
 | One roster slug on disk. Not Agora. Not `apps/` / `docs/` | skills |
 | No `profile.md` → fail (`missing_profile`). README-only is not creatable | F-R2-Q3 **B** |
 | No invent / gist / paste / fork / `main` fallback | F-R1-Q3 **A** |
-| Wire: source zipball; extract `bots/<slug>/` only | F-R1-Q1 **A**, ADR 0010 |
-| Same turn may reuse zipball bytes for that latest tag; no cross-turn cache | F-R2-Q2 **B**, ADR 0010 |
-| Regular files and directories only; reject all symlinks; do not execute the zip | F-R2-Q4 **A**, ADR 0010 |
-| Atomic replace; `RELEASE` after success; previous snapshot untouched on failure | F-R1-Q2 **C**, ADR 0011 |
+| Wire: source zipball; extract `bots/<slug>/` only | F-R1-Q1 **A**, ADR 0011 |
+| Same turn may reuse zipball bytes for that latest tag; no cross-turn cache | F-R2-Q2 **B**, ADR 0011 |
+| Regular files and directories only; reject all symlinks; do not execute the zip | F-R2-Q4 **A**, ADR 0011 |
+| Atomic replace; `RELEASE` after success; previous snapshot untouched on failure | F-R1-Q2 **C**, ADR 0012 |
 | Anonymous HTTPS; 401/403/429 → `http`; no token | F-R1-Q3 **A** |
 | Dumb pull; callers decide when to invoke | F-R1-Q5 **A** |
-| Each fetch resolves latest independently; mixed tags allowed | F-R2-Q1 **A**, ADR 0013 |
-| Fail reasons (closed): `no_release` · `http` · `bad_archive` · `missing_profile` | F-R2-Q3 **B**, ADR 0012 |
+| Each fetch resolves latest independently; mixed tags allowed | F-R2-Q1 **A**, ADR 0014 |
+| Fail reasons (closed): `no_release` · `http` · `bad_archive` · `missing_profile` | F-R2-Q3 **B**, ADR 0013 |
 
 Consequence of atomic replace: extras under `/workspace/bots/<slug>/` are gone after a successful fetch. Career files belong under `/workspace/agora/`.
 
@@ -43,7 +43,7 @@ Reuse + mixed tags: reuse only if the second resolve still sees the **same** lat
 - `/releases/latest` ignores drafts and prereleases (leave a prerelease channel out of v1).
 - Zip prefix is GitHub’s first path component; do not hardcode it.
 - `RELEASE` is not in the GitHub tree; written after swap.
-- `FIRST_RUN` `tag=` is a first-run marker at implement (e.g. Mneme’s tag or last success), not a shared snapshot (ADR 0013).
+- `FIRST_RUN` `tag=` is a first-run marker at implement (e.g. Mneme’s tag or last success), not a shared snapshot (ADR 0014).
 - Doc-only branch: Vercel `agora` preview may ERROR (`apps/telemetry` lives on the telemetry branch).
 
 ---

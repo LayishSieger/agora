@@ -4,7 +4,7 @@
 
 **Agora (Ἀγορά)** — Career-fleet creator and steward. Creates, configures, repairs, and upgrades career-fleet bots and skills. Only bot allowed to CreateAgent. After install: first-run greets once, points to Euodia or Mneme, then stays quiet unless asked or messaged `need <Name>`. The only public Grok Bot template in v1 (installer). Children are not published as their own templates. Does not do stage-bot jobs in Agora chat.
 
-**Euodia (Εὐοδία)** — Career Pathfinder. Explores career directions and growth opportunities. Optional to *use* when direction is unclear. Does not gate Mneme. Must not CreateAgent; messages Agora if a later bot is needed.
+**Euodia (Εὐοδία)** — Career Pathfinder. Explores career direction. A growth plan is later. Optional to *use* when direction is unclear. Does not gate Mneme. Must not CreateAgent; messages Agora if a later bot is needed.
 
 **Mneme (Μνήμη)** — Career Curator. Interviews, collects experiences, maintains the master career profile (source of truth). Always present after first-run. Must not CreateAgent, tailor resumes, score JDs, search jobs, or apply; messages Agora `need <Name>` if a later bot is needed. Refuses those jobs in chat as well as in files.
 
@@ -20,7 +20,7 @@
 
 **Career pipeline** — Euodia → Mneme → Zetesis → Hermeneia → Kairos → Melete → Peitho.
 
-**Career foundation** — Euodia and Mneme (both created on first-run). Euodia’s CreateAgent may fail (no `profile.md` in the Release); Mneme must still be created. Euodia does not gate Mneme.
+**Career foundation** — Euodia and Mneme (both created on first-run). If the fetched Release has no Euodia `profile.md`, that CreateAgent fails and Mneme is still created. Euodia does not gate Mneme.
 
 **first-run** — Agora’s one-time foundation path: blueprint-fetch Euodia and Mneme from latest (each fetch may see a different latest), CreateAgent both (Mneme even if Euodia fails), greet once, quiet. Not `need`. Not the execution pipeline. Marker file: `/workspace/bots/FIRST_RUN` (Agora sole-writes). Not career SoT.
 
@@ -46,7 +46,14 @@ _Avoid_: clone main, pin, zip the whole repo onto disk
 **installer template** — The one published Grok Bot Add link: Agora. User Adds Agora once; Agora CreateAgents the rest of the flow from blueprints.
 _Avoid_: publishing each stage as its own template in v1
 
-**install event** — Anonymous telemetry fired by Agora after a successful CreateAgent (`event=install`, bot name, blueprint-release name, `agora=1`). Not a raw GitHub zip download count. Honors `DO_NOT_TRACK`.
+**install id** — Opaque token for one Agora installation. Client-minted; Agora sole-writes `/workspace/bots/INSTALL_ID`. Not an account, person, or child bot id. Required on every **install event**.
+_Avoid_: account id, bot id
+
+**Agora registration** — Record that an Agora installer is in use, upserted on first turn if the local install id is missing, before CreateAgent. Distinct from an **install event**. Honors `DO_NOT_TRACK` (skip registration and install events; CreateAgent still runs).
+_Avoid_: treating template Add as an install event
+
+**install event** — Ping after a successful CreateAgent: `event=install`, roster bot name, blueprint-release name, `agora=1`, and a valid **install id**. Not template Add, not blueprint fetch, not upgrade-in-place, not a GitHub zip count; no account, career files, or IP/UA as product data. Honors `DO_NOT_TRACK`.
+_Avoid_: installer Add event, fetch telemetry
 
 **profile.yaml** — Who is the candidate? Identity only (name, locations, email, optional phone, links). Mneme sole-writes. Path: `/workspace/agora/profile.yaml`.
 
