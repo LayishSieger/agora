@@ -1,6 +1,6 @@
 # Agora plan
 
-Status: repo + Mneme blueprint in progress. Agora/Euodia skills and execution bots not authored.
+Status: repo + Mneme blueprint in progress. Agora steward skills authored; Euodia and execution bots not grilled.
 
 ## System
 
@@ -92,4 +92,4 @@ Intake v1: interview · resume/PDF · LinkedIn PDF/paste. Mixed JD+resume → ev
 
 ## Next
 
-Author `first-run.md` **after** Euodia’s blueprint exists (creates Euodia + Mneme on first message). `fetch-blueprint` and `need-bot` are in `bots/agora/skills/`.
+Author Euodia blueprint (`profile.md` + skills) so first-run can CreateAgent Euodia instead of recording `FAILED`. Execution-bot stubs after that.

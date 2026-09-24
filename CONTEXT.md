@@ -2,7 +2,7 @@
 
 ## Glossary
 
-**Agora (Ἀγορά)** — Career-fleet creator and steward. Creates, configures, repairs, and upgrades career-fleet bots and skills. Only bot allowed to CreateAgent. After install: greets once, points to Euodia or Mneme, then stays quiet unless asked or messaged `need <Name>`. The only public Grok Bot template in v1 (installer). Children are not published as their own templates.
+**Agora (Ἀγορά)** — Career-fleet creator and steward. Creates, configures, repairs, and upgrades career-fleet bots and skills. Only bot allowed to CreateAgent. After install: first-run greets once, points to Euodia or Mneme, then stays quiet unless asked or messaged `need <Name>`. The only public Grok Bot template in v1 (installer). Children are not published as their own templates. Does not do stage-bot jobs in Agora chat.
 
 **Euodia (Εὐοδία)** — Career Pathfinder. Explores career directions and growth opportunities. Optional to *use* when direction is unclear. Does not gate Mneme. Must not CreateAgent; messages Agora if a later bot is needed.
 
@@ -20,11 +20,16 @@
 
 **Career pipeline** — Euodia → Mneme → Zetesis → Hermeneia → Kairos → Melete → Peitho.
 
-**Career foundation** — Euodia and Mneme (both created on first-run).
+**Career foundation** — Euodia and Mneme (both created on first-run). Euodia’s CreateAgent may fail (no `profile.md` in the Release); Mneme must still be created. Euodia does not gate Mneme.
+
+**first-run** — Agora’s one-time foundation path: fetch latest blueprint release, CreateAgent Euodia and Mneme, greet once, quiet. Not `need`. Not the execution pipeline. Marker file: `/workspace/bots/FIRST_RUN` (Agora sole-writes). Not career SoT.
+
+**CreateAgent** — Agora creating a focused child Bot on the same Grok account from an installed blueprint (`profile.md` verbatim + `skills/*.md`). Not template Add, not Duplicate, not a second bot of the same name.
+_Avoid_: Add child template, Duplicate Agora
 
 **Career execution** — Zetesis → Hermeneia → Kairos → Melete → Peitho (lazy).
 
-**need protocol** — A stage bot that requires another fleet bot sends Agora `need <Name>`. Agora creates it if missing and replies with the id. Stage bots never CreateAgent.
+**need protocol** — A stage bot (or the user) that requires another fleet bot sends Agora `need <Name>` with one roster Latin name. Agora creates it if missing and replies with the id. Stage bots never CreateAgent. Quantifiers (`all`, `the rest`) are not `need`. Execution `need` waits until Mneme exists (run first-run first).
 
 **agora repo** — Public GitHub source of truth: `layishsieger/agora`. Holds bot blueprints (`bots/<name>/profile.md`, skills), docs, and the Vercel install-telemetry route. All system authorship lives here.
 

@@ -1,5 +1,7 @@
 # Agora skills
 
-- `fetch-blueprint.md` — latest GitHub Release → `/workspace/bots/<slug>/` + `RELEASE`
-- `need-bot.md` — `need <Name>` CreateAgent / ask-before-refresh
-- `first-run.md` — **not authored yet.** Wait until Euodia’s blueprint exists, then create Euodia + Mneme on first message.
+- `first-run.md` — CreateAgent Euodia + Mneme from latest Release; greet once; quiet. Mneme even if Euodia fetch fails.
+- `need-bot.md` — `need <Name>` CreateAgent if missing / ask before refresh. One roster name. Never a custom bot.
+- `fetch-blueprint.md` — latest GitHub Release → `/workspace/bots/<slug>/` + `RELEASE`. No CreateAgent. No `main`.
+
+Supporting: `../prompts/out-of-scope.md` (hard refusals).
