@@ -1,5 +1,5 @@
 # Grill — Author Agora steward skills
 
-**Settled.** Skills written: `bots/agora/skills/fetch-blueprint.md`, `need-bot.md`.
+**Settled in skills.** `bots/agora/skills/first-run.md`, `need-bot.md`, `fetch-blueprint.md`.
 
-`first-run.md` still waits on Euodia. Next product work: grill + author Euodia blueprint, then first-run.
+`first-run` no longer waits on a grilled Euodia: it must CreateAgent Mneme even when Euodia fetch fails (`profile.md` missing). Next product work: grill + author Euodia blueprint, then first-run can record an Euodia id instead of `FAILED`.
