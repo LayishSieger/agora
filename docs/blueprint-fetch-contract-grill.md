@@ -1,10 +1,12 @@
-# Grill — Blueprint fetch contract (round 1)
+# Grill — Blueprint fetch contract
 
-Status: **round 1 asked; answers not in yet.** Do not implement until this grill is closed and someone says **implement**.
+Status: **round 1 answered; round 2 asked.** Do not implement until this grill is closed and Layish says **implement**.
 
-This is the contract for Agora’s **Fetch blueprint** subroutine: bytes from GitHub → disk on the Grok computer. It is **not** CreateAgent, not skill enable, not first-run greeting, not `need` parsing, not install telemetry.
+This is the contract for **blueprint fetch**: bytes from GitHub → disk on the Grok computer. It is **not** CreateAgent, not skill enable, not first-run greeting, not `need` parsing, not install telemetry.
 
 Answers: CloudAgent reply from Agora Grok, one question at a time there; full rounds relayed.
+
+`bots/agora/skills/fetch-blueprint.md` is still a **steward draft**. Round 1 contradicts its restore sentence and in-place overwrite. Do not edit that skill until **implement**.
 
 ---
 
@@ -12,155 +14,135 @@ Answers: CloudAgent reply from Agora Grok, one question at a time there; full ro
 
 | Decision | Where |
 |---|---|
-| Fetch GitHub’s **latest published Release**, not `main`, not a floating branch | ADR 0007 |
-| Do **not** pin a version forever inside the Agora skill | ADR 0007 |
-| Record which release was used; a later upgrade path can notice a newer latest | ADR 0007, glossary **blueprint release** |
-| Installed path `/workspace/bots/<slug>/` + `RELEASE` file; no versioned subfolders | ADR 0008 |
+| Fetch GitHub’s **latest published Release**, not `main` | ADR 0007 |
+| Do **not** pin a version forever in the Agora skill; v1 has **no restore** to an older tag | ADR 0007, F-R1-Q6 **A** |
+| Record `tag_name` in `RELEASE`; upgrade later compares to a newer latest | ADR 0007, F-R1-Q4 **A** |
+| Installed path `/workspace/bots/<slug>/` + `RELEASE`; no versioned subfolders | ADR 0008 |
 | Career SoT stays `/workspace/agora/`; fetch never writes it | ADR 0005 / 0008 |
-| If a child **bot** of that name already exists: never CreateAgent a second copy; if `RELEASE` missing/older than latest, **ask** before refresh | ADR 0008, `need-bot.md` |
-| Fetch is **not** an install event. Telemetry is CreateAgent (`event=install`). Agora template registration is separate. Honor `DO_NOT_TRACK` elsewhere | glossary **install event**; plan telemetry |
-| One roster slug only. Not Agora. Not `apps/`, `docs/`, or the rest of the repo as an installed tree | `fetch-blueprint.md` |
-| Missing `profile.md` after extract → fail. README-only stub is not a creatable blueprint | `fetch-blueprint.md`, `first-run.md` |
-| No invent / gist / paste / fork / `main` fallback | ADRs + skills |
-| Fetch does not enable skills, greet, or CreateAgent | `fetch-blueprint.md` |
+| Existing child **bot**: never a second CreateAgent; ask before refresh if `RELEASE` stale | ADR 0008, `need-bot.md` |
+| Fetch is **not** an install event | glossary **install event** |
+| One roster slug on disk. Not Agora. Not `apps/` / `docs/` | `fetch-blueprint.md` |
+| Missing `profile.md` after extract → fail. README-only is not creatable | skills |
+| No invent / gist / paste / fork / `main` fallback | ADRs + F-R1-Q3 **A** |
+| **Wire:** GitHub source zipball for the Release tag; extract only `bots/<slug>/` | F-R1-Q1 **A**, ADR 0010 |
+| **Disk:** atomic replace (temp + swap); live folder matches the shipped tree; `RELEASE` only after success; previous snapshot untouched on failure | F-R1-Q2 **C**, ADR 0011 |
+| **Auth:** anonymous HTTPS; 401/403/429 fail; no token required | F-R1-Q3 **A**, ADR 0010 |
+| **Integrity:** trust GitHub HTTPS; `RELEASE` is only `tag_name` | F-R1-Q4 **A** |
+| **Idempotency:** dumb pull; callers decide when to invoke | F-R1-Q5 **A** |
 
-`bots/agora/skills/fetch-blueprint.md` is a **live steward draft**, not an ADR. Several of its lines (whole-tag zip, in-place overwrite, caller-named non-latest tag) are what this round is grilling. Treat them as proposed defaults, not locks.
+Consequence of F-R1-Q2 **C** (not a new question): anything extra under `/workspace/bots/<slug>/` (scratch notes, leftover skills) is gone after a successful fetch. That folder is the installed blueprint, not a user notebook. Career files belong under `/workspace/agora/`.
 
 ---
 
 ## Facts (looked up; not user questions)
 
-- Repo `LayishSieger/agora` is **public**. `GET /repos/LayishSieger/agora/releases` is **empty**. `GET …/releases/latest` is **404** today. A correct fetch implementation **must fail closed** until the first Release exists. That is ADR 0007 working as designed, not a bug to paper over with `main`.
-- GitHub **source zip** for a Release exists even when **no Release assets** are uploaded (`zipball_url` / `archive/refs/tags/<tag>.zip`). Attaching a custom zip is extra release labor, not required for a tag to be downloadable.
-- `/releases/latest` is GitHub’s latest **published**, non-draft, non-prerelease Release. Drafts and prereleases are invisible to that endpoint.
-- Unauthenticated GitHub REST is tightly rate-limited (on the order of **60 req/hour/IP**). A Contents-API walk of `bots/mneme/` (profile + skills + prompts + schemas) can burn that in one first-run. A single zipball is one (or two) HTTP GETs.
-- Source-zip member paths are `\<first-component\>/bots/<slug>/…`. The first component is GitHub’s archive prefix (repo + ref; do **not** hardcode it). Extractors strip that prefix and keep only `bots/<slug>/`.
-- `first-run.md` already resolves latest **once**, then fetches Euodia and Mneme separately. Whether that means one zip and two extracts is **downstream** of Q1 (later round).
-- Parallel work: Euodia authorship and `/t` telemetry. This grill does not change `bots/euodia/` or telemetry routes.
-
-### Language to sharpen later (after answers)
-
-The skill says “Do not fetch the whole repo” and also “download that tag’s source zip.” Those are different things: **release archive** (bytes on the wire, may be the whole tagged tree) vs **installed blueprint** (only `/workspace/bots/<slug>/` on disk). Pick terms once Q1 lands; glossary stays implementation-free.
-
-The skill’s “overwrite that folder’s blueprint files” is ambiguous: overlay (deleted upstream files remain on disk) vs replace (the folder becomes exactly the shipped tree). Q2.
+- Repo `LayishSieger/agora` is **public**. There may still be **zero** Releases; `/releases/latest` is then 404. Fail closed until a Release exists.
+- Source zipball exists even with **no** Release assets.
+- `/releases/latest` ignores drafts and prereleases.
+- Unauthenticated REST ~**60 req/hour/IP**. One zipball is cheap; Contents API is not (ADR 0010).
+- Zip member prefix is GitHub’s archive first component — do **not** hardcode it. Strip it; keep `bots/<slug>/`.
+- `first-run.md` resolves latest **once**, then fetches Euodia and Mneme. `FIRST_RUN` has a **single** `tag=` field. Whether those two slugs may differ is round 2.
+- `RELEASE` is **not** in the GitHub tree. After swap, fetch writes `RELEASE` into the live folder (shipped tree + that file).
+- This grill does not change `bots/euodia/` or telemetry routes. Doc-only branch: Vercel project `agora` (root `apps/telemetry`) may ERROR on preview; production stays the telemetry branch.
 
 ---
 
-## Design tree (this frontier)
+## Design tree
 
 ```
 fetch contract
-├── how bytes arrive (Q1)          → later: share one archive across slugs in first-run
-├── how the slug folder is replaced (Q2) → later: crash mid-write, disk full
-├── GitHub credentials on the box (Q3)
-├── integrity recorded in RELEASE (Q4) → later: exact RELEASE file shape if more than tag
-├── fetch vs already-current tag (Q5)
-└── off-latest restore in v1 (Q6)  → later: user-facing `need Mneme@v1.0.0` syntax
+├── wire zipball (R1 Q1) ✓          → zip reuse in one steward turn (R2 Q2)
+├── atomic replace (R1 Q2) ✓
+├── anonymous HTTPS (R1 Q3) ✓
+├── RELEASE = tag_name (R1 Q4) ✓
+├── dumb pull (R1 Q5) ✓
+├── latest only, no restore (R1 Q6) ✓ → same tag for first-run pair? (R2 Q1)
+├── failure reasons to callers (R2 Q3)
+└── what zip members are allowed (R2 Q4)
 ```
 
-Not in this round (blocked or already locked): timeout/size caps, error copy, prerelease channel, fetching Agora itself, telemetry on fetch, CreateAgent, upgrade **ask** UX (ADR 0008).
+Still later / not fetch: prerelease channel, restore skill, repair when bot exists but folder missing (`need-bot`), timeout numbers, telemetry, CreateAgent, upgrade **ask** UX.
 
 ---
 
-## Round 1
+## Round 1 (answered)
 
-❓ **Q1** - **What is fetched on the wire?**
+Layish, Agora Grok chat, one-by-one.
 
-CreateAgent needs the tagged snapshot of **one** slug. ADR 0004 allows “tagged release zip or equivalent HTTPS.” The skill draft always downloads the **whole-tag source zip**, then extracts `bots/<slug>/` only.
-
-**A.** GitHub **source zipball** for that Release’s tag (`zipball_url` or `archive/refs/tags/<tag>.zip`). Extract only members under `bots/<slug>/`. Reject `..`, absolute paths, and escaping symlinks. Do not require custom Release assets.
-
-**B.** **Per-file HTTPS** (Contents API or `raw.githubusercontent.com/<tag>/bots/<slug>/…`). No zip. Must know or recurse the file list.
-
-**C.** **Attached Release asset** we upload ourselves (e.g. `euodia.zip` per bot, or `blueprints.zip`). Source zipball is not the contract.
-
-➡️ **A.** One or two GETs, works with empty asset lists, matches ADR 0004, and keeps “do not install the whole repo on disk.” B dies on unauthenticated rate limits (Mneme is already many files). C adds a release packaging step we do not have and will forget. First-run downloading the same zip twice is a later-round cache question, not a reason to pick B.
-
----
-
-❓ **Q2** - **Live folder: overlay or replace? Partial extract?**
-
-On a successful fetch, `/workspace/bots/<slug>/` must match the Release. On failure, CreateAgent must not run on a half-written tree (skill: no partial “good enough” persona).
-
-Today’s skill says **overwrite files in place**. If v1.2.0 deletes `skills/old.md`, overlay **leaves** `old.md`. If the zip dies after three files, the live folder is a mix, and a naive `RELEASE` write would lie.
-
-**A.** **Overlay in place.** Write files as they come; leave files the new tree does not mention. Write `RELEASE` at the end if `profile.md` exists, even if some members failed.
-
-**B.** **Overlay in place**, but **fail closed**: any extract error → do not update `RELEASE`; leave the mixed folder as-is (caller must not CreateAgent).
-
-**C.** **Atomic replace.** Extract the slug into a temp dir; require `profile.md`; then swap over `/workspace/bots/<slug>/` so the live folder is exactly the shipped tree (removed files gone). Write `RELEASE` (`tag_name` only, unless Q4 adds more) **only after** the swap. On failure, leave the previous live folder untouched (or absent).
-
-➡️ **C.** The installed blueprint is a snapshot of one Release, not a union of Releases. Upgrade must drop vanished skills. Fail closed without poisoning the previous good snapshot. Matches “old snapshots stay on GitHub, not in versioned subfolders.”
+| ID | Question | Answer |
+|---|---|---|
+| F-R1-Q1 | What is fetched on the wire? | **A** — GitHub source zipball; extract only `bots/<slug>/` |
+| F-R1-Q2 | Overlay or replace / partial extract? | **C** — Atomic replace; `RELEASE` after success; previous snapshot untouched on failure |
+| F-R1-Q3 | Auth on the installer computer? | **A** — Anonymous HTTPS; 401/403/429 fail; no `main` fallback |
+| F-R1-Q4 | Integrity? | **A** — Trust GitHub HTTPS; `RELEASE` is only `tag_name` |
+| F-R1-Q5 | If `RELEASE` already equals latest, still download? | **A** — Dumb pull; callers decide when to invoke |
+| F-R1-Q6 | Non-latest tag in v1? | **A** — Latest only; restore is a later skill |
 
 ---
 
-❓ **Q3** - **Auth on the installer computer?**
+## Round 2
 
-The repo is public. The Grok computer may or may not have `gh` / a `GITHUB_TOKEN`. Fetch must not become “clone my private fork.”
+❓ **Q1** - **Must Euodia and Mneme in one first-run share one blueprint release?**
 
-**A.** **Anonymous HTTPS** to `api.github.com` + zipball. No token required. 401/403/429 → fail, say so, **do not** fall back to `main` or a cache of unknown origin.
+Fetch is a dumb pull of **latest** (R1 Q5/Q6). First-run calls it twice. `/releases/latest` can change between those calls. `FIRST_RUN` still has one `tag=` line.
 
-**B.** **Require** a GitHub token (or logged-in `gh`) on every fetch.
+**A.** Each fetch independently resolves latest. Mixed tags are allowed (rare). `FIRST_RUN` `tag=` is whatever Mneme (or the last successful fetch) recorded — document that at implement time.
 
-**C.** Anonymous first; if rate-limited, **prompt the user** to paste a token and retry.
+**B.** Both slugs must come from the **same** tag. Resolve latest once at the start of first-run. Fetch may take that tag **only if** it still **is** `/releases/latest` at call time (not restore). If latest moved before the second slug, **fail that fetch** rather than mix. (Risk: Mneme fails because a Release landed mid-first-run.)
 
-➡️ **A.** Layish’s repo is public; requiring auth makes first-run fragile (new users will not have a PAT in the bot computer). Token-gated fetch is a later problem if GitHub throttles us. C mixes credentials into Agora chat — out of scope for a fetch contract.
+**C.** Same tag for the whole first-run **even if** latest moves mid-flight: a one-turn snapshot. Fetch may use the caller’s tag for that turn without it remaining `/releases/latest`. This is **not** user-facing restore (R1 Q6 stays).
 
----
-
-❓ **Q4** - **Integrity: tag name only, or also a commit?**
-
-`RELEASE` is specified as a single line `tag_name` (e.g. `v1.2.0`). GitHub source zips are not a separate signed artifact. Tags can be moved (unusual, not impossible).
-
-**A.** Trust GitHub HTTPS. `RELEASE` is **only** `tag_name`. No checksum.
-
-**B.** After resolving `/releases/latest`, also record the Release’s **target commit SHA** (from the API). `RELEASE` still key-compares by `tag_name` for “stale vs latest” (ADR 0008). SHA is for humans/debug/upgrade notes, not a second pin.
-
-**C.** We attach a **sha256** (or similar) on the GitHub Release and refuse the zip if it does not match. No checksum file → fail.
-
-➡️ **A** for v1. Moving tags is rare; a checksum file is process we will skip on the first Release; SHA in `RELEASE` can wait until an upgrade skill needs it. Do not block fetch on a file we have never published. If you want cheap forensics without process, pick **B** — it does not change “latest tag wins.”
+➡️ **A.** Keep fetch dumb and latest-only. Mixed tags are unlikely; failing Mneme (B) is worse than a one-off mismatch. C is an in-flight pin and fights R1 Q6. First-run already allows Euodia `FAILED` and Mneme success on **different** failure modes; different tags are the same family of “foundation is not one atomic transaction.”
 
 ---
 
-❓ **Q5** - **If `RELEASE` already equals latest, does fetch still download?**
+❓ **Q2** - **May one zipball serve two slug extracts in the same steward turn?**
 
-Callers already skip: `need-bot` no-ops when `RELEASE` equals latest; first-run should not re-CreateAgent. The subroutine itself can be dumb or smart.
+R1 Q1 is whole-tag zipball, one slug on disk. First-run (and a future bulk upgrade) would otherwise GET the same zip twice. Independent of Q1: this is HTTP reuse, not a pin.
 
-**A.** **Dumb pull.** Fetch always resolves latest, downloads, and writes (per Q2). Callers decide when to invoke it. An explicit upgrade **Yes** is just “run fetch again.”
+**A.** Every fetch invocation GET the zipball. No reuse.
 
-**B.** **Smart no-op.** If `/workspace/bots/<slug>/RELEASE` equals latest `tag_name`, fetch does not download and reports “already current.” Callers that need a rewrite pass a force flag (later).
+**B.** Same Agora turn may reuse bytes already downloaded for **that** latest tag to extract another roster slug (same extract/swap/`RELEASE` rules). No on-disk zip cache across turns or chats.
 
-**C.** Smart no-op **unless** `profile.md` is missing — then fetch even if `RELEASE` matches (repair).
+**C.** Persist the zip under `/tmp` (or similar) keyed by tag across turns until reboot.
 
-➡️ **A.** Keep one job: materialize this slug from this Release. Idempotency and repair live in `need-bot` / first-run. C is a repair skill, not fetch. B needs a force flag that does not exist yet.
-
----
-
-❓ **Q6** - **Non-latest tag (restore / pin) in v1?**
-
-ADR 0007: the Agora skill does not pin a version forever; default is latest. The skill draft also allows a **caller-named existing tag** (“restore”). Glossary: upgrade compares recorded release to a newer latest.
-
-**A.** **v1 = latest only.** Fetch refuses any tag that is not GitHub `releases/latest`. Restore / downgrade / pin is a later skill. (A Release disappearing still fails closed.)
-
-**B.** Default latest, but the **caller** (not the user in chat) may pass an existing tag for restore. No user syntax like `need Mneme@v1.0.0` in v1.
-
-**C.** Users may request a tag (`need Mneme@v1.0.0` or similar) in v1.
-
-➡️ **A.** Restore is a new product surface (who is allowed, what to write in `RELEASE`, how it interacts with “ask before refresh”). Shipping it inside fetch now fights ADR 0007’s “don’t pin in the skill.” Keep the draft’s restore sentence **out** of v1. B/C wait until an upgrade/restore grill.
+➡️ **B.** Two anonymous zip GETs per first-run is fine today; reuse is still the obvious first-run reading of “resolve latest once.” C is a cache with stale-zip bugs we do not need. If Q1 is **A**, reuse is optional sugar; if Q1 is **B** or **C**, reuse is how you get two slugs from one snapshot.
 
 ---
 
-## After this round (do not answer now)
+❓ **Q3** - **What does a failed fetch return to the caller?**
 
-- Share one zipball across Euodia + Mneme in first-run (depends on Q1).
-- Exact `RELEASE` file grammar if Q4 is B or C.
-- User-visible error strings; GitHub 404 “no Release yet.”
-- Zip size / timeout.
-- Whether a later **prerelease** channel exists (today `/latest` ignores them — leave that).
-- Repair: bot exists, folder missing (or the reverse). Likely `need-bot`, not fetch.
+Callers already branch: first-run continues if Euodia has no `profile.md`, but must **not** greet if there is no Release at all. Fetch must fail closed; the *reason* is what lets the caller choose.
+
+**A.** Opaque failure. One user-visible line. Callers do not distinguish “no Release yet” from “this slug has no `profile.md`.”
+
+**B.** Closed set of reasons, user-visible one-liners each: `no_release` (404/empty latest), `http` (401/403/429/5xx/network), `bad_archive` (zip/path-escape/symlink policy), `missing_profile` (tree extracted but no `profile.md`). Callers branch; no CreateAgent on any of them.
+
+**C.** Same reasons as **B**, plus machine-only detail (status code, URL) in the skill log, never in telemetry.
+
+➡️ **B.** First-run already needs “no Release → fail both” vs “Euodia stub → `FAILED`, still Mneme.” C is logging chrome; skip until we have a log. Do not invent extra reasons (`disk_full` stays an `http`/`bad_archive` equivalent: fail, previous snapshot untouched).
 
 ---
 
-## Glossary / ADR after close
+❓ **Q4** - **What zip members may become files under the slug?**
 
-When round 1 is answered: tighten **installed blueprint** / **blueprint release** if Q2/Q4 change what `RELEASE` means. Offer a short ADR only if the wire format (Q1) or atomic replace (Q2) should surprise a future reader — both likely qualify once chosen. Do **not** write those ADRs in this PR.
+R1 Q2: live folder **is** the shipped tree. Path escape is already rejected. Remaining: symlinks, binaries, unexpected names.
+
+**A.** **Regular files and directories only** under `bots/<slug>/`. Reject symlinks (even if they would stay inside the slug), devices, and executables-as-payloads. Do not run anything from the zip. Markdown/YAML/text as authored; a stray `.png` in `guides/` may ship if it is a regular file.
+
+**B.** Allow **relative symlinks** that stay inside `bots/<slug>/` after extract. Reject escaping links.
+
+**C.** Regular files only, and **only** these names: `profile.md`, `README.md`, `skills/`, `prompts/`, `guides/`, `schemas/`. Unknown paths in that slug are dropped (not a fail).
+
+➡️ **A.** Blueprints are markdown trees; symlinks are a zip-slip footgun. C would silently drop a future `bots/mneme/examples/` and look like success. Unknown regular files in the slug are part of the snapshot (R1 Q2). A stray binary is rare and still data, not something we execute.
+
+---
+
+## After round 2 (do not answer now)
+
+- Exact user-facing sentences (copy) for each Q3 reason.
+- Numeric zip size / time caps.
+- Repair: bot exists, folder missing (or the reverse) — `need-bot`, not fetch.
+- Restore / pin skill (after v1).
+- Prerelease channel (`/latest` ignores them — leave it).
+- Editing `fetch-blueprint.md` to match this contract (**implement** only).

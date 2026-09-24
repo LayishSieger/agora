@@ -94,4 +94,4 @@ Intake v1: interview · resume/PDF · LinkedIn PDF/paste. Mixed JD+resume → ev
 
 Euodia blueprint authored → install telemetry (`/t`) → **blueprint fetch contract** → thin Agora template. Execution stubs later.
 
-Fetch contract: round 1 grill in `docs/blueprint-fetch-contract-grill.md` (unanswered). Do not implement fetch until that grill closes.
+Fetch contract: round 1 answered (zipball, atomic replace, anonymous HTTPS, `RELEASE`=tag, dumb pull, latest only). Round 2 in `docs/blueprint-fetch-contract-grill.md` (unanswered). Do not implement fetch until the grill closes.
