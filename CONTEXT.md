@@ -43,7 +43,14 @@ _Avoid_: child template, nested template
 **installer template** — The one published Grok Bot Add link: Agora. User Adds Agora once; Agora CreateAgents the rest of the flow from blueprints.
 _Avoid_: publishing each stage as its own template in v1
 
-**install event** — Anonymous telemetry fired by Agora after a successful CreateAgent (`event=install`, bot name, blueprint-release name, `agora=1`). Not a raw GitHub zip download count. Honors `DO_NOT_TRACK`.
+**install id** — Opaque token for one Agora installation. Client-minted; Agora sole-writes `/workspace/bots/INSTALL_ID`. Not an account, person, or child bot id. Required on every **install event**.
+_Avoid_: account id, bot id
+
+**Agora registration** — Record that an Agora installer is in use, upserted on first turn if the local install id is missing, before CreateAgent. Distinct from an **install event**. Honors `DO_NOT_TRACK` (skip registration and install events; CreateAgent still runs).
+_Avoid_: treating template Add as an install event
+
+**install event** — Ping after a successful CreateAgent: `event=install`, roster bot name, blueprint-release name, `agora=1`, and a valid **install id**. Not template Add, not blueprint fetch, not upgrade-in-place, not a GitHub zip count; no account, career files, or IP/UA as product data. Honors `DO_NOT_TRACK`.
+_Avoid_: installer Add event, fetch telemetry
 
 **profile.yaml** — Who is the candidate? Identity only (name, locations, email, optional phone, links). Mneme sole-writes. Path: `/workspace/agora/profile.yaml`.
 
