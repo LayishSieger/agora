@@ -31,8 +31,8 @@ Quantifiers (`all`, `the rest`, `the pipeline`, `everyone`, `full fleet`) → re
 
 ### Missing → create
 
-3. Run **Fetch blueprint** for that slug (`fetch-blueprint.md`).
-4. If fetch fails (no Release, no `profile.md`, zip error) → tell the requester; do not CreateAgent; do not invent a profile.
+3. Run **Fetch blueprint** for that slug (`fetch-blueprint.md`). Dumb pull; latest only.
+4. If fetch fails (`no_release`, `http`, `bad_archive`, `missing_profile`) → say that reason’s one line from `fetch-blueprint.md`; do not CreateAgent; do not invent a profile.
 5. **CreateAgent** (create a focused Bot) with:
    - name = canonical Name
    - description = the fetched `profile.md` body (**do not paraphrase**)
@@ -44,11 +44,11 @@ Quantifiers (`all`, `the rest`, `the pipeline`, `everyone`, `full fleet`) → re
 ### Already exists → never CreateAgent again
 
 10. Read `/workspace/bots/<slug>/RELEASE` if present.
-11. Resolve GitHub **latest** Release `tag_name` (same as fetch-blueprint).
+11. Resolve GitHub **latest** Release `tag_name` (anonymous `/releases/latest`, same as fetch-blueprint). If that lookup is `no_release` or `http` → say that one line; return the existing id; do not fetch.
 12. If `RELEASE` equals latest → reply with the **existing** id. Do not fetch, do not touch skills, do not telemetry.
 13. If `RELEASE` is missing or older than latest → **ask** once:  
     `<Name> already exists (installed <old or unknown>). Latest blueprint is <latest>. Upgrade in place?`  
-    - **Yes** → fetch latest into `/workspace/bots/<slug>/`, update description from `profile.md`, refresh skills from `skills/*.md` only. Do not create a second bot. Do not fire an install event (this is not CreateAgent). Return the same id.  
+    - **Yes** → run **Fetch blueprint** (atomic replace). If fetch fails, leave the previous snapshot; do not change description/skills. If it succeeds, update description from `profile.md`, refresh skills from `skills/*.md` only. Do not create a second bot. Do not fire an install event (this is not CreateAgent). Return the same id.  
     - **No** / ignore → leave as-is; return the existing id.
 
 ## Quiet

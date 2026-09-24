@@ -2,4 +2,4 @@
 
 **Settled in skills.** `bots/agora/skills/first-run.md`, `need-bot.md`, `fetch-blueprint.md`.
 
-`first-run` no longer waits on a grilled Euodia: it must CreateAgent Mneme even when Euodia fetch fails (`profile.md` missing). Euodia’s blueprint is authored at `bots/euodia/`. First-run records an Euodia id when the fetched Release includes `profile.md`. A README-only tree still fails.
+`first-run` CreateAgent Mneme even when Euodia fetch is `missing_profile`. `no_release` / `http` / `bad_archive` fail both. Fetch contract: `bots/agora/skills/fetch-blueprint.md`.

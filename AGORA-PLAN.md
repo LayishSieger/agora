@@ -100,4 +100,4 @@ Intake v1: interview · resume/PDF · LinkedIn PDF/paste. Mixed JD+resume → ev
 
 ## Next
 
-Euodia’s blueprint is authored. Install telemetry (`/t`) v1 grilled (`docs/install-telemetry-grill.md`) — wait to implement. Blueprint fetch contract v1 grilled (`docs/blueprint-fetch-contract-grill.md`) — wait for explicit **implement** before changing `fetch-blueprint.md`. Then the thin Agora template. Execution-bot stubs stay later. First-run CreateAgent Euodia once a Release includes `bots/euodia/profile.md`.
+Euodia’s blueprint is authored. Blueprint fetch contract is in steward skills (`bots/agora/skills/fetch-blueprint.md`). Install telemetry (`/t`) v1 grilled (`docs/install-telemetry-grill.md`) — wait to implement. Then the thin Agora template. Execution-bot stubs stay later. First-run CreateAgent Euodia once a Release includes `bots/euodia/profile.md` (`no_release` until then is correct).

@@ -1,10 +1,10 @@
 # Grill — Blueprint fetch contract
 
-Status: **v1 closed.** Rounds 1–2 answered. Enough to author. **Do not implement** until Layish says **implement**.
+Status: **v1 closed and encoded in steward skills** (`bots/agora/skills/fetch-blueprint.md`, callers in `first-run.md` / `need-bot.md`). Do not re-grill.
 
 This is the contract for **blueprint fetch**: bytes from GitHub → disk on the Grok computer. It is **not** CreateAgent, not skill enable, not first-run greeting, not `need` parsing, not install telemetry.
 
-`bots/agora/skills/fetch-blueprint.md` is still a **steward draft** (restore sentence and in-place overwrite are wrong). Align that skill only at **implement**.
+`bots/agora/skills/fetch-blueprint.md` encodes this contract (no restore, atomic replace, closed fail reasons, symlink reject, same-turn reuse).
 
 ---
 
@@ -92,9 +92,8 @@ Not v1 fetch (do not grill now): error-string copy, zip size/time caps, bot-with
 
 ---
 
-## Author at implement (not open product questions)
+## Encoded in skills
 
-- Rewrite `fetch-blueprint.md` to this contract (drop restore; atomic replace; fail reasons; symlink reject; same-turn reuse).
-- One-line user copy per fail reason.
-- `first-run.md`: `no_release`/`http`/`bad_archive` fail both; `missing_profile` on Euodia → `FAILED` and continue; `FIRST_RUN` `tag=` from a successful fetch (prefer Mneme).
-- `need-bot.md`: same reasons; still no CreateAgent on fetch fail.
+- `fetch-blueprint.md` — zipball, atomic replace, closed reasons, symlink reject, same-turn reuse, latest only.
+- `first-run.md` — `no_release`/`http`/`bad_archive` fail both; `missing_profile` on Euodia continues; `FIRST_RUN` `tag=` prefers Mneme.
+- `need-bot.md` — same reasons; no CreateAgent on fetch fail; upgrade **Yes** is another dumb fetch.
