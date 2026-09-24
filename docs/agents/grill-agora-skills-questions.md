@@ -1,56 +1,47 @@
 # Grill — Author Agora steward skills
 
-Skill bodies still wait except as noted below.
+**Settled:** Add Agora only; CreateAgent from **latest GitHub Release**; remember the release; whole `bots/<name>/` tree; first-run behavior later; **don’t write `first-run.md` until Euodia**; don’t write fetch/need until this round is clear.
 
-**Settled**
-
-- v1: Add Agora only; CreateAgent children from GitHub (ADR 0006).
-- Fetch **latest GitHub Release**, remember which; later upgrade skill can check for newer (ADR 0007). Not `main`.
-- First-run **behavior**: first message, if foundation missing, create then greet (Q2 A).
-- **Do not write `first-run.md` until Euodia is grilled** (Q3 B). Then it still creates both.
-- Blueprint = whole `bots/<name>/` (Q4 A).
+**Q2 from last round:** CreateAgent from `profile.md` + skills on the bot is OK **if we don’t invent a folder that fights how Grok creates bots.** Official docs only require `/workspace` and “clear project folders.” They do **not** document a CreateAgent folder. This repo’s layout is already `bots/<name>/`.
 
 ---
 
-## Round 4 — last mechanics (short)
+## Round 5 — path, versions, leftover bots
 
-❓ **Q1** - **Where do fetched files go on the computer?**
+❓ **Q1** - **Folder for the fetched blueprint**
 
-- **A.** `/workspace/blueprints/<name>/`
-- **B.** `/workspace/agora/blueprints/<name>/` (next to career files)
-- **C.** Temp folder, delete after CreateAgent
+- **A.** `/workspace/bots/<name>/` — same names as this GitHub repo. (What you asked.)
+- **B.** Whatever folder CreateAgent/the app already makes for that bot, if any; only if that’s empty/unknown, use A.
+- **C.** Something else — paste it.
 
-➡️ **Recommend A.** Keep `/workspace/agora/` for Mneme/Kairos career files only.
-
----
-
-❓ **Q2** - **After fetch, how does the child get its brain?**
-
-- **A.** CreateAgent using `profile.md` as the description; leave the folder on disk; save each `skills/*.md` as a skill on that bot
-- **B.** Put everything into the Bot description only
-- **C.** Files on disk only; no Grok skills
-
-➡️ **Recommend A.**
+➡️ **Recommend A**, or **B** if you already know Grok writes a bot folder. Don’t use `/workspace/blueprints/`. Don’t put blueprints under `/workspace/agora/` (that’s career data).
 
 ---
 
-❓ **Q3** - **`need <Name>`**
+❓ **Q2** - **Old versions**
 
-- **A.** Only the seven roster names. Already exists → return that bot, don’t create a second. Unknown name → refuse.
-- **B.** Also accept Greek / English titles as aliases
-- **C.** Any name
+GitHub **Releases already are versions** (`v1.2.0`, `v1.3.0`). You do not have to invent a second version system.
 
-➡️ **Recommend A.**
+- **A.** One live folder per bot + a small `RELEASE` file (e.g. `v1.2.0`). Need an old snapshot? Fetch **that** Release from GitHub into the same folder. No `v1/` `v2/` subfolders on disk.
+- **B.** Keep many copies: `/workspace/bots/<name>/v1.2.0/`, `v1.3.0/`, …
+- **C.** No VERSION file; only “latest” on disk, forget what you installed.
 
----
-
-❓ **Q4** - **Write skills now?**
-
-- **A.** Write `fetch-blueprint.md` + `need-bot.md` now (Mneme is enough to test need). `first-run.md` after Euodia.
-- **B.** Write nothing until Euodia is also grilled.
-
-➡️ **Recommend A** so Agora can `need Mneme` / later stages from files. first-run stays a reminder in the plan.
+➡️ **Recommend A.** B clutters the shared computer. C makes leftover-bot checks impossible.
 
 ---
 
-Reply like `Q1 A, Q2 A, Q3 A, Q4 A`.
+❓ **Q3** - **Child bot already there** (reinstall Agora, didn’t delete Mneme)
+
+Never CreateAgent a second Mneme.
+
+- **A.** If name exists: skip create. If `RELEASE` is missing or older than GitHub latest, **refresh in place** (files + description + skills) to latest.
+- **B.** If name exists: skip create **and** skip refresh. Tell them to delete the child if they wanted a clean start.
+- **C.** If name exists and stale: skip create, **ask** “upgrade Mneme to v1.3.0?” then refresh only if yes.
+
+➡️ **Recommend A** for quiet steward, or **C** if you don’t want silent overwrites of a bot they still use. Your “check version” note is A or C, not skip-blindly.
+
+---
+
+Q4 (write skills) still waits on Q1–Q3.
+
+Reply like `Q1 A, Q2 A, Q3 A or C`.
