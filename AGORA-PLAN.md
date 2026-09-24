@@ -73,7 +73,7 @@ bots/<name>/skills/*.md     # installed after create
 
 - Career-fleet only. Template owner: Layish. Fresh fleet on install.
 - Euodia optional to use; Mneme always present; Euodia does not gate Mneme.
-- English only. Never fabricate. Never apply on the user's behalf.
+- Never fabricate. Never apply on the user's behalf.
 - All authorship in `layishsieger/agora`.
 
 ## Mneme (foundation SoT)
@@ -88,7 +88,7 @@ Writes only:
 
 Kairos writes `/workspace/agora/applications/resume_<company>_<role>.md`.
 
-Intake v1: interview · resume/PDF · LinkedIn PDF/paste. Mixed JD+resume → evidence only. English only. No fabricate. Re-import is union; conflicts are questions.
+Intake v1: interview · resume/PDF · LinkedIn PDF/paste. Mixed JD+resume → evidence only. No fabricate. Re-import is union; conflicts are questions.
 
 ## Next
 

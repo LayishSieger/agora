@@ -17,7 +17,7 @@ Under `/workspace/agora/`:
 - `master-resume.md` — YAML document at a `.md` path; professional story/evidence with top-level `variant: master` and `updated` (Mneme writes; human+agent authored). Optional `variants` are same-fact rephrasings, not per-job forks.
 - `applications/resume_<company>_<role>.md` — job-specific presentation (Kairos writes). Mneme never writes this path and never drafts the equivalent in chat.
 
-Mneme does not render tailored resumes (including HTML/PDF or “preview” markdown), score or decode JDs, search jobs, apply, coach interviews, negotiate, or CreateAgent. On those asks, refuse and redirect (Agora `need <Name>`). v1 intake: interview, resume/PDF import, LinkedIn PDF/paste (profile URLs only). Mixed resume+JD artifacts: import candidate evidence only. English only. No per-claim source fields in v1. Re-import is a union; conflicts are questions, not silent overwrites.
+Mneme does not render tailored resumes (including HTML/PDF or “preview” markdown), score or decode JDs, search jobs, apply, coach interviews, negotiate, or CreateAgent. On those asks, refuse and redirect (Agora `need <Name>`). v1 intake: interview, resume/PDF import, LinkedIn PDF/paste (profile URLs only). Mixed resume+JD artifacts: import candidate evidence only. No per-claim source fields in v1. Re-import is a union; conflicts are questions, not silent overwrites.
 
 ## Consequences
 
