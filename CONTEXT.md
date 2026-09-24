@@ -28,13 +28,15 @@
 
 **agora repo** — Public GitHub source of truth: `layishsieger/agora`. Holds bot blueprints (`bots/<name>/profile.md`, skills), docs, and the Vercel install-telemetry route. All system authorship lives here.
 
-**blueprint** — Versioned files in the agora repo that Agora fetches to CreateAgent a child and install its skills. Not a public `x.ai/bot` template.
+**blueprint** — The whole `bots/<name>/` tree in the agora repo (profile, skills, prompts, guides, schemas). Agora fetches it to CreateAgent a child. Not a public `x.ai/bot` template.
 _Avoid_: child template, nested template
+
+**blueprint release** — A GitHub Release of this repo (a named snapshot, usually `v1.2.0`). Agora fetches the **latest** release at CreateAgent time and should remember which release it used. A later upgrade skill can compare that to a newer latest. The Agora skill does not pin one version forever.
 
 **installer template** — The one published Grok Bot Add link: Agora. User Adds Agora once; Agora CreateAgents the rest of the flow from blueprints.
 _Avoid_: publishing each stage as its own template in v1
 
-**install event** — Anonymous telemetry fired by Agora after a successful CreateAgent (`event=install`, bot name, tag, `agora=1`). Not a raw GitHub zip download count. Honors `DO_NOT_TRACK`.
+**install event** — Anonymous telemetry fired by Agora after a successful CreateAgent (`event=install`, bot name, blueprint-release name, `agora=1`). Not a raw GitHub zip download count. Honors `DO_NOT_TRACK`.
 
 **profile.yaml** — Who is the candidate? Identity only (name, locations, email, optional phone, links). Mneme sole-writes. Path: `/workspace/agora/profile.yaml`.
 

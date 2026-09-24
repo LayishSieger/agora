@@ -1,51 +1,56 @@
 # Grill — Author Agora steward skills
 
-Skill bodies are **not** written until this grill is settled or you say proceed.
+Skill bodies still wait except as noted below.
 
-**Settled:** v1 user Adds **Agora only**. Agora **CreateAgent**s children from this GitHub repo. Not independent child templates — they are one flow (ADR 0006). Round 2 Q2–Q4 skipped.
+**Settled**
 
-**Still true:** only Agora CreateAgent; first-run aims at Euodia + Mneme; later bots via `need <Name>`; Mneme grilled; Euodia stub; telemetry hosting later.
-
----
-
-## Round 3 — keep it short
-
-❓ **Q1** - **Which GitHub version does Agora fetch?**
-
-- **A.** Latest GitHub Release
-- **B.** A tag pinned in the Agora skill (bump pin + Update template when you want)
-- **C.** Live `main`
-
-➡️ **Recommend B** (stable). **A** if you want blueprint fixes without touching Agora. Don’t pick **C**.
+- v1: Add Agora only; CreateAgent children from GitHub (ADR 0006).
+- Fetch **latest GitHub Release**, remember which; later upgrade skill can check for newer (ADR 0007). Not `main`.
+- First-run **behavior**: first message, if foundation missing, create then greet (Q2 A).
+- **Do not write `first-run.md` until Euodia is grilled** (Q3 B). Then it still creates both.
+- Blueprint = whole `bots/<name>/` (Q4 A).
 
 ---
 
-❓ **Q2** - **When does first-run create Euodia + Mneme?**
+## Round 4 — last mechanics (short)
 
-- **A.** On the first message, if they’re missing — then greet once
-- **B.** Only after the user says yes (“stand up the foundation”)
+❓ **Q1** - **Where do fetched files go on the computer?**
 
-➡️ **Recommend A** (matches the existing first-run story). **B** is what that Grok chat suggested.
+- **A.** `/workspace/blueprints/<name>/`
+- **B.** `/workspace/agora/blueprints/<name>/` (next to career files)
+- **C.** Temp folder, delete after CreateAgent
 
----
-
-❓ **Q3** - **Euodia is still a stub. First-run?**
-
-- **A.** Create both anyway (stub Euodia until its grill)
-- **B.** Don’t write `first-run` until Euodia is grilled
-- **C.** Create Mneme only for now (changes “both on first-run”)
-
-➡️ **Recommend A** if a stub pathfinder is ok; **B** if not. Don’t silently pick **C**.
+➡️ **Recommend A.** Keep `/workspace/agora/` for Mneme/Kairos career files only.
 
 ---
 
-❓ **Q4** - **What files is a “blueprint”?**
+❓ **Q2** - **After fetch, how does the child get its brain?**
 
-- **A.** Whole `bots/<name>/` (profile, skills, prompts, guides, schemas)
-- **B.** Only `profile.md` + `skills/*.md`
+- **A.** CreateAgent using `profile.md` as the description; leave the folder on disk; save each `skills/*.md` as a skill on that bot
+- **B.** Put everything into the Bot description only
+- **C.** Files on disk only; no Grok skills
 
-➡️ **Recommend A.** Mneme’s skill already points at prompts/guides/schemas.
+➡️ **Recommend A.**
 
 ---
 
-Reply A/B/C for Q1–Q4. Then we can finish the last bits (where files land, how skills attach) or you can say proceed to write the three skills.
+❓ **Q3** - **`need <Name>`**
+
+- **A.** Only the seven roster names. Already exists → return that bot, don’t create a second. Unknown name → refuse.
+- **B.** Also accept Greek / English titles as aliases
+- **C.** Any name
+
+➡️ **Recommend A.**
+
+---
+
+❓ **Q4** - **Write skills now?**
+
+- **A.** Write `fetch-blueprint.md` + `need-bot.md` now (Mneme is enough to test need). `first-run.md` after Euodia.
+- **B.** Write nothing until Euodia is also grilled.
+
+➡️ **Recommend A** so Agora can `need Mneme` / later stages from files. first-run stays a reminder in the plan.
+
+---
+
+Reply like `Q1 A, Q2 A, Q3 A, Q4 A`.

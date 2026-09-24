@@ -92,4 +92,4 @@ Intake v1: interview · resume/PDF · LinkedIn PDF/paste. Mixed JD+resume → ev
 
 ## Next
 
-Author Agora skills (`first-run`, `need-bot`, `fetch-blueprint`). Euodia blueprint after that.
+Author `fetch-blueprint` and `need-bot` after the remaining grill. **Do not author `first-run` until Euodia’s blueprint exists** (then first-run creates both Euodia + Mneme). Grill Euodia next for that.
