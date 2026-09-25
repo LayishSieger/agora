@@ -1,8 +1,8 @@
 # Grill — Thin Agora public template (installer Add link)
 
-Status: **Rounds 1–2 locked. v1 frontier empty.** Stopped — wait for Layish to say **implement**. Do not implement the export pack, mint an `x.ai/bot/…` link, or change CreateAgent wiring / fetch-blueprint / steward skills until then.
+Status: **Implemented / closed.** Rounds 1–2 locked; v1 frontier empty; repo matches the letters. Layish still Publishes the live `x.ai/bot/…` link from a new empty Agora (`docs/agents/agora-template-mint.md`). Do not re-grill. Do not mint from this agent.
 
-This grill is the **installer template**: the one published Grok Bot recipe users Add. It is **not** child blueprints (except the Q1 override that Agora may fetch **its own** authorship tree the same way children do), not zipball internals, not `/t` protocol, not Euodia/Mneme one-jobs.
+This grill is the **installer template**: the one published Grok Bot recipe users Add. It is **not** child blueprints (except Agora **self-materialize** of its own authorship tree), not zipball internals, not `/t` protocol, not Euodia/Mneme one-jobs.
 
 Answers: letter + one line if you override the recommendation.
 
@@ -76,7 +76,7 @@ Do **not** re-grill: install telemetry rounds 1–3, blueprint fetch contract (e
 
 - Glossary **installer template** remains the Add link. Q4 **A** means there is **no** separate gallery blurb.
 - Q1 override **does** split: **frozen recipe** (what Add copies: persona + three steward skills) vs **authorship tree** `bots/agora/` vs **installed** `/workspace/bots/agora/` (playbooks, at least `prompts/out-of-scope.md`). Installed-blueprint language already exists for children; Agora-on-disk is the same machine path with a lifted slug. Do **not** invent `export pack` in `CONTEXT.md` until implement.
-- After close: offer a short ADR for the **Not Agora** exception (fetch-blueprint + ADR 0004 still freeze skills). **Do not write that ADR in this PR.**
+- After close: ADR **0015** records the **Not Agora** lift (0011–0014 are the fetch contract). Glossary: **template recipe**, **Agora self-materialize**. Mint checklist: `docs/agents/agora-template-mint.md`. Do **not** invent `export pack`.
 
 ---
 
@@ -321,14 +321,23 @@ R1-Q2 **A**: strip memories / mint from a clean bot. Palmer: Add copies that sou
 
 ---
 
-## v1 author checklist (when told **implement** — not this turn)
+## Landed (implement)
 
-- **Mint:** new empty Grok Bot, identity name `Agora`, instructions = `profile.md`, enable public `first-run` / `need-bot` / `fetch-blueprint`, no memories, no routines, no plugins, Publish public `https://x.ai/bot/…`. Never Publish the working box.
-- **Skills (later PR):** lift **Not Agora** for self-materialize only; first-run fetches whole `bots/agora/` before children; overwrite `/workspace/bots/agora/` + `RELEASE`; do not re-enable disk skills; do not CreateAgent Agora. Telemetry client still skipped until Update template.
-- **Docs after implement (or a follow-on docs PR):** short ADR for the Not Agora exception; glossary note that Agora can be an installed-blueprint slug on disk. Do **not** invent `export pack` until that work.
+- Skills: `bots/agora/skills/fetch-blueprint.md`, `first-run.md`, `need-bot.md`
+- ADR **0015**; ADR **0008** notes Agora overwrite has no ask
+- Mint: `docs/agents/agora-template-mint.md`
+- Glossary: **template recipe**, **Agora self-materialize**; **installed blueprint** allows disk Agora
+
+---
+
+## v1 author checklist (done in repo)
+
+- **Mint (Layish):** new empty Grok Bot, identity name `Agora`, instructions = `profile.md`, enable public `first-run` / `need-bot` / `fetch-blueprint`, no memories, no routines, no plugins, Publish public `https://x.ai/bot/…`. Never Publish the working box. Follow `docs/agents/agora-template-mint.md`.
+- **Skills:** **Not Agora** lifted for self-materialize only; first-run fetches whole `bots/agora/` before children; overwrite + `RELEASE`; do not re-enable disk skills; do not CreateAgent Agora. Telemetry client skipped until Update template.
+- **Docs:** ADR **0015**; glossary terms above.
 
 ---
 
 ## Stop
 
-Shared understanding for the installer template. Round 2 **closes the frontier**. Do not author fetch-blueprint, first-run, mint, or CreateAgent wiring until Layish says **implement**.
+Grill closed. Repo skills and docs match. **Do not mint** the live Add link from this agent. Wait for Layish to Publish from a new empty Agora.

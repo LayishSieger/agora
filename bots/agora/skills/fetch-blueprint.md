@@ -1,19 +1,20 @@
 ---
 name: Fetch blueprint
 description: >-
-  Use when Agora must pull one roster bot’s tree from the latest GitHub
-  Release of LayishSieger/agora onto the Grok computer. Writes
-  /workspace/bots/<slug>/ plus RELEASE. Never fetch main. Never CreateAgent.
+  Use when Agora must pull one tree from the latest GitHub Release of
+  LayishSieger/agora onto the Grok computer: a roster slug, or Agora for
+  disk playbooks only. Writes /workspace/bots/<slug>/ plus RELEASE.
+  Never fetch main. Never CreateAgent. Never enable Grok skills.
   Never write /workspace/agora/ career files. No telemetry.
 ---
 
 # Fetch blueprint
 
-Pull **one** named fleet bot’s files from GitHub onto this computer. Do not create a bot. Do not install skills. Do not send telemetry (`/r` or `/t`). Do not greet. Do not write career files under `/workspace/agora/`. Do not write `/workspace/bots/FIRST_RUN` or `INSTALL_ID`.
+Pull **one** named tree from GitHub onto this computer. Do not create a bot. Do not install or re-enable skills. Do not send telemetry (`/r` or `/t`). Do not greet. Do not write career files under `/workspace/agora/`. Do not write `/workspace/bots/FIRST_RUN` or `INSTALL_ID`.
 
-This skill is a **dumb pull**. Always resolve latest, download (unless same-turn reuse below), and write. Callers (`first-run`, `need-bot`) decide *whether* to invoke it. v1 is **latest only** — no restore, no caller-named older tag, no pin.
+This skill is a **dumb pull**. Always resolve latest, download (unless same-turn reuse below), and write. Callers (`first-run`, `need-bot`, Agora self-materialize) decide *whether* to invoke it. v1 is **latest only** — no restore, no caller-named older tag, no pin.
 
-## Roster slugs
+## Roster slugs (CreateAgent children)
 
 | Name (need / CreateAgent) | Repo tree → install folder |
 |---|---|
@@ -25,7 +26,15 @@ This skill is a **dumb pull**. Always resolve latest, download (unless same-turn
 | Melete | `bots/melete/` → `/workspace/bots/melete/` |
 | Peitho | `bots/peitho/` → `/workspace/bots/peitho/` |
 
-Unknown name, `Agora`, or any other folder (`apps/`, `docs/`, …) → **stop**. Do not guess. Do not install the whole repo on disk.
+## Agora (disk only)
+
+| Name | Repo tree → install folder |
+|---|---|
+| Agora | `bots/agora/` → `/workspace/bots/agora/` |
+
+Fetch **Agora** only to materialize playbooks on disk (whole tree, same extract and atomic-replace rules as children). Do **not** CreateAgent Agora. Do **not** enable or replace Grok skill slots from this zip — running skills stay the Add snapshot (ADR 0004, ADR 0015). Atomic replace `/workspace/bots/agora/`; do **not** ask.
+
+Unknown name or any other folder (`apps/`, `docs/`, …) → **stop**. Do not guess. Do not install the whole repo on disk.
 
 ## Fail closed (exactly one reason)
 
@@ -59,7 +68,7 @@ Extract into a **new temp directory**, never into the live `/workspace/bots/<slu
 - Reject `..`, absolute paths, and any path not under `bots/<slug>/`.
 - Take the whole shipped slug tree (`profile.md`, `skills/`, `prompts/`, `guides/`, `schemas/`, README, other regular files). Do not invent files. Do not drop unknown regular files in that slug.
 
-If `profile.md` is missing in the temp tree → `missing_profile`. Delete the temp dir. Do not swap.
+If `profile.md` is missing in the temp tree → `missing_profile`. Delete the temp dir. Do not swap. (Same for slug `agora`: not a valid self-materialize.)
 
 ## Write (atomic replace)
 
@@ -69,7 +78,7 @@ Destination: `/workspace/bots/<slug>/`. No version subfolders. Old snapshots sta
 2. Swap the temp directory over `/workspace/bots/<slug>/` so the live folder **is** the shipped tree plus `RELEASE`. Removed upstream files are gone. Extras that were only on disk are gone.
 3. If swap fails → `http`. Previous live folder untouched. Delete temp.
 
-Do not write `/workspace/agora/`. Do not enable skills here.
+Do not write `/workspace/agora/`. Do not enable skills here. For slug `agora`, replacing disk `skills/*.md` does **not** change the enabled Grok slots.
 
 ## Return (success)
 
