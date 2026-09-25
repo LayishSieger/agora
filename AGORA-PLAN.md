@@ -99,4 +99,8 @@ Intake v1: interview · resume/PDF · LinkedIn PDF/paste. Mixed JD+resume → ev
 
 ## Next
 
+<<<<<<< HEAD
 Thin Agora **template recipe** includes Install telemetry. Blueprint fetch contract is in steward skills. Layish Publishes (or **Update template** if an earlier mint skipped telemetry) from `docs/agents/agora-template-mint.md`. Pre-authored `bots/<slug>/avatar.png` files are a later assets PR. Execution-bot stubs stay later. First-run CreateAgent Euodia once a Release includes `bots/euodia/profile.md` (`no_release` until then is correct). Custom domain / public stats / Firewall rate-limit for telemetry stay out of v1.
+=======
+Thin Agora **template recipe** is authored (self-materialize + mint checklist + fleet identity). Blueprint fetch contract is in steward skills. Layish Publishes / Updates from the mint checklist. **Install telemetry client bytes** + Update template: open PR / grill closed — do not reopen the `/r` `/t` contract. Pre-authored `bots/<slug>/avatar.png` files are a later assets PR. **Now (grill only):** execution-bot **stubs** (Zetesis → Peitho) — `docs/execution-stubs-grill.md`; do **not** author those blueprints until Layish says **implement**. Latest Release already includes Euodia `profile.md`; execution folders are still README-only (`missing_profile` on `need` until stubs ship in a later Release).
+>>>>>>> f650eff (docs: grill execution-bot stubs (Round 1, wait to implement))
