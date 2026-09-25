@@ -100,4 +100,4 @@ Intake v1: interview · resume/PDF · LinkedIn PDF/paste. Mixed JD+resume → ev
 
 ## Next
 
-Euodia’s blueprint is authored. Next: install telemetry (`/t`), then the blueprint fetch contract, then the thin Agora template. Execution-bot stubs stay later. First-run CreateAgent Euodia once a Release includes `bots/euodia/profile.md`.
+Euodia’s blueprint is authored. Install telemetry, fetch contract, and thin public template were grilled separately (do not reopen). **Now:** execution-bot **stubs** (Zetesis → Peitho) — grill in `docs/execution-stubs-grill.md`; do not author those blueprints until Layish says implement. First-run CreateAgent Euodia once a Release includes `bots/euodia/profile.md`. Execution `need` still requires `profile.md` in that Release (README-only fails).
