@@ -3,9 +3,10 @@ name: Need bot
 description: >-
   Use when Agora is messaged need <Name>, or a stage bot asks for another
   fleet bot. Fetch latest blueprint, CreateAgent if missing, ask before
-  upgrading an existing stale bot. Only Agora. Never a second bot of the
-  same name. Never CreateAgent a custom bot. Do not run first-run’s
-  Euodia+Mneme pair from this skill.
+  upgrading an existing stale bot. After CreateAgent, best-effort Apply
+  fleet identity (never block the id reply). Only Agora. Never a second
+  bot of the same name. Never CreateAgent a custom bot. Do not run
+  first-run’s Euodia+Mneme pair from this skill.
 ---
 
 # Need bot
@@ -41,16 +42,17 @@ Quantifiers (`all`, `the rest`, `the pipeline`, `everyone`, `full fleet`) → re
 6. Leave the fetched tree on disk at `/workspace/bots/<slug>/` (skills **and** prompts/guides/schemas — the child reads those paths). Do not copy them into `/workspace/agora/`.
 7. For each `skills/*.md` in that folder, save it as a skill and enable it on **this** bot. Do not add extra skills from chat, gists, or the user. Zero skill files is allowed if `profile.md` exists.
 8. Telemetry: **skip `/r` and `/t`** in this recipe (no URL on first mint). Do not invent a host. A later **Update template** may add client bytes; until then, successful CreateAgent still stands without a ping. Do not send names, resumes, or career files.
-9. Reply with the new bot’s id (and name). **Stop.** Do not start that bot’s job in Agora chat.
+9. Best-effort **Apply fleet identity** for that Name (`apply-fleet-identity.md`). Never block the id reply. Soft fail one line max.
+10. Reply with the new bot’s id (and name). **Stop.** Do not start that bot’s job in Agora chat.
 
 ### Already exists → never CreateAgent again
 
-10. Read `/workspace/bots/<slug>/RELEASE` if present.
-11. Resolve GitHub **latest** Release `tag_name` (anonymous `/releases/latest`, same as fetch-blueprint). If that lookup is `no_release` or `http` → say that one line; return the existing id; do not fetch.
-12. If `RELEASE` equals latest → reply with the **existing** id. Do not fetch, do not touch skills, do not telemetry.
-13. If `RELEASE` is missing or older than latest → **ask** once:  
+11. Read `/workspace/bots/<slug>/RELEASE` if present.
+12. Resolve GitHub **latest** Release `tag_name` (anonymous `/releases/latest`, same as fetch-blueprint). If that lookup is `no_release` or `http` → say that one line; return the existing id; do not fetch.
+13. If `RELEASE` equals latest → reply with the **existing** id. Do not fetch, do not touch skills, do not telemetry, do not re-image.
+14. If `RELEASE` is missing or older than latest → **ask** once:  
     `<Name> already exists (installed <old or unknown>). Latest blueprint is <latest>. Upgrade in place?`  
-    - **Yes** → run **Fetch blueprint** (atomic replace). If fetch fails, leave the previous snapshot; do not change description/skills. If it succeeds, update description from `profile.md`, refresh skills from `skills/*.md` only. Do not create a second bot. Do not fire an install event (this is not CreateAgent). Return the same id.  
+    - **Yes** → run **Fetch blueprint** (atomic replace). If fetch fails, leave the previous snapshot; do not change description/skills. If it succeeds, update description from `profile.md`, refresh skills from `skills/*.md` only. Then, if title is missing/wrong or avatar is missing, best-effort **Apply fleet identity** once; if you cannot inspect title/avatar, **skip** (do not force a new image). Do not create a second bot. Do not fire an install event (this is not CreateAgent). Return the same id.  
     - **No** / ignore → leave as-is; return the existing id.
 
 ## Quiet
@@ -62,4 +64,4 @@ After the reply, point the user at the child. Career work is the child’s one-j
 - Euodia **and** Mneme together, one greeting → `first-run.md`
 - Delete / Duplicate / child template Add
 - CreateAgent Agora (`need Agora` still refuse). Disk fetch of `bots/agora/` when the playbook is missing is allowed.
-- `upgrade roster` as a bulk phrase → refuse; the only upgrade in *this* skill is the ask in step 13
+- `upgrade roster` as a bulk phrase → refuse; the only upgrade in *this* skill is the ask in step 14
