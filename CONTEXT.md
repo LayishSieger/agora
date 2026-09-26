@@ -22,7 +22,7 @@
 
 **Career foundation** — Euodia and Mneme (both created on first-run). If the fetched Release has no Euodia `profile.md`, that CreateAgent fails and Mneme is still created. Euodia does not gate Mneme.
 
-**first-run** — Agora’s one-time foundation path: fetch latest blueprint release, CreateAgent Euodia and Mneme, greet once, quiet. Not `need`. Not the execution pipeline. Marker file: `/workspace/bots/FIRST_RUN` (Agora sole-writes). Not career SoT.
+**first-run** — Agora’s one-time foundation path: blueprint-fetch Euodia and Mneme from latest (each fetch may see a different latest), CreateAgent both (Mneme even if Euodia fails), greet once, quiet. Not `need`. Not the execution pipeline. Marker file: `/workspace/bots/FIRST_RUN` (Agora sole-writes). Not career SoT.
 
 **CreateAgent** — Agora creating a focused child Bot on the same Grok account from an installed blueprint (`profile.md` verbatim + `skills/*.md`). Not template Add, not Duplicate, not a second bot of the same name.
 _Avoid_: Add child template, Duplicate Agora
@@ -36,9 +36,12 @@ _Avoid_: Add child template, Duplicate Agora
 **blueprint** — Authorship tree in this GitHub repo: `bots/<name>/` (profile, skills, prompts, guides, schemas). Not a public `x.ai/bot` template.
 _Avoid_: child template, nested template
 
-**installed blueprint** — Copy on the **Grok Bot computer** after Agora fetches a release: `/workspace/bots/<name>/`, plus a `RELEASE` file (e.g. `v1.2.0`). Same layout as the repo, different machine. Career files stay `/workspace/agora/`. If that bot already exists and `RELEASE` is stale, Agora asks before refresh; it never CreateAgents a second copy.
+**blueprint fetch** — Agora copying **one** roster slug from the latest **blueprint release** onto the Grok computer. Not CreateAgent. Not an install event. v1 has no restore to an older tag.
+_Avoid_: clone main, pin, zip the whole repo onto disk
 
-**blueprint release** — A GitHub Release of this repo (a named snapshot, usually `v1.2.0`). Agora fetches the **latest** release at CreateAgent time and should remember which release it used. A later upgrade skill can compare that to a newer latest. The Agora skill does not pin one version forever.
+**installed blueprint** — Snapshot of that slug on the **Grok Bot computer**: `/workspace/bots/<name>/` matching the shipped tree for one blueprint release, plus `RELEASE` (`tag_name` only). Not a union of releases. A failed fetch leaves the previous snapshot. Career files stay `/workspace/agora/`. If that bot already exists and `RELEASE` is stale, Agora asks before refresh; it never CreateAgents a second copy.
+
+**blueprint release** — A GitHub Release of this repo (a named snapshot, usually `v1.2.0`). Agora fetches the **latest** published release (not a draft, not a prerelease, not `main`) and records its `tag_name` in `RELEASE`. A later upgrade skill can compare that to a newer latest. The Agora skill does not pin one version forever.
 
 **installer template** — The one published Grok Bot Add link: Agora. User Adds Agora once; Agora CreateAgents the rest of the flow from blueprints.
 _Avoid_: publishing each stage as its own template in v1

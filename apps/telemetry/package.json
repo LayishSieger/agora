@@ -1,0 +1,21 @@
+{
+  "name": "agora-telemetry",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "node --experimental-strip-types --test lib/*.test.ts"
+  },
+  "dependencies": {
+    "@vercel/blob": "^2.0.0",
+    "next": "^15.5.4",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.18.6",
+    "@types/react": "^19.1.13",
+    "typescript": "^5.9.2"
+  }
+}

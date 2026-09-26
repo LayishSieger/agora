@@ -4,12 +4,14 @@ description: >-
   Use when Agora must pull one roster bot’s tree from the latest GitHub
   Release of LayishSieger/agora onto the Grok computer. Writes
   /workspace/bots/<slug>/ plus RELEASE. Never fetch main. Never CreateAgent.
-  Never write /workspace/agora/ career files.
+  Never write /workspace/agora/ career files. No telemetry.
 ---
 
 # Fetch blueprint
 
-Pull **one** named fleet bot’s files from GitHub onto this computer. Do not create a bot. Do not install skills. Do not send telemetry. Do not greet. Do not write career files under `/workspace/agora/`.
+Pull **one** named fleet bot’s files from GitHub onto this computer. Do not create a bot. Do not install skills. Do not send telemetry (`/r` or `/t`). Do not greet. Do not write career files under `/workspace/agora/`. Do not write `/workspace/bots/FIRST_RUN` or `INSTALL_ID`.
+
+This skill is a **dumb pull**. Always resolve latest, download (unless same-turn reuse below), and write. Callers (`first-run`, `need-bot`) decide *whether* to invoke it. v1 is **latest only** — no restore, no caller-named older tag, no pin.
 
 ## Roster slugs
 
@@ -23,41 +25,60 @@ Pull **one** named fleet bot’s files from GitHub onto this computer. Do not cr
 | Melete | `bots/melete/` → `/workspace/bots/melete/` |
 | Peitho | `bots/peitho/` → `/workspace/bots/peitho/` |
 
-Unknown name, `Agora`, or any other folder (`apps/`, `docs/`, …) → **stop**. Do not guess. Do not fetch the whole repo.
+Unknown name, `Agora`, or any other folder (`apps/`, `docs/`, …) → **stop**. Do not guess. Do not install the whole repo on disk.
 
-## Source
+## Fail closed (exactly one reason)
 
-Repo: `https://github.com/LayishSieger/agora`
+Return **one** of these to the caller. Never CreateAgent. Never invent a persona. Never fall back to `main`, a branch, a gist, a paste, or a fork. Leave the previous `/workspace/bots/<slug>/` **untouched** (or absent).
 
-1. Resolve **latest GitHub Release** via `GET /repos/LayishSieger/agora/releases/latest` (GitHub’s latest **published** release; not a draft, not a prerelease, **not** `main`).
-2. Record `tag_name` (e.g. `v1.2.0`). That is the **blueprint release**.
-3. Download that tag’s source zip (`archive/refs/tags/<tag_name>.zip`).
-4. If there is **no** Release, the API errors, or the zip fails → **fail**. Say so. **Do not** clone, fetch `main`, float on a branch, or use a gist/paste/fork.
-5. Non-latest tag: only when the **caller** named a specific existing tag (restore). Default callers (`first-run`, `need-bot`) always want **latest**.
+| Reason | When | One line to the user |
+|---|---|---|
+| `no_release` | `GET /repos/LayishSieger/agora/releases/latest` is 404 or there is no published Release | No published GitHub Release yet. I won’t fetch `main`. |
+| `http` | 401, 403, 429, 5xx, network/timeout, or cannot write the temp/swap | GitHub (or disk) failed. Try later. I won’t fetch `main`. |
+| `bad_archive` | Zip won’t open; path escape (`..`, absolute); **any symlink**; non-regular file; member outside `bots/<slug>/` | The Release archive was unusable. I won’t CreateAgent from it. |
+| `missing_profile` | Slug prefix extracted but `profile.md` is missing (README-only stub is not enough) | No creatable `bots/<slug>/profile.md` in this Release. |
 
-## Extract (fail closed)
+Do not invent extra reasons.
 
-Zip members look like `<repo>-<tag>/bots/<slug>/…`. Extract **only** entries whose path is exactly that prefix for this slug.
+## Source (anonymous HTTPS)
 
-- Reject `..`, absolute paths, symlinks that escape `/workspace/bots/<slug>/`, and any path not under `bots/<slug>/`.
-- Take the **whole** tree that is there: `profile.md`, `skills/`, `prompts/`, `guides/`, `schemas/`, README — whatever shipped. Do not invent missing files. Do not execute anything in the zip.
-- If `profile.md` is missing after extract → **fail**. A stub README-only folder is not a creatable blueprint.
+Repo: `https://github.com/LayishSieger/agora`. No GitHub token. No `gh auth`.
 
-## Write
+1. `GET https://api.github.com/repos/LayishSieger/agora/releases/latest` (latest **published** Release: not draft, not prerelease, **not** `main`).
+2. Read `tag_name` (e.g. `v1.2.0`). That is the **blueprint release**. `RELEASE` will be this string only — no commit SHA, no checksum.
+3. Download that tag’s **source zipball**: `zipball_url` from the API, or `https://github.com/LayishSieger/agora/archive/refs/tags/<tag_name>.zip`. Do not require custom Release assets.
+4. **Same-turn reuse:** if this Agora turn already downloaded a zipball for **this exact** `tag_name`, reuse those bytes. If `/releases/latest` now names a **different** tag, GET again. Do **not** cache the zip on disk across turns or chats.
 
-Destination: `/workspace/bots/<slug>/` (Grok computer). Overwrite that folder’s blueprint files for this fetch.
+## Extract (temp tree)
 
-Write `/workspace/bots/<slug>/RELEASE` as a single line: the `tag_name`. No version subfolders (`v1.2.0/`). Old snapshots stay on GitHub Releases.
+Zip members look like `<first-component>/bots/<slug>/…`. The first component is GitHub’s archive prefix — **do not hardcode it**. Strip it. Keep only `bots/<slug>/`.
 
-Do not write `/workspace/agora/` (career SoT). Do not write `/workspace/bots/FIRST_RUN` (that is first-run). Do not enable skills here.
+Extract into a **new temp directory**, never into the live `/workspace/bots/<slug>/`.
 
-## Return
+- Regular **files and directories** only. Reject **all** symlinks (even if they would stay inside the slug), devices, and other specials. Do not execute anything in the zip.
+- Reject `..`, absolute paths, and any path not under `bots/<slug>/`.
+- Take the whole shipped slug tree (`profile.md`, `skills/`, `prompts/`, `guides/`, `schemas/`, README, other regular files). Do not invent files. Do not drop unknown regular files in that slug.
+
+If `profile.md` is missing in the temp tree → `missing_profile`. Delete the temp dir. Do not swap.
+
+## Write (atomic replace)
+
+Destination: `/workspace/bots/<slug>/`. No version subfolders. Old snapshots stay on GitHub Releases.
+
+1. Write `RELEASE` inside the **temp** tree as a single line: the `tag_name` (no SHA).
+2. Swap the temp directory over `/workspace/bots/<slug>/` so the live folder **is** the shipped tree plus `RELEASE`. Removed upstream files are gone. Extras that were only on disk are gone.
+3. If swap fails → `http`. Previous live folder untouched. Delete temp.
+
+Do not write `/workspace/agora/`. Do not enable skills here.
+
+## Return (success)
 
 To the caller:
 
 - slug
-- tag_name
+- `tag_name`
 - path `/workspace/bots/<slug>/`
-- whether `profile.md` and `skills/*.md` exist
+- `profile.md` present (required)
+- whether `skills/*.md` exist
 
-On failure: no CreateAgent, no partial “good enough” persona from chat.
+On any fail reason: no CreateAgent, no partial persona from chat, previous snapshot unchanged.
