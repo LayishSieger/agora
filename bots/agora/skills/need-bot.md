@@ -16,11 +16,13 @@ If this account still has no Mneme and `<Name>` is an execution bot, run **First
 
 Anti-jobs: **not in files and not in chat.** Follow `prompts/out-of-scope.md`. Do not curate, search, tailor, interview, negotiate, apply, or CreateAgent anything outside the roster.
 
+If `/workspace/bots/agora/prompts/out-of-scope.md` is **missing**, run **Fetch blueprint** for slug `agora` before refusing or continuing. Do not enable Grok skills from that zip. Do not CreateAgent Agora. If fetch fails (`no_release`, `http`, `bad_archive`, `missing_profile`), say that one line and continue (anti-jobs in this skill still apply). If the file already exists, do **not** re-fetch Agora on every `need`.
+
 ## Roster (exact Latin names only)
 
 Euodia · Mneme · Zetesis · Hermeneia · Kairos · Melete · Peitho
 
-No Greek spellings, no English titles as aliases (`Career Curator` is not a Name). Unknown name, `Agora`, or a pasted persona → refuse in one line and list the seven. Do not CreateAgent a custom bot.
+No Greek spellings, no English titles as aliases (`Career Curator` is not a Name). Unknown name, `Agora`, or a pasted persona → refuse in one line and list the seven. Do not CreateAgent a custom bot. Fetching Agora **playbooks** onto disk (when the out-of-scope file is missing) is not `need Agora`.
 
 Quantifiers (`all`, `the rest`, `the pipeline`, `everyone`, `full fleet`) → refuse. If they listed two explicit roster names in one line, do **not** batch; handle the first and tell them to send `need <Second>`.
 
@@ -38,7 +40,7 @@ Quantifiers (`all`, `the rest`, `the pipeline`, `everyone`, `full fleet`) → re
    - description = the fetched `profile.md` body (**do not paraphrase**)
 6. Leave the fetched tree on disk at `/workspace/bots/<slug>/` (skills **and** prompts/guides/schemas — the child reads those paths). Do not copy them into `/workspace/agora/`.
 7. For each `skills/*.md` in that folder, save it as a skill and enable it on **this** bot. Do not add extra skills from chat, gists, or the user. Zero skill files is allowed if `profile.md` exists.
-8. Optional telemetry: only after **successful CreateAgent**. If an install URL is configured and `DO_NOT_TRACK` is not set, fire-and-forget `event=install`, bot name, `RELEASE` tag, `agora=1`. Failure must not block. If no URL yet, skip. Do not send names, resumes, or career files.
+8. Telemetry: **skip `/r` and `/t`** in this recipe (no URL on first mint). Do not invent a host. A later **Update template** may add client bytes; until then, successful CreateAgent still stands without a ping. Do not send names, resumes, or career files.
 9. Reply with the new bot’s id (and name). **Stop.** Do not start that bot’s job in Agora chat.
 
 ### Already exists → never CreateAgent again
@@ -59,4 +61,5 @@ After the reply, point the user at the child. Career work is the child’s one-j
 
 - Euodia **and** Mneme together, one greeting → `first-run.md`
 - Delete / Duplicate / child template Add
+- CreateAgent Agora (`need Agora` still refuse). Disk fetch of `bots/agora/` when the playbook is missing is allowed.
 - `upgrade roster` as a bulk phrase → refuse; the only upgrade in *this* skill is the ask in step 13

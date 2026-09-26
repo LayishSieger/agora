@@ -22,7 +22,7 @@
 
 **Career foundation** — Euodia and Mneme (both created on first-run). If the fetched Release has no Euodia `profile.md`, that CreateAgent fails and Mneme is still created. Euodia does not gate Mneme.
 
-**first-run** — Agora’s one-time foundation path: blueprint-fetch Euodia and Mneme from latest (each fetch may see a different latest), CreateAgent both (Mneme even if Euodia fails), greet once, quiet. Not `need`. Not the execution pipeline. Marker file: `/workspace/bots/FIRST_RUN` (Agora sole-writes). Not career SoT.
+**first-run** — Agora’s one-time foundation path: self-materialize Agora playbooks, then blueprint-fetch Euodia and Mneme from latest (each fetch may see a different latest), CreateAgent both (Mneme even if Euodia fails), greet once, quiet. Not `need`. Not the execution pipeline. Marker file: `/workspace/bots/FIRST_RUN` (Agora sole-writes). Not career SoT.
 
 **CreateAgent** — Agora creating a focused child Bot on the same Grok account from an installed blueprint (`profile.md` verbatim + `skills/*.md`). Not template Add, not Duplicate, not a second bot of the same name.
 _Avoid_: Add child template, Duplicate Agora
@@ -36,15 +36,22 @@ _Avoid_: Add child template, Duplicate Agora
 **blueprint** — Authorship tree in this GitHub repo: `bots/<name>/` (profile, skills, prompts, guides, schemas). Not a public `x.ai/bot` template.
 _Avoid_: child template, nested template
 
-**blueprint fetch** — Agora copying **one** roster slug from the latest **blueprint release** onto the Grok computer. Not CreateAgent. Not an install event. v1 has no restore to an older tag.
+**blueprint fetch** — Agora copying **one** slug (a roster child, or Agora for disk playbooks) from the latest **blueprint release** onto the Grok computer. Not CreateAgent. Not an install event. v1 has no restore to an older tag.
 _Avoid_: clone main, pin, zip the whole repo onto disk
 
-**installed blueprint** — Snapshot of that slug on the **Grok Bot computer**: `/workspace/bots/<name>/` matching the shipped tree for one blueprint release, plus `RELEASE` (`tag_name` only). Not a union of releases. A failed fetch leaves the previous snapshot. Career files stay `/workspace/agora/`. If that bot already exists and `RELEASE` is stale, Agora asks before refresh; it never CreateAgents a second copy.
+**installed blueprint** — Snapshot of that slug on the **Grok Bot computer**: `/workspace/bots/<name>/` matching the shipped tree for one blueprint release, plus `RELEASE` (`tag_name` only). Not a union of releases. A failed fetch leaves the previous snapshot. Career files stay `/workspace/agora/`. Children: if that bot already exists and `RELEASE` is stale, Agora asks before refresh; it never CreateAgents a second copy. Agora-on-disk is playbooks only (never CreateAgent Agora).
+_Avoid_: treating disk Agora as a roster `need`
 
 **blueprint release** — A GitHub Release of this repo (a named snapshot, usually `v1.2.0`). Agora fetches the **latest** published release (not a draft, not a prerelease, not `main`) and records its `tag_name` in `RELEASE`. A later upgrade skill can compare that to a newer latest. The Agora skill does not pin one version forever.
 
 **installer template** — The one published Grok Bot Add link: Agora. User Adds Agora once; Agora CreateAgents the rest of the flow from blueprints.
 _Avoid_: publishing each stage as its own template in v1
+
+**template recipe** — Frozen bytes copied on Add: identity name `Agora`, `profile.md` as instructions, enabled public skills `first-run` / `need-bot` / `fetch-blueprint`. Not memories, routines, plugins, or the GitHub folder itself. Grok skill slots stay this snapshot until Update template.
+_Avoid_: export pack, gallery blurb
+
+**Agora self-materialize** — Fetch of `bots/agora/` from the latest Release onto `/workspace/bots/agora/` so playbooks exist on disk. Not CreateAgent Agora. Running Grok skills stay the **template recipe**.
+_Avoid_: need Agora, live skill pull
 
 **install id** — Opaque token for one Agora installation. Client-minted; Agora sole-writes `/workspace/bots/INSTALL_ID`. Not an account, person, or child bot id. Required on every **install event**.
 _Avoid_: account id, bot id
@@ -62,4 +69,3 @@ _Avoid_: installer Add event, fetch telemetry
 **master-resume.md** — Professional story / evidence. YAML document at a `.md` path. Human+agent authored source of truth. Top-level `variant: master` and `updated`. No contact/objective/target_roles. Optional `variants` are same-fact rephrasings, not per-job forks. Mneme sole-writes. Path: `/workspace/agora/master-resume.md`.
 
 **resume_<company>_<role>.md** — Job-specific presentation of the story. Kairos sole-writes. Path: `/workspace/agora/applications/resume_<company>_<role>.md`.
-

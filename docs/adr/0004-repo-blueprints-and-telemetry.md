@@ -18,4 +18,4 @@ Packing every child persona and skill into the public Agora template couples upd
 
 ## Consequences
 
-Updating Mneme is a repo change + release, not an Agora template republish. Install stats reflect Agora creates. Installers need network access to GitHub and the telemetry host. Install id, `/r`, and Blob: ADR 0010.
+Updating Mneme is a repo change + release, not an Agora template republish. Install stats reflect Agora creates. Installers need network access to GitHub and the telemetry host. Install id, `/r`, and Blob: ADR 0010. Agora playbooks on disk without live-pulling Grok skills: ADR 0015.

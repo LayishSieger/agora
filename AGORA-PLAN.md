@@ -1,6 +1,6 @@
 # Agora plan
 
-Status: Agora steward skills and foundation blueprints (Euodia, Mneme) authored. Execution bots are stubs. Install telemetry is a stub.
+Status: Agora steward skills and foundation blueprints (Euodia, Mneme) authored. Thin installer **template recipe** authored (mint is Layish). Execution bots are stubs. Install telemetry is a stub.
 
 ## System
 
@@ -41,9 +41,9 @@ Progression: Find direction → Know yourself → Find opportunities → Underst
 
 | Layer | What |
 |---|---|
-| **Public Grok Bot template** | Agora only — persona + skills to create/steward bots |
+| **Public Grok Bot template** | Agora only — frozen **template recipe** (`profile.md` + create/steward skills). Mint: `docs/agents/agora-template-mint.md` |
 | **Source of truth** | `layishsieger/agora` — blueprints, skills, docs, telemetry |
-| **First-run** | Agora creates Euodia + Mneme from repo blueprints |
+| **First-run** | Self-materialize `/workspace/bots/agora/`, then CreateAgent Euodia + Mneme from repo blueprints |
 | **Lazy** | `need <Name>` → Agora fetches blueprint → CreateAgent → install skills |
 | **v2 (later)** | optional independent public templates per bot |
 
@@ -56,18 +56,17 @@ bots/<name>/skills/*.md     # installed after create
 
 ### Telemetry
 
-- Two meters: **Agora registration** (installer in use) and **install event** (successful CreateAgent). Not zip downloads. Not template Add-as-CreateAgent.
-- First turn: if `/workspace/bots/INSTALL_ID` missing and `DO_NOT_TRACK` unset, client-mint UUID, write the file, `GET /r?agora=1&id=` upsert, then CreateAgent as usual.
-- After successful CreateAgent: one-shot `GET /t?event=install&bot=…&release=…&agora=1&id=…` (known id only). Ignore result. Never retry `/t`. Never block create.
+- First published **template recipe** skips `/r` and `/t` until Update template ships telemetry client bytes.
+- When those bytes ship: first turn if `/workspace/bots/INSTALL_ID` missing and `DO_NOT_TRACK` unset, client-mint UUID, write the file, `GET /r?agora=1&id=` upsert, then CreateAgent as usual. After successful CreateAgent: one-shot `GET /t?event=install&bot=…&release=…&agora=1&id=…` (known id only). Ignore result. Never retry `/t`. Never block create.
 - `DO_NOT_TRACK` skips `/r` and `/t`. Owner-only Blob. Agora registration counts untrusted until rate-limit. See ADR 0004 and 0010.
 
 ## Lifecycle
 
-1. User installs thin Agora template.
-2. First-run: Agora fetches Euodia + Mneme blueprints → CreateAgent → skills → install events.
+1. User Adds the thin Agora **installer template**.
+2. First-run: Agora self-materializes its playbooks, fetches Euodia + Mneme blueprints → CreateAgent → skills. Skip `/r` `/t` until a later Update template.
 3. Agora greets once, points to Euodia or Mneme, then quiets.
 4. Later: stage SendToAgent Agora `need <Name>` → same path.
-5. Only Agora may CreateAgent.
+5. Only Agora may CreateAgent. Never CreateAgent Agora.
 
 ## Decisions
 
@@ -100,4 +99,4 @@ Intake v1: interview · resume/PDF · LinkedIn PDF/paste. Mixed JD+resume → ev
 
 ## Next
 
-Euodia’s blueprint is authored. Blueprint fetch contract is in steward skills (`bots/agora/skills/fetch-blueprint.md`). Install telemetry (`/t`) v1 grilled (`docs/install-telemetry-grill.md`) — wait to implement. Then the thin Agora template. Execution-bot stubs stay later. First-run CreateAgent Euodia once a Release includes `bots/euodia/profile.md` (`no_release` until then is correct).
+Thin Agora **template recipe** is authored (self-materialize + mint checklist). Blueprint fetch contract is in steward skills. Layish Publishes from a new empty Agora (`docs/agents/agora-template-mint.md`). Next: install telemetry client bytes + Update template (`docs/install-telemetry-grill.md` — wait to implement those bytes). Execution-bot stubs stay later. First-run CreateAgent Euodia once a Release includes `bots/euodia/profile.md` (`no_release` until then is correct).
