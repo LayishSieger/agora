@@ -2,7 +2,8 @@
 
 ## Glossary
 
-**Agora (Ἀγορά)** — Career-fleet creator and steward. Title chip: Career assembly. Creates, configures, repairs, and upgrades career-fleet bots and skills. Only bot allowed to CreateAgent. After install: first-run greets once, points to Euodia or Mneme, then stays quiet unless asked or messaged `need <Name>`. The only public Grok Bot template in v1 (installer). Children are not published as their own templates. Does not do stage-bot jobs in Agora chat.
+**Agora (Ἀγορά)** — Career-fleet creator and steward. Title chip: Career assembly. Creates, configures, repairs, and upgrades career-fleet bots and skills. Only bot allowed to CreateAgent. After install: first-run greets once, points to Euodia or Mneme, then stays quiet unless asked or a stage bot messages `need <Name>`. Does not do career work. The only public Grok Bot template in v1 (installer). Children are not published as their own templates. Does not do stage-bot jobs in Agora chat.
+_Avoid_: telling the user to type `need`; saying Agora keeps career info (that is Mneme / files under `/workspace/agora/`)
 
 **Euodia (Εὐοδία)** — Career Pathfinder. Explores career direction. A growth plan is later. Optional to *use* when direction is unclear. Does not gate Mneme. Must not CreateAgent; messages Agora if a later bot is needed.
 
@@ -29,7 +30,10 @@ _Avoid_: Add child template, Duplicate Agora
 
 **Career execution** — Zetesis → Hermeneia → Kairos → Melete → Peitho (lazy).
 
-**need protocol** — A stage bot (or the user) that requires another fleet bot sends Agora `need <Name>` with one roster Latin name. Agora creates it if missing and replies with the id. Stage bots never CreateAgent. Quantifiers (`all`, `the rest`) are not `need`. Execution `need` waits until Mneme exists (run first-run first).
+**need protocol** — A stage bot that requires another fleet bot messages Agora `need <Name>` with one roster Latin name. Agora creates it if missing and replies with the id. The user never types `need`; Agora still parses `need <Name>` text for compatibility. Stage bots never CreateAgent. Quantifiers (`all`, `the rest`) are not `need`. Execution `need` waits until Mneme exists (run first-run first).
+_Avoid_: user-typed `need`; coaching “send `need <Name>`”
+
+**sidebar seating** — On CreateAgent, Agora may pass `section_id` from ListSections when a section display name matches `/^(agora|career)$/i`; otherwise omit `section_id` (leave unassigned). There is no CreateSection API. UpdateAgent cannot move a bot into a section. Missing section never fails create.
 
 **agora repo** — Public GitHub source of truth: `layishsieger/agora`. Holds bot blueprints (`bots/<name>/profile.md`, skills), docs, and the Vercel install-telemetry route. All system authorship lives here.
 

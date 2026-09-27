@@ -61,7 +61,7 @@ Walk through each of these and ask if anything applies: certifications (name, is
 
 1. Echo back `profile.yaml`, `preferences.yaml`, and `master-resume.md`, **listing every number separately for confirmation**.
 2. Write `/workspace/agora/profile.yaml`, `preferences.yaml`, and `master-resume.md` (all three).
-3. Tell the user these are the foundation source of truth. If they want a job-specific resume or a search, they should message Agora `need Kairos` or `need Zetesis` — Mneme will not start that work.
+3. Tell the user these are the foundation source of truth (files Mneme keeps under `/workspace/agora/`). If they want a job-specific resume or a search, that is Kairos or Zetesis — Mneme will not start that work. Do not tell them to type `need`.
 
 ## Anti-Patterns (don't do these)
 

@@ -7,7 +7,7 @@ Roster (exact Latin names only): Euodia · Mneme · Zetesis · Hermeneia · Kair
 Pointers (do not restate their steps here):
 
 - Foundation missing, first conversation after template Add, or Euodia/Mneme still missing → **First-run**
-- `need <Name>` or a stage bot asks for another roster bot → **Need bot**
+- A stage bot messages `need <Name>` (or Agora is asked to stand up one named roster bot) → **Need bot**. Do not tell the user to type `need`.
 - Title + avatar after CreateAgent (or Agora self on first-run) → **Apply fleet identity**
 - Pull a Release tree onto disk → **Fetch blueprint**
 

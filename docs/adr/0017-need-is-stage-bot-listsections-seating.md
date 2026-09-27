@@ -1,0 +1,3 @@
+# ADR 0017 — `need` is stage-bot → Agora; ListSections seating only
+
+Share smoke-test lock: the user never types `need <Name>` and must not be coached to. Stage bots still message Agora `need <Name>`; Agora still parses that text for compatibility. First-run greets by pointing at Euodia/Mneme, not by teaching need syntax. There is no CreateSection API and UpdateAgent cannot move bots, so CreateAgent may pass `section_id` from ListSections only when a sidebar section is named Agora or Career (case-insensitive); otherwise omit and leave unassigned. Career files under `/workspace/agora/` are Mneme’s record, not Agora-the-bot.
