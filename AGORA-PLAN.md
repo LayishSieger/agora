@@ -28,20 +28,20 @@ Progression: Find direction → Know yourself → Find opportunities → Underst
 
 | Name | Title | One job |
 |---|---|---|
-| **Agora** | Bot Creator + steward | Create/configure/repair career-fleet bots and skills; route; quiet otherwise |
-| **Euodia** | Career Pathfinder | Find or narrow career direction. A growth plan is later |
-| **Mneme** | Career Curator | Maintain master career profile (source of truth) |
-| **Zetesis** | Job Finder | Search relevant opportunities |
-| **Hermeneia** | Job Decoder | Analyze JDs; explain fit |
-| **Kairos** | Resume Tailor | Job-specific resume from master profile |
-| **Melete** | Interview Coach | Interview prep and practice |
-| **Peitho** | Offer Negotiator | Offer strategy and communication |
+| **Agora** | Career assembly | Create/configure/repair career-fleet bots and skills; route; quiet otherwise |
+| **Euodia** | Career pathfinder | Find or narrow career direction. A growth plan is later |
+| **Mneme** | Career curator | Maintain master career profile (source of truth) |
+| **Zetesis** | Job finder | Search relevant opportunities |
+| **Hermeneia** | Job decoder | Analyze JDs; explain fit |
+| **Kairos** | Resume tailor | Job-specific resume from master profile |
+| **Melete** | Interview coach | Interview prep and practice |
+| **Peitho** | Offer negotiator | Offer strategy and communication |
 
 ## Distribution
 
 | Layer | What |
 |---|---|
-| **Public Grok Bot template** | Agora only — frozen **template recipe** (`profile.md` + create/steward skills). Mint: `docs/agents/agora-template-mint.md` |
+| **Public Grok Bot template** | Agora only — frozen **template recipe** (short Share description + create/steward skills + Agora persona). Mint: `docs/agents/agora-template-mint.md` |
 | **Source of truth** | `layishsieger/agora` — blueprints, skills, docs, telemetry |
 | **First-run** | Self-materialize `/workspace/bots/agora/`, then CreateAgent Euodia + Mneme from repo blueprints |
 | **Lazy** | `need <Name>` → Agora fetches blueprint → CreateAgent → install skills |
@@ -99,4 +99,4 @@ Intake v1: interview · resume/PDF · LinkedIn PDF/paste. Mixed JD+resume → ev
 
 ## Next
 
-Thin Agora **template recipe** is authored (self-materialize + mint checklist). Blueprint fetch contract is in steward skills. Layish Publishes from a new empty Agora (`docs/agents/agora-template-mint.md`). Next: install telemetry client bytes + Update template (`docs/install-telemetry-grill.md` — wait to implement those bytes). Execution-bot stubs stay later. First-run CreateAgent Euodia once a Release includes `bots/euodia/profile.md` (`no_release` until then is correct).
+Thin Agora **template recipe** is authored (self-materialize + mint checklist + fleet identity). Blueprint fetch contract is in steward skills. Layish Publishes from a new empty Agora (`docs/agents/agora-template-mint.md`). Next: install telemetry client bytes + Update template (`docs/install-telemetry-grill.md` — wait to implement those bytes). Pre-authored `bots/<slug>/avatar.png` files are a later assets PR. Execution-bot stubs stay later. First-run CreateAgent Euodia once a Release includes `bots/euodia/profile.md` (`no_release` until then is correct).

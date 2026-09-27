@@ -12,7 +12,7 @@ description: >-
 
 Pull **one** named tree from GitHub onto this computer. Do not create a bot. Do not install or re-enable skills. Do not send telemetry (`/r` or `/t`). Do not greet. Do not write career files under `/workspace/agora/`. Do not write `/workspace/bots/FIRST_RUN` or `INSTALL_ID`.
 
-This skill is a **dumb pull**. Always resolve latest, download (unless same-turn reuse below), and write. Callers (`first-run`, `need-bot`, Agora self-materialize) decide *whether* to invoke it. v1 is **latest only** — no restore, no caller-named older tag, no pin.
+This skill is a **dumb pull**. Always resolve latest, download (unless same-turn reuse below), and write. Callers (`first-run`, `need-bot`, Agora self-materialize) decide *whether* to invoke it. Apply fleet identity does **not** fetch; it reads an already-installed tree. v1 is **latest only** — no restore, no caller-named older tag, no pin.
 
 ## Roster slugs (CreateAgent children)
 

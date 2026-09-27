@@ -1,6 +1,6 @@
 # Grill — Thin Agora public template (installer Add link)
 
-Status: **Implemented / closed.** Rounds 1–2 locked; v1 frontier empty; repo matches the letters. Layish still Publishes the live `x.ai/bot/…` link from a new empty Agora (`docs/agents/agora-template-mint.md`). Do not re-grill. Do not mint from this agent.
+Status: **Implemented / closed.** Rounds 1–2 locked. **ADR 0016** (26 Sep 2026) updates Share packing (short description + Agora persona + Apply fleet identity). Layish still Publishes the live `x.ai/bot/…` link from a new empty Agora (`docs/agents/agora-template-mint.md`). Do not re-grill. Do not mint from this agent.
 
 This grill is the **installer template**: the one published Grok Bot recipe users Add. It is **not** child blueprints (except Agora **self-materialize** of its own authorship tree), not zipball internals, not `/t` protocol, not Euodia/Mneme one-jobs.
 
@@ -14,21 +14,21 @@ Answers: letter + one line if you override the recommendation.
 |---|---|
 | Only public Grok Bot template in v1 is **Agora** (installer). Children are **not** published as their own templates | ADR 0004, ADR 0006, glossary **installer template** |
 | User Adds Agora once; Agora **CreateAgent**s children from GitHub blueprints | ADR 0004, **CreateAgent** |
-| Template ships **thin** Agora: persona + create/steward skills — not the whole fleet packed into Add | ADR 0004, `AGORA-PLAN.md` Distribution; **R1-Q1 override** (skills still frozen in the recipe) |
+| Template ships **thin** Agora: persona + create/steward skills — not the whole fleet packed into Add | ADR 0004, `AGORA-PLAN.md` Distribution; **R1-Q1 override** (skills still frozen in the recipe). **ADR 0016:** storefront is `share-description.md`; standing identity is skill **Agora persona** |
 | First-run creates Euodia + Mneme, greets **once**, then quiet; execution bots are lazy `need` | ADR 0003, ADR 0002, `first-run.md`; **R1-Q3 A** (no extra routine; first model turn) |
 | Fetch latest **published** Release, not `main`; do not pin a version in the Agora skill | ADR 0007 |
-| Agora **self-materialize**: lift fetch-blueprint **Not Agora** for Agora’s own tree only. Extract the **whole** `bots/agora/` tree like children (`profile.md` required; `RELEASE` written). **Running** Grok skill slots stay the Add snapshot — do **not** re-enable or replace them from disk. Run on **first-run**, after resolving latest Release, **before** Euodia/Mneme fetches; if a later steward turn needs a playbook and `prompts/out-of-scope.md` is missing, fetch Agora again. Always **overwrite** `/workspace/bots/agora/` to that Release; **no ask**. Not CreateAgent Agora. Recipe still **freezes** `profile.md` + `first-run` / `need-bot` / `fetch-blueprint`. **Supersedes** the previous “Fetch does not pull Agora” row. | **R1-Q1 override**; **R2-Q9 A**, **R2-Q10 A**, **R2-Q11 A** |
+| Recipe still **freezes** running Grok skill slots. **ADR 0016** expands the Add inventory to `first-run` / `need-bot` / `fetch-blueprint` / `apply-fleet-identity` / `agora-persona`. Do **not** re-enable or replace those slots from disk. Run self-materialize on **first-run**, after resolving latest Release, **before** Euodia/Mneme fetches; if a later steward turn needs a playbook and `prompts/out-of-scope.md` is missing, fetch Agora again. Always **overwrite** `/workspace/bots/agora/` to that Release; **no ask**. Not CreateAgent Agora. | **R1-Q1 override**; **R2-Q9 A**, **R2-Q10 A**, **R2-Q11 A**; **ADR 0016** |
 | **Install event** = roster CreateAgent only. Template Add is **not** an install event. First Agora turn / first-run is the registration hook | install-telemetry grill T-R1-Q1 **A**, T-R3-Q2 **A**, ADR 0010 |
 | Telemetry URL lives in the skill; `DO_NOT_TRACK` skips; failure never blocks create | T-R1-Q4, ADR 0004 / 0010 |
 | First **mint** has **no** telemetry client bytes. `first-run` / `need` skip `/r` `/t` until a later **Update template** (when those recipe files ship) | **R1-Q7 B** |
 | Layish owns the template; installing user gets a **fresh** fleet | ADR 0001 |
 | Career work is refused in Agora chat | `prompts/out-of-scope.md` |
 | Recipe memories: **none**. Strip before Publish / mint from a clean bot | **R1-Q2 A** |
-| Add-preview description **is** `profile.md`. Identity / display name field **`Agora`** (no Greek in the name field). No second marketing doc | **R1-Q4 A**, **R2-Q12 A** |
+| Add-preview / Share description is the **short** storefront (`share-description.md`). Standing identity is skill **Agora persona**. Identity / display name field **`Agora`** (no Greek in the name field). Geometric **shield / violet**. Title chip is **not** in the Share pack | **ADR 0016** (supersedes **R1-Q4 A** / **R2-Q12 A**) |
 | Visibility: public `https://x.ai/bot/…` share link. Gallery/catalog is nice-to-have, not a v1 gate | **R1-Q5 A** |
 | **Update template** only when shipped `bots/agora/` **recipe** files change. Child-only Releases do **not** bump the template | **R1-Q6 A** |
 | **No plugins** in the v1 recipe. Anonymous HTTPS zipball. No GitHub/Cursor reconnect on Add | **R1-Q8 A** |
-| **Mint vehicle:** new **empty** Grok Bot named Agora. Paste `profile.md`; enable the three public steward skills; no plugins, memories, or routines; Publish public. Not Duplicate staging. Not the working/dev box | **R2-Q13 A** |
+| **Mint vehicle:** new **empty** Grok Bot named Agora. Paste `share-description.md`; enable the five public skills; geometric shield / violet; no plugins, memories, or routines; Publish public. Not Duplicate staging. Not the working/dev box | **R2-Q13 A** plus **ADR 0016** inventory |
 
 Do **not** re-grill: install telemetry rounds 1–3, blueprint fetch contract (except the Q1 lift of **Not Agora** for Agora self-materialize), Euodia v1, steward skill semantics (`first-run` / `need-bot` / `fetch-blueprint`) except the locked self-materialize rows above. Disk `install-telemetry.md` (if a later Release drops it under `bots/agora/skills/`) is **not** a live skill until **Update template** enables it — R1-Q7 **B** + R2-Q9 **A** (do not re-enable disk skills; skip `/r` `/t` until Update).
 
@@ -319,22 +319,24 @@ R1-Q2 **A**: strip memories / mint from a clean bot. Palmer: Add copies that sou
 
 **Answer: A.** Publish from a new empty Agora — not Duplicate staging, not working box.
 
+Historical option A pasted `profile.md` and three steward skills. **ADR 0016** (26 Sep 2026) packs `share-description.md` plus five enabled skills; mint: `docs/agents/agora-template-mint.md`.
+
 ---
 
 ## Landed (implement)
 
-- Skills: `bots/agora/skills/fetch-blueprint.md`, `first-run.md`, `need-bot.md`
-- ADR **0015**; ADR **0008** notes Agora overwrite has no ask
+- Skills: `bots/agora/skills/fetch-blueprint.md`, `first-run.md`, `need-bot.md`, `apply-fleet-identity.md`, `agora-persona.md`
+- ADR **0015**; ADR **0016** (short Share description + fleet identity); ADR **0008** notes Agora overwrite has no ask
 - Mint: `docs/agents/agora-template-mint.md`
-- Glossary: **template recipe**, **Agora self-materialize**; **installed blueprint** allows disk Agora
+- Glossary: **template recipe**, **Agora self-materialize**, **Agora persona**, **fleet identity**; **installed blueprint** allows disk Agora
 
 ---
 
 ## v1 author checklist (done in repo)
 
-- **Mint (Layish):** new empty Grok Bot, identity name `Agora`, instructions = `profile.md`, enable public `first-run` / `need-bot` / `fetch-blueprint`, no memories, no routines, no plugins, Publish public `https://x.ai/bot/…`. Never Publish the working box. Follow `docs/agents/agora-template-mint.md`.
-- **Skills:** **Not Agora** lifted for self-materialize only; first-run fetches whole `bots/agora/` before children; overwrite + `RELEASE`; do not re-enable disk skills; do not CreateAgent Agora. Telemetry client skipped until Update template.
-- **Docs:** ADR **0015**; glossary terms above.
+- **Mint (Layish):** new empty Grok Bot, identity name `Agora`, instructions = `share-description.md`, enable public `first-run` / `need-bot` / `fetch-blueprint` / `apply-fleet-identity` / `agora-persona`, geometric shield / violet, no memories, no routines, no plugins, Publish public `https://x.ai/bot/…`. Never Publish the working box. Follow `docs/agents/agora-template-mint.md`.
+- **Skills:** **Not Agora** lifted for self-materialize only; first-run fetches whole `bots/agora/` before children; overwrite + `RELEASE`; do not re-enable disk skills; do not CreateAgent Agora. Telemetry client skipped until Update template. Fleet identity is best-effort (ADR 0016).
+- **Docs:** ADR **0015**, ADR **0016**; glossary terms above.
 
 ---
 

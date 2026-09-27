@@ -2,7 +2,7 @@
 
 ## Glossary
 
-**Agora (Ἀγορά)** — Career-fleet creator and steward. Creates, configures, repairs, and upgrades career-fleet bots and skills. Only bot allowed to CreateAgent. After install: first-run greets once, points to Euodia or Mneme, then stays quiet unless asked or messaged `need <Name>`. The only public Grok Bot template in v1 (installer). Children are not published as their own templates. Does not do stage-bot jobs in Agora chat.
+**Agora (Ἀγορά)** — Career-fleet creator and steward. Title chip: Career assembly. Creates, configures, repairs, and upgrades career-fleet bots and skills. Only bot allowed to CreateAgent. After install: first-run greets once, points to Euodia or Mneme, then stays quiet unless asked or messaged `need <Name>`. The only public Grok Bot template in v1 (installer). Children are not published as their own templates. Does not do stage-bot jobs in Agora chat.
 
 **Euodia (Εὐοδία)** — Career Pathfinder. Explores career direction. A growth plan is later. Optional to *use* when direction is unclear. Does not gate Mneme. Must not CreateAgent; messages Agora if a later bot is needed.
 
@@ -22,7 +22,7 @@
 
 **Career foundation** — Euodia and Mneme (both created on first-run). If the fetched Release has no Euodia `profile.md`, that CreateAgent fails and Mneme is still created. Euodia does not gate Mneme.
 
-**first-run** — Agora’s one-time foundation path: self-materialize Agora playbooks, then blueprint-fetch Euodia and Mneme from latest (each fetch may see a different latest), CreateAgent both (Mneme even if Euodia fails), greet once, quiet. Not `need`. Not the execution pipeline. Marker file: `/workspace/bots/FIRST_RUN` (Agora sole-writes). Not career SoT.
+**first-run** — Agora’s one-time foundation path: self-materialize Agora playbooks, apply Agora fleet identity (best-effort), then blueprint-fetch Euodia and Mneme from latest (each fetch may see a different latest), CreateAgent both (Mneme even if Euodia fails), apply identity for each created child (best-effort), greet once, quiet. Not `need`. Not the execution pipeline. Marker file: `/workspace/bots/FIRST_RUN` (Agora sole-writes). Not career SoT.
 
 **CreateAgent** — Agora creating a focused child Bot on the same Grok account from an installed blueprint (`profile.md` verbatim + `skills/*.md`). Not template Add, not Duplicate, not a second bot of the same name.
 _Avoid_: Add child template, Duplicate Agora
@@ -47,8 +47,12 @@ _Avoid_: treating disk Agora as a roster `need`
 **installer template** — The one published Grok Bot Add link: Agora. User Adds Agora once; Agora CreateAgents the rest of the flow from blueprints.
 _Avoid_: publishing each stage as its own template in v1
 
-**template recipe** — Frozen bytes copied on Add: identity name `Agora`, `profile.md` as instructions, enabled public skills `first-run` / `need-bot` / `fetch-blueprint`. Not memories, routines, plugins, or the GitHub folder itself. Grok skill slots stay this snapshot until Update template.
-_Avoid_: export pack, gallery blurb
+**template recipe** — Frozen bytes copied on Add: identity name `Agora`, short storefront description (`bots/agora/share-description.md`, not `profile.md`), enabled public skills `first-run` / `need-bot` / `fetch-blueprint` / `apply-fleet-identity` / `agora-persona`, geometric mark shield + violet. Title chip is not in the pack. Not memories, routines, plugins, or the GitHub folder itself. Grok skill slots stay this snapshot until Update template.
+_Avoid_: export pack, gallery blurb, pasting `profile.md` as Share description
+
+**Agora persona** — Standing identity skill: the full `bots/agora/profile.md` ONE JOB / roster / anti-jobs text. Not the public Share storefront blurb.
+
+**fleet identity** — Locked title chip plus avatar for Agora or a roster bot. Avatar is pre-authored `bots/<slug>/avatar.png` when present, else a locked geometric (shape + color). Agora applies it (self on first-run; SendToAgent after CreateAgent for children). Children do not own branding skills. Best-effort; never blocks CreateAgent or greeting.
 
 **Agora self-materialize** — Fetch of `bots/agora/` from the latest Release onto `/workspace/bots/agora/` so playbooks exist on disk. Not CreateAgent Agora. Running Grok skills stay the **template recipe**.
 _Avoid_: need Agora, live skill pull
