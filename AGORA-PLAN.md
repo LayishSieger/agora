@@ -41,7 +41,7 @@ Progression: Find direction → Know yourself → Find opportunities → Underst
 
 | Layer | What |
 |---|---|
-| **Public Grok Bot template** | Agora only — frozen **template recipe** (short Share description + create/steward skills + Agora persona). Mint: `docs/agents/agora-template-mint.md` |
+| **Public Grok Bot template** | Agora only — frozen **template recipe** (short Share description + five skills: First-run, Need bot, Fetch blueprint, Apply fleet identity, Agora persona). Share `gettingStarted` → First-run. Mint: `docs/agents/agora-template-mint.md` |
 | **Source of truth** | `layishsieger/agora` — blueprints, skills, docs, telemetry |
 | **First-run** | Self-materialize `/workspace/bots/agora/`, then CreateAgent Euodia + Mneme from repo blueprints |
 | **Lazy** | `need <Name>` → Agora fetches blueprint → CreateAgent → install skills |

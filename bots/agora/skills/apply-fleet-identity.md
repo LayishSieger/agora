@@ -1,13 +1,12 @@
 ---
 name: Apply fleet identity
 description: >-
-  Agora-owned only. After CreateAgent, or Agora itself on first-run:
-  set the locked title chip and avatar for one Name. Prefer
-  bots/<slug>/avatar.png from the installed blueprint; else geometric
-  fallback. Best-effort — never block CreateAgent, foundation, or
-  greeting. Children do not own this skill and do not brand themselves.
+  Agora-owned only. After CreateAgent, or Agora itself on first-run: set the
+  locked title chip and avatar for one Name. Prefer bots/<slug>/avatar.png from
+  the installed blueprint; else geometric fallback. Best-effort — never block
+  CreateAgent, foundation, or greeting. Children do not own this skill and do
+  not brand themselves.
 ---
-
 # Apply fleet identity
 
 Set **title** + **avatar** for **one** fleet Name (Agora or a roster child). Not CreateAgent. Not fetch (callers already fetched). Not greeting. Not career work.
@@ -22,7 +21,7 @@ Never run as a user-facing chat job. Never change the first-run greeting.
 
 ## Never block
 
-Identity is **best-effort**. CreateAgent, foundation, `/r`/`/t` skip, the id reply, and the greeting **always continue** if this skill fails.
+Identity is **best-effort** — **this skill owns soft-fail**. Callers keep one short “best-effort Apply fleet identity; continue on fail.” CreateAgent, foundation, `/r`/`/t` skip, the id reply, and the greeting **always continue** if this skill fails.
 
 Soft fail: **one line max**, then stop this skill. Do not retry. Do not dump tool errors. Do not invent a title or color.
 
@@ -84,7 +83,7 @@ CreateAgent / UpdateAgent only set **name** and **description**. They do **not**
 
 ## Steps
 
-1. Resolve canonical **Name** and slug (same table as `fetch-blueprint.md`). Look up **Title**, **shape**, **color**.
+1. Resolve canonical **Name** and slug (same table as Fetch blueprint). Look up **Title**, **shape**, **color**.
 2. See whether `/workspace/bots/<slug>/avatar.png` is present.
 3. **Agora:** on self, set title to **Career assembly**. If the png exists, install it as avatar; else set geometric **shield / violet**. Stop.
 4. **Child:** SendToAgent `<Name>` with **only** these mechanical steps (no greeting, no job, no branding chat to the user):

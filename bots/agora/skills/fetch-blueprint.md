@@ -2,17 +2,16 @@
 name: Fetch blueprint
 description: >-
   Use when Agora must pull one tree from the latest GitHub Release of
-  LayishSieger/agora onto the Grok computer: a roster slug, or Agora for
-  disk playbooks only. Writes /workspace/bots/<slug>/ plus RELEASE.
-  Never fetch main. Never CreateAgent. Never enable Grok skills.
-  Never write /workspace/agora/ career files. No telemetry.
+  LayishSieger/agora onto the Grok computer: a roster slug, or Agora for disk
+  playbooks only. Writes /workspace/bots/<slug>/ plus RELEASE. Never fetch main.
+  Never CreateAgent. Never enable Grok skills. Never write /workspace/agora/
+  career files. No telemetry.
 ---
-
 # Fetch blueprint
 
 Pull **one** named tree from GitHub onto this computer. Do not create a bot. Do not install or re-enable skills. Do not send telemetry (`/r` or `/t`). Do not greet. Do not write career files under `/workspace/agora/`. Do not write `/workspace/bots/FIRST_RUN` or `INSTALL_ID`.
 
-This skill is a **dumb pull**. Always resolve latest, download (unless same-turn reuse below), and write. Callers (`first-run`, `need-bot`, Agora self-materialize) decide *whether* to invoke it. Apply fleet identity does **not** fetch; it reads an already-installed tree. v1 is **latest only** — no restore, no caller-named older tag, no pin.
+This skill is a **dumb pull**. Always resolve latest, download (unless same-turn reuse below), and write. Callers (First-run, Need bot, Agora self-materialize) decide *whether* to invoke it. Canonical Latin Names live in **Agora persona**; this skill owns slug → path only. Apply fleet identity does **not** fetch; it reads an already-installed tree. v1 is **latest only** — no restore, no caller-named older tag, no pin.
 
 ## Roster slugs (CreateAgent children)
 
@@ -32,7 +31,7 @@ This skill is a **dumb pull**. Always resolve latest, download (unless same-turn
 |---|---|
 | Agora | `bots/agora/` → `/workspace/bots/agora/` |
 
-Fetch **Agora** only to materialize playbooks on disk (whole tree, same extract and atomic-replace rules as children). Do **not** CreateAgent Agora. Do **not** enable or replace Grok skill slots from this zip — running skills stay the Add snapshot (ADR 0004, ADR 0015). Atomic replace `/workspace/bots/agora/`; do **not** ask.
+Fetch **Agora** only to materialize playbooks on disk (whole tree, same extract and atomic-replace rules as children). Do **not** CreateAgent Agora. Do **not** enable or replace Grok skill slots from this zip — running skills stay the Add snapshot. Atomic replace `/workspace/bots/agora/`; do **not** ask.
 
 Unknown name or any other folder (`apps/`, `docs/`, …) → **stop**. Do not guess. Do not install the whole repo on disk.
 

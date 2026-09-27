@@ -46,3 +46,5 @@ Publish a child template only if that specialist is useful **alone** and you wil
 ## Caution for Agora
 
 This chat uses **CreateAgent** / **UpdateAgent** as if they were product commands. Official x.ai/Cursor Grok Bot docs (see `grok-bot-install-facts.md`) document Create new Bot, focused Bot, Duplicate, and template Add — they do not name those commands. Treat this share as **one advisor’s architecture**, not platform documentation.
+
+Agora’s Add pack is five skills (First-run, Need bot, Fetch blueprint, Apply fleet identity, Agora persona). Share `gettingStarted` points at **First-run**. Do not add a separate Getting started skill. Do not follow this chat’s “wait for explicit stand up these N bots” as first conversation — first conversation is First-run.
