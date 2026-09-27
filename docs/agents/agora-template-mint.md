@@ -15,7 +15,8 @@ Facts: `docs/agents/grok-bot-install-facts.md`. Update-same-URL: `docs/agents/gr
 |---|---|
 | Name | `Agora` |
 | Instructions / description | Verbatim `bots/agora/share-description.md` (**short** storefront). Do **not** paste `profile.md` here |
-| Skills (public / first-party, enabled) | `bots/agora/skills/first-run.md`, `need-bot.md`, `fetch-blueprint.md`, `apply-fleet-identity.md`, `agora-persona.md` |
+| Skills (public / first-party, enabled) | Five only: First-run, Need bot, Fetch blueprint, Apply fleet identity, Agora persona (`first-run.md`, `need-bot.md`, `fetch-blueprint.md`, `apply-fleet-identity.md`, `agora-persona.md`). **No** separate Getting started skill |
+| Share `gettingStarted` | Point at **First-run** (`gettingStarted.skill` = `First-run`). First conversation after Add is First-run, not a sixth pack skill |
 | Geometric mark | **shield / violet** (public recipe) |
 | Title chip | **Cannot** ship in the Share pack. First-run sets Agora title **Career assembly** once |
 | Memories | **None** (strip if the UI added any) |
@@ -35,7 +36,7 @@ Do **not** enable `prompts/out-of-scope.md` or `prompts/identity-map.md` as extr
 
 Share → Create template → **Publish** public. Recipients Add from the link (they need the Grok Bot app). Already-added copies are not live-pushed.
 
-After Add, the first model turn runs first-run (profile + skill description). No extra routine. First-run applies title **Career assembly** and geometric **shield / violet** (or `bots/agora/avatar.png` if a later Release includes it).
+After Add, Share `gettingStarted` and the first conversation run **First-run** (skill description is the trigger). No extra routine. No Getting started skill. First-run applies title **Career assembly** and geometric **shield / violet** (or `bots/agora/avatar.png` if a later Release includes it).
 
 ## When to Update template
 
