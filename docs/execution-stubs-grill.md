@@ -8,8 +8,6 @@
 
 Answers: letter + one line if you override the recommendation. The Agora Grok bot will ask **one question at a time**.
 
-Project-store mirror (settled + open round for Layish/Grok): ask the coordinator for `docs/execution-stubs-grill.md` in the Agora Project store if you are answering outside this PR.
-
 ---
 
 ## Settled (do not re-ask)
