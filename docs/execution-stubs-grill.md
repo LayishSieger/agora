@@ -5,11 +5,11 @@ cursor:
 
 # Grill — Career-execution stubs (Zetesis → Peitho)
 
-**Status:** Round 1 **partially settled**. Grill only. **Do not implement** `bots/zetesis|hermeneia|kairos|melete|peitho/` until Layish says **implement**.
+**Status:** Round 1 **closed enough to open Round 2 (seams)**. Grill only. **Do not implement** stubs until Layish says **implement**.
 
 **PR:** [github.com/LayishSieger/agora/pull/9](https://github.com/LayishSieger/agora/pull/9) · branch `cursor/execution-stubs-grill-37ff`
 
-**Companion (letters only):** [execution-stubs-grill-questions.md](/cursor/stores/bc-091fb2c1-527d-4cb8-91ee-9e1d4b9cf525/docs/execution-stubs-grill-questions.md)
+**Companion:** [execution-stubs-grill-questions.md](/cursor/stores/bc-091fb2c1-527d-4cb8-91ee-9e1d4b9cf525/docs/execution-stubs-grill-questions.md)
 
 Answers: letter + one line if you override. Grok asks **one question at a time**.
 
@@ -21,131 +21,144 @@ Answers: letter + one line if you override. Grok asks **one question at a time**
 |---|---|
 | Agora = thin installer; only Agora CreateAgent | ADR 0001, 0002, 0004, 0006 |
 | Children from latest GitHub Release + CreateAgent | ADR 0004, 0006, 0007 |
-| First-run = Euodia + Mneme only; execution is lazy `need <Name>` | ADR 0003 |
-| Execution `need` waits until Mneme exists | need protocol |
-| User never types `need`; stage bots message Agora; no user coaching | ADR 0017 |
-| Roster one-jobs + never fabricate / never apply | AGORA-PLAN |
+| First-run = Euodia + Mneme only; execution lazy `need <Name>` | ADR 0003 |
+| User never types `need`; stage bots message Agora | ADR 0017 |
+| Roster one-jobs; never fabricate; never apply | AGORA-PLAN |
 | Mneme sole-writes master files; Kairos sole-writes `applications/resume_<company>_<role>.md` | ADR 0005 |
-| README-only → `missing_profile` | fetch-blueprint |
-| Zero skills allowed if `profile.md` exists | need-bot |
-| Whole `bots/<slug>/` tree extracted; child reads disk prompts/guides/schemas | ADR 0008 |
-| Child-only Releases do not Update the Agora template | thin-template |
-| Stage bots never CreateAgent | ADR 0002 |
-| **Title chips** for Zetesis–Peitho already locked in Apply fleet identity; CreateAgent/UpdateAgent set name+description only | ADR 0016 — was R1-Q3 |
-| **Q5 = A** — Naive one-job with hard anti-jobs (not refuse-until-full; Kairos may write) | Layish, this turn |
-| **Q6 = A** — Only Kairos writes durable files; only `applications/resume_<company>_<role>.md` | Layish, this turn |
-| **Q7 = A** — Refuse + message bot or Agora `need <Name>` on ask; no auto-pipeline; never coach user to type `need` | Layish, this turn |
-| **Q8 = A** — Next Release after implement includes creatable stubs; first-run still foundation-only | Layish, this turn |
-| **Q9 = A** — One implement PR for all five stubs after close | Layish, this turn |
-| Do not reopen fetch / telemetry `/r` `/t` / Add recipe packing | those grills |
+| Title chips via Apply fleet identity (not CreateAgent) | ADR 0016 — was R1-Q3 |
+| **Q2 = A** — all five stubs: only `prompts/out-of-scope.md` (no extra in-scope prompts this round) | Layish |
+| **Q4 = A for now** — Euodia-sized durable rules in the profile **content**; shorten after testing | Layish |
+| **Q5 = A** — Naive one-job with hard anti-jobs | Layish |
+| **Q6 = A** — Only Kairos writes durable files; only that applications path | Layish |
+| **Q7 = A** — Refuse + message bot or Agora `need <Name>` **on ask**; no auto-pipeline; never coach user to type `need` | Layish |
+| **Q8 = A** — Next Release after implement includes creatable stubs | Layish |
+| **Q9 = A** — One implement PR for all five | Layish |
 
-### Verification — Agora instruction vs `profile.md` (looked up; not a vote)
+### Q1 — instruction / CreateAgent description (settled **for now**, testing may reverse)
 
-**True for the published Agora template (current `main`):**
+**Layish:** Doesn’t know yet; needs testing. **For now: profile-only** — shorter, different structure, more compact, **not markdown-heavy**; it should simply state the job the bot needs to do. May change after testing.
 
-| Piece | What ships |
+**Mapped working assumption (not Euodia-shaped “fat profile as instruction”):**
+
+| Layer | Working assumption now |
 |---|---|
-| Share / Instructions / description | **Short** `bots/agora/share-description.md` (~0.4k). Mint: “Do **not** paste `profile.md` here” (`docs/agents/agora-template-mint.md`) |
-| Standing identity | Skill **Agora persona** = full `profile.md` body (`agora-persona.md`) |
-| ADR | **0016** — short storefront; long ONE JOB / roster / anti-jobs in Agora persona. Supersedes thin-template “preview is `profile.md`” |
-| Glossary | **template recipe** / **Agora persona** in `CONTEXT.md` |
+| CreateAgent **description / instructions** | Compact **job blurb** (plain, not markdown-heavy). States the one job. **Not** a paste of a full Euodia-length markdown profile. |
+| Durable rules content (anti-jobs, voice, pointers) | Still **Euodia-sized for now** (Q4 = A), but may live **outside** that short CreateAgent blurb (skill and/or disk `profile.md` / out-of-scope) — exact file split is the leftover below. |
+| `prompts/out-of-scope.md` | **Ships** for all five (Q2 = A); disk refusal playbook, not the CreateAgent description. |
+| Agora mint pattern | Unrelated for children **for now**: Agora stays short `share-description` + Agora persona skill (ADR 0016). Children are **not** adopting that persona-skill pattern until testing says so. |
 
-**Different for children today (Euodia, Mneme, and any `need` create):**
+This is **not** “ship five Euodia-shaped trees with full profile.md as CreateAgent description.” File inventory still has one open letter (Round 1 leftover below).
 
-| Piece | What ships |
-|---|---|
-| CreateAgent **description** | Fetched `profile.md` **verbatim** (`first-run.md`, `need-bot.md`, glossary **CreateAgent**) |
-| Grok skills | Every `skills/*.md` enabled |
-| `prompts/out-of-scope.md` | Left on disk under `/workspace/bots/<slug>/`; child opens it when refusing — **not** the CreateAgent description, **not** a separate Grok skill in the Euodia/Mneme trees |
+### Round 1 leftover — one follow-up (file depth)
 
-So: Layish’s memory is right for **Agora Add**. It is **not** how children are wired today. Whether stubs (and/or Euodia/Mneme) should match Agora is **open Q1** below. Do not invent a child short-blurb path that does not exist yet.
+**R1-Q1b** (answer before implement): Given compact CreateAgent blurb + required `prompts/out-of-scope.md`, does each stub still ship **one job skill** (`skills/*.md` enabled on CreateAgent)?
 
-## Facts (other)
+**A.** **Yes — one job skill** + disk `out-of-scope.md` + compact CreateAgent blurb (and optionally a fuller on-disk `profile.md` the child can open). Closest to Euodia’s *files*, but description stays compact.
 
-- Execution folders on `main` / latest Release `v0.1.1` are README-only → `need Zetesis` → `missing_profile`.
-- Euodia thin-child **files:** `profile.md` (~2.3k) + one skill + `prompts/out-of-scope.md` + README.
-- Telemetry client bytes on `main` (#13). Template Publish/Update is Layish’s.
+**B.** **No skill file.** Compact CreateAgent blurb only + disk `out-of-scope.md`. Behavior is model + blurb + opening out-of-scope when refusing.
 
-## Design tree (remaining Round 1 frontier)
-
-```
-execution stubs
-├── CreateAgent instruction wiring     ← Q1 (clarified)
-├── what is prompts/out-of-scope?      ← Q2 (clarified; then A/B/C)
-├── Title / H1                         ← settled ADR 0016
-├── how fat is profile.md / blurb      ← Q4 (clarified; hang off Q1)
-├── naive one-job                      ← settled Q5 A
-├── durable files                      ← settled Q6 A
-├── need-next handoffs                 ← settled Q7 A
-├── next Release includes stubs?       ← settled Q8 A
-└── authoring batch                    ← settled Q9 A
-```
+➡️ Prefer **A** so the one-job playbook isn’t improvised; still Layish’s letter.
 
 ---
 
-## Round 1 — still open (answer these)
+## Seam audit (evidence only — Layish priority)
 
-### ❓ **Q1** — CreateAgent **instruction** vs `profile.md` (files + wiring)
+Question: *Do we have well-defined seams so bots know when to talk to each other?*
 
-You leaned **Euodia-shaped files** (profile + one job skill + out-of-scope + README). Separate product question: **what goes in the child’s CreateAgent description / instructions field?**
+| Handoff | Status | Why (one sentence) |
+|---|---|---|
+| **Euodia → Mneme** | **settled** | Euodia grill + skill: after user agrees, DM Mneme with old/new wants keys only; Mneme writes / race-checks; if Mneme missing → Agora `need Mneme`. |
+| **Mneme → Euodia** | **settled** | Mneme anti-jobs / out-of-scope: direction workshopping is Euodia; Mneme may store confirmed wants, not debate path. |
+| **Euodia → execution (Zetesis…)** | **settled** | On ask only: refuse sibling job; DM that bot with ask + relevant wants, else Agora `need <Name>`; firm direction alone messages nobody. |
+| **Mneme → execution** | **mushy** | Refuse + Agora `need <Name>` if missing is locked; unlike Euodia, scripts often say “open Kairos when it exists” and do **not** require a DM payload of wants/ask to the specialist. |
+| **Any stage → Agora `need`** | **settled** | ADR 0002 + need-bot + Q7 A: one Latin name; user never types `need`; execution `need` waits until Mneme exists. |
+| **Auto whole-pipeline create** | **settled (forbidden)** | Quantifiers refused; Q7 A forbids auto-`need` when a stub “thinks” the stage is done. |
+| **Zetesis → Hermeneia** | **missing** | One-jobs named; Q7 A says forward only on ask; **no** stub blueprint and **no** payload (which opening / JD text / constraints). |
+| **Hermeneia → Kairos** | **missing** | No decode→tailor contract (what company/role/JD notes Kairos receives); only Kairos write path is settled (Q6 A / ADR 0005). |
+| **Kairos → Melete** | **missing** | No prep handoff; unsettled whether Melete should read `applications/resume_*`, master files, or chat-only. |
+| **Melete → Peitho** | **missing** | No offer handoff (what offer text / role / resume context). |
+| **Execution stubs’ anti-job tables** | **mushy** | Roster + never apply/fabricate/CreateAgent are settled at plan/ADR level; per-stub out-of-scope scripts **do not exist yet** (README-only folders). |
 
-**A.** **Keep today’s child path (status quo).** CreateAgent description = full `profile.md` verbatim. Enable the one job skill. `prompts/out-of-scope.md` stays on disk only. Same as Euodia/Mneme/`need-bot` now. **No** steward-skill change for stubs.
-
-**B.** **Agora-shaped for children too.** Short CreateAgent blurb (new per-child file, e.g. `share-description.md` or equivalent) + standing **persona** skill whose body is full `profile.md` + one job skill + out-of-scope on disk. Stubs (and, if you say so, Euodia/Mneme) match the installer pattern. **Requires** teaching `first-run` / `need-bot` a short-blurb source (reopens steward skills — not “stubs only”).
-
-**C.** **Short CreateAgent blurb + full `profile.md` on disk only** (no persona skill). Description is minimal and points at `/workspace/bots/<slug>/profile.md`. Relies on the child opening the file. No duplicate persona skill. Still needs steward wiring for the short blurb.
-
-**D.** **Defer instruction wiring.** Ship Euodia-shaped **files** under today’s verbatim-`profile.md` CreateAgent rule for this stub batch. Re-grill Agora-shaped child instructions as a separate steward/foundation frontier (could include migrating Euodia/Mneme).
-
-➡️ **A** if you want stubs to ship without reopening `need-bot`. **B** if matching Agora’s “minimal instruction + persona skill” matters more than keeping steward skills frozen. **D** if you want files now and wiring later. Do not pick silently.
-
----
-
-### ❓ **Q2** — What is the “prompt”? (`prompts/out-of-scope.md`)
-
-In Euodia / Mneme / Agora, `prompts/out-of-scope.md` is **not** the bot’s system instruction and **not** the CreateAgent description.
-
-It is a **refusal playbook on disk**: detection cues + canned refuse lines for sibling jobs / apply / fabricate / CreateAgent. The child (or skill) opens it when the user asks out of scope. Example Euodia line: *“I don’t search openings. That’s Zetesis.”*
-
-One-line example of what would live there for **Zetesis**:
-
-> I don’t tailor resumes or write `applications/` — that’s Kairos. I won’t draft a job-specific resume here.
-
-After that clarification, pick how many prompt files the stub round gets:
-
-**A.** All five: only `prompts/out-of-scope.md`. No interview-drill / offer-email / JD-paste in-scope prompt files until a later per-bot grill.
-
-**B.** All five get out-of-scope; **Melete and Peitho** also get **one** in-scope prompt each this round.
-
-**C.** No `prompts/` directory (only coherent if you also chose profile-only or skill-without-prompts for file shape — and only after Q1’s file inventory is clear).
-
-➡️ **A** — identical stub contract; extra prompts are product depth.
+**Verdict for Layish:** Foundation seams (Euodia↔Mneme, Euodia→others, Agora `need`, no auto-pipeline) are **strong**. Execution-chain handoffs are **mostly missing** — that is the right Round 2 frontier. Mneme→specialist DM vs “point at chat” is the main foundation **mush**.
 
 ---
 
-### ❓ **Q4** — How fat is `profile.md` (and what is “short”)?
+## Round 2 — seams only
 
-Depends on **Q1**. You said **A but maybe short**.
+❓ **R2-Q1** - **Mneme → specialist: DM or point?**
 
-**If Q1 = A or D** (description = full `profile.md` today):
+When the user asks Mneme for Zetesis/Hermeneia/Kairos/Melete/Peitho work:
 
-- **A.** **Euodia-sized profile** (~2k): ONE JOB, voice, anti-jobs table, pointer to the one skill. Do not paste the full skill into `profile.md`.
-- **B.** **Agora-profile-short** (~1k): one-job + thin anti-jobs + pointers; detail lives in the job skill (and out-of-scope on disk).
-- **C.** Long operational novel in `profile.md` (full workflow) — avoid.
+**A.** **Match Euodia:** refuse in Mneme chat; if bot exists, **DM** it with the ask (+ relevant stored wants / facts pointers); if missing, Agora `need <Name>`.
 
-**If Q1 = B** (Agora-shaped children):
+**B.** **Point only:** refuse; tell user which chat to open; Agora `need <Name>` if missing; **no** specialist DM from Mneme.
 
-- Short CreateAgent blurb ≈ Agora `share-description.md` scale (a paragraph).
-- Full rules live in the **persona skill** (body = `profile.md`). Then “how fat is profile” = how fat that persona skill is — same **A/B/C** scale as above for the persona body.
+**C.** **Mixed:** DM only for some names (e.g. Kairos), point for others.
 
-**If Q1 = C** (short blurb + disk profile only):
+➡️ **A** — one handoff language across foundation bots. **B** is what several Mneme refusal lines read like today.
 
-- Blurb stays tiny; **A/B/C** apply to the on-disk `profile.md` the child is told to open.
+---
 
-➡️ Still prefer **A** for the durable rules file (whether it is CreateAgent description or persona body). Pick **B** if you want the standing text thinner and the job skill to carry more. Do not force A.
+❓ **R2-Q2** - **Zetesis → Hermeneia payload (on ask to decode / move on)**
+
+**A.** DM Hermeneia with: the chosen opening identity (company, role, URL or pasted JD text) + pointer that wants live in Mneme’s files. No new durable file (Q6 A).
+
+**B.** Chat-only refuse + `need Hermeneia` / point; user re-pastes the JD in Hermeneia. No DM payload.
+
+**C.** Defer payload until a Zetesis/Hermeneia product grill; stub out-of-scope only names Hermeneia.
+
+➡️ **A** if smooth process matters now; **C** if stubs stay name-redirect only.
+
+---
+
+❓ **R2-Q3** - **Hermeneia → Kairos payload (on ask to tailor)**
+
+**A.** DM Kairos with company + role + JD text (or path/URL already in the thread) and tell Kairos to read master files; Kairos writes only `applications/resume_<company>_<role>.md`.
+
+**B.** Point / `need Kairos` only; user re-supplies company/role/JD in Kairos chat.
+
+**C.** Defer to a Hermeneia/Kairos product grill.
+
+➡️ **A** pairs with smooth tailor after decode; still no new SoT files.
+
+---
+
+❓ **R2-Q4** - **Kairos → Melete: what may Melete read on ask to practice?**
+
+**A.** Melete may read `/workspace/agora/` master files **and** the relevant `applications/resume_*` if it exists; Kairos DMs Melete with company/role (+ path).
+
+**B.** Melete reads master files only; job-specific resume stays Kairos chat unless user pastes it.
+
+**C.** Chat/DM context only for stubs; no required file reads beyond what the user pastes.
+
+➡️ **A** if interview prep should match the tailored packet; **C** keeps stubs thinner.
+
+---
+
+❓ **R2-Q5** - **Melete → Peitho payload (on ask to negotiate)**
+
+**A.** DM Peitho with offer text (or user-pasted terms) + company/role; Peitho may read master files; still **no** offer log file (Q6 A).
+
+**B.** Point / `need Peitho` only; user re-pastes the offer in Peitho.
+
+**C.** Defer to a Melete/Peitho product grill.
+
+➡️ **A** for continuity; **B/C** if stub round stays redirect-only.
+
+---
+
+❓ **R2-Q6** - **What counts as “on ask” to forward to the next execution bot?**
+
+**A.** Only an explicit ask for that bot’s job or name (“decode this,” “need Hermeneia,” “tailor for Acme”).
+
+**B.** Also soft stage-complete lines (“I’m ready for the next step,” “let’s move on”) → forward to the **next** pipeline name (Zetesis→Hermeneia→…).
+
+**C.** Stubs never forward; they only refuse sibling jobs and `need` when the user named a missing bot (narrower than Q7 A’s “forward next on ask”).
+
+➡️ **A** is safer against stealth pipeline. **B** is smoother but fuzzier. Confirm against Q7 A.
 
 ---
 
 ## Stop
 
-No blueprint authoring until **implement**. Round 2 only after Q1 / Q2 / Q4 letters land (skill filenames if file shape ≠ Euodia-shaped; steward changes if Q1 = B or C).
+Do **not** author execution blueprints until **implement**. Finish **R1-Q1b** + Round 2 letters first. No invented seam payloads beyond what Layish picks above.
