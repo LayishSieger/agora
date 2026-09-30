@@ -51,7 +51,7 @@ _Avoid_: treating disk Agora as a roster `need`
 **installer template** — The one published Grok Bot Add link: Agora. User Adds Agora once; Agora CreateAgents the rest of the flow from blueprints.
 _Avoid_: publishing each stage as its own template in v1
 
-**template recipe** — Frozen bytes copied on Add: identity name `Agora`, short storefront description (`bots/agora/share-description.md`, not `profile.md`), five enabled public skills `first-run` / `need-bot` / `fetch-blueprint` / `apply-fleet-identity` / `agora-persona`, geometric mark shield + violet. Share `gettingStarted` points at First-run (no separate Getting started skill). Title chip is not in the pack. Not memories, routines, plugins, or the GitHub folder itself. Grok skill slots stay this snapshot until Update template.
+**template recipe** — Frozen bytes copied on Add: identity name `Agora`, short storefront description (`bots/agora/share-description.md`, not `profile.md`), six enabled public skills `first-run` / `need-bot` / `fetch-blueprint` / `apply-fleet-identity` / `install-telemetry` / `agora-persona`, geometric mark shield + violet. Share `gettingStarted` points at First-run (no separate Getting started skill). Title chip is not in the pack. Not memories, routines, plugins, or the GitHub folder itself. Grok skill slots stay this snapshot until Update template.
 _Avoid_: export pack, gallery blurb, pasting `profile.md` as Share description
 
 **Agora persona** — Standing identity skill: the full `bots/agora/profile.md` ONE JOB / roster / anti-jobs text. Not the public Share storefront blurb.
