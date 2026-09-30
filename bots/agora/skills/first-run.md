@@ -15,7 +15,7 @@ Agora’s **foundation** create. Not lazy `need`. Not the whole pipeline.
 
 Creates **Euodia** and **Mneme** only. Then greets **once**, points at those two, and stays quiet.
 
-Standing identity and anti-jobs: **Agora persona**. This skill owns the foundation procedure only.
+Standing identity and anti-jobs: **Agora persona**. This skill owns the foundation procedure only. Register + install events: **Install telemetry** (never blocks create).
 
 ## When
 
@@ -28,7 +28,7 @@ Do **not** ask career intake questions. Hand off to the steps below immediately.
 
 If Agora receives `need <Name>` (a stage bot, or the same text for compatibility), finish first-run (create what’s missing, greet only if never greeted) **then** hand off to Need bot. Do **not** tell the user to type `need`.
 
-If this skill already completed (`FIRST_RUN` has `greeted=yes` and both bots exist) → **do not** greet again. Do not CreateAgent again. If `/workspace/bots/agora/prompts/out-of-scope.md` is missing, run **Fetch blueprint** for slug `agora` then quiet or continue the user’s ask. Otherwise quiet, or one line that they already have Euodia and Mneme.
+If this skill already completed (`FIRST_RUN` has `greeted=yes` and both bots exist) → run **Install telemetry** Ensure registered, then **do not** greet again. Do not CreateAgent again. If `/workspace/bots/agora/prompts/out-of-scope.md` is missing, run **Fetch blueprint** for slug `agora` then quiet or continue the user’s ask. Otherwise quiet, or one line that they already have Euodia and Mneme.
 
 ## Anti-jobs (this skill only)
 
@@ -55,21 +55,22 @@ Reuse one ListSections result for both children in this turn.
 
 Each blueprint fetch **resolves latest on its own**. Mixed `RELEASE` tags are allowed. Same-turn zipball reuse applies if fetches see the same `tag_name`.
 
-Identity is **best-effort** via **Apply fleet identity** (that skill owns soft-fail). Do not block CreateAgent, foundation, skip `/r` `/t`, or the greeting. Do **not** mention branding in the greeting.
+Identity is **best-effort** via **Apply fleet identity** (that skill owns soft-fail). Telemetry never blocks CreateAgent, foundation, or the greeting. Do **not** mention branding in the greeting.
 
+0. **Install telemetry** Ensure registered (**before** fetch or CreateAgent), even if GitHub will fail. See **Install telemetry**.
 1. **Agora self-materialize** (disk only, **before** children): run **Fetch blueprint** for slug `agora`. Do **not** enable or replace Grok skill slots. Do **not** CreateAgent Agora. On any fail reason from Fetch blueprint: say that one line; **still** attempt Euodia and Mneme (playbooks are not foundation).
 2. **Agora self identity** (always attempt, never required): run **Apply fleet identity** for **Agora**. Continue even if this fails.
 3. **Euodia** (always attempt, never required to succeed):
-   1. If a bot named Euodia already exists → record its id; do not CreateAgent a second one; do not fetch. Do not re-apply identity.
+   1. If a bot named Euodia already exists → record its id; do not CreateAgent a second one; do not fetch. Do not re-apply identity. Do not fire an install event.
    2. Else run **Fetch blueprint** for `euodia`.
       - `no_release`, `http`, or `bad_archive` → record `euodia=FAILED` and `mneme=FAILED`. **Do not** fetch Mneme. Do **not** greet as if install succeeded. Do not fetch `main`. Skip to writing `FIRST_RUN` with `greeted=no`.
       - `missing_profile` → record `euodia=FAILED`; **continue** to Mneme. Do not author a persona from memory.
-   3. Else CreateAgent from fetched `profile.md` (verbatim), enable `skills/*.md` if any, with seating as above. **Skip `/r` and `/t`** until a later template recipe ships telemetry (no URL in this mint). Record id. Then best-effort **Apply fleet identity** for Euodia (never block Mneme).
+   3. Else CreateAgent from fetched `profile.md` (verbatim), enable `skills/*.md` if any, with seating as above. Then **install event** (**Install telemetry**, success only). Record id. Then best-effort **Apply fleet identity** for Euodia (never block Mneme).
 4. **Mneme** (required for a successful foundation):
-   1. If a bot named Mneme already exists → record its id; do not duplicate; do not fetch. Do not re-apply identity.
+   1. If a bot named Mneme already exists → record its id; do not duplicate; do not fetch. Do not re-apply identity. Do not fire an install event.
    2. Else run **Fetch blueprint** for `mneme` (independent latest).
       - `no_release`, `http`, `bad_archive`, or `missing_profile` → record `mneme=FAILED`. Do **not** CreateAgent a fake Mneme. Do not greet as ready.
-   3. Else CreateAgent from fetched `profile.md` (verbatim), enable every `skills/*.md`, seating as above, leave prompts/guides/schemas on disk at `/workspace/bots/mneme/`. Skip `/r` `/t` as above. Record id. Then best-effort **Apply fleet identity** for Mneme (never block the greeting).
+   3. Else CreateAgent from fetched `profile.md` (verbatim), enable every `skills/*.md`, seating as above, leave prompts/guides/schemas on disk at `/workspace/bots/mneme/`. Then **install event** on success. Record id. Then best-effort **Apply fleet identity** for Mneme (never block the greeting).
 5. Write `/workspace/bots/FIRST_RUN` (Agora sole-writes; **not** career SoT). Example:
 
    ```
@@ -99,7 +100,7 @@ Identity is **best-effort** via **Apply fleet identity** (that skill owns soft-f
 
 ## Retry
 
-Later turns: if `euodia=FAILED` and Mneme exists, run Fetch blueprint for `agora` if `prompts/out-of-scope.md` is missing, then Fetch blueprint for `euodia` only; CreateAgent if `profile.md` is now there (ListSections seating as above); then best-effort **Apply fleet identity** for Euodia. Do not re-greet. Do not re-create Mneme. If Mneme also failed (`no_release` / `http` / `bad_archive` / `missing_profile`), run this skill from the top (Agora self-materialize first).
+Later turns: if `euodia=FAILED` and Mneme exists, run **Install telemetry** Ensure registered, then Fetch blueprint for `agora` if `prompts/out-of-scope.md` is missing, then Fetch blueprint for `euodia` only; CreateAgent if `profile.md` is now there (ListSections seating as above); **install event** on success; then best-effort **Apply fleet identity** for Euodia. Do not re-greet. Do not re-create Mneme. If Mneme also failed (`no_release` / `http` / `bad_archive` / `missing_profile`), run this skill from the top (Ensure registered + Agora self-materialize first).
 
 ## Never from this skill
 

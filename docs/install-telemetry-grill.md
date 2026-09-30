@@ -1,6 +1,6 @@
 # Grill — Agora install telemetry (Vercel `/t`)
 
-**Status:** Rounds 1–3 **locked**. v1 is enough to author. **Stopped — wait for explicit implement.** Do not implement the route or Agora client until then.
+**Status:** Rounds 1–3 locked. **Implemented** — server in `apps/telemetry/`; client in `bots/agora/skills/install-telemetry.md` + First-run / Need bot / template mint. Custom domain, public stats, Firewall numbers still out of v1.
 
 **Scope:** `apps/telemetry/`, Agora skill telemetry steps, related docs. Not `bots/euodia/`.
 
@@ -72,9 +72,9 @@ ADR **0010** records host + Blob + install id (why not open GET). Glossary updat
 
 ---
 
-## v1 author checklist (when told **implement** — not this turn)
+## v1 author checklist (done)
 
-- New Vercel project on this repo; private Blob; `GET /r` upsert; `GET /t` CreateAgent rows with known id only; no public read.
+- Vercel project on this repo; private Blob; `GET /r` upsert; `GET /t` CreateAgent rows with known id only; no public read.
 - Agora skills: mint + `INSTALL_ID` + `/r` before CreateAgent; `/t` after success; DNT skips both; never block; never second id; `/t` one-shot.
 - Do not treat Agora counts as trusted. Do not touch `bots/euodia/`.
 
@@ -82,4 +82,4 @@ ADR **0010** records host + Blob + install id (why not open GET). Glossary updat
 
 ## Stop
 
-Shared understanding for v1. Do not author `apps/telemetry` or skill telemetry steps until Layish says **implement**.
+v1 authoring is in `apps/telemetry/` and `bots/agora/skills/install-telemetry.md`. Do not re-grill. Leftover: custom domain, public badge, Firewall rate-limit (Layish later).
