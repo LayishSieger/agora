@@ -1,6 +1,6 @@
 # jd-bank schema — Hermeneia
 
-Minimal durable shape for `/workspace/agora/jd-bank/<slug>.md`. Markdown only. No Offer Strategy HTML.
+Minimal durable shape for `/workspace/agora/jd-bank/<slug>.md`. Markdown only. No polished multi-section HTML report pack.
 
 Hermeneia sole-writes. Optional `/workspace/agora/jd-bank/_index.md` may aggregate rows.
 

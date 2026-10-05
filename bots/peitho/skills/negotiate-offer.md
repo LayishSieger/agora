@@ -38,7 +38,7 @@ Done when banks are updated and the user has a clear next communication (or a co
 
 1. **Count open offers** — If ≥2 open offers in offer-bank (or stated by user), **compare first**. Else go to negotiate.
 2. **Persist offer** — Write/update `/workspace/agora/offer-bank/` entry. Minimal fields: company, role, comp components, dates, status (open/accepted/declined), source notes, updated. English only. No third-party footers.
-3. **Compare (when ≥2)** — Short decision table: total comp, risk, fit to preferences. Recommend; user decides. Do not deepen into a full Offer Strategy HTML pack.
+3. **Compare (when ≥2)** — Short decision table: total comp, risk, fit to preferences. Recommend; user decides. Do not deepen into a full polished HTML compare/negotiate report pack.
 4. **Negotiate (single or after compare)** — Prep ask/walk-away from preferences + offer facts. Draft messages only with user confirm. Update `/workspace/agora/deal-bank/` with asks, counters, outcome.
 5. **DM navigator** — Pointer: company, role, offer/deal paths; stage offer/compare/negotiate status.
 

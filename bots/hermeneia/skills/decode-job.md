@@ -24,7 +24,7 @@ Decode one JD. Score match when masters allow. Write `/workspace/agora/jd-bank/`
 - Default on gate fail: **stop only** (G7).
 - **Decode-first:** finish all five layers before any match percent.
 - **Masters required to score:** thin/missing masters → decode OK, no percent.
-- Markdown jd-bank only — **no** Offer Strategy HTML.
+- Markdown jd-bank only — **no** polished HTML report pack.
 - Tools are **outcome-only** (get the JD text). No connector/MCP/tool-id catalog.
 
 ## Thresholds (G3)
@@ -75,7 +75,7 @@ Gate on a **single point** `match_percent`. Optional `match_range` is display-on
 - [ ] Reuse asked when a matching jd-bank entry already exists.
 - [ ] Five layers written (3–5 evidence-labeled bullets each) **before** any percent.
 - [ ] Score only with masters + disclosed rubric; unscored when masters thin/missing.
-- [ ] jd-bank entry matches schema (markdown; no Offer Strategy HTML).
+- [ ] jd-bank entry matches schema (markdown; no polished HTML report pack).
 - [ ] Band action matches M=70 / N=80 (or unscored stop).
 - [ ] Forward only when band allows (and user yes in middle band).
 - [ ] Pointer DMs only; no full JD in DM.

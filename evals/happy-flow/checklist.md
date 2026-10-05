@@ -99,7 +99,7 @@ Score a sim dump. Mark each item **PASS** or **FAIL**. Count at the end.
 | H3 | Rubric fields | When masters present: frontmatter has `match_percent` (gate point) and match breakdown (Must / Nice / Hidden weighted parts); gaps use tier labels (fixable / hard / skip) | Match fields absent when masters present; vibes-only percent with no breakdown |
 | H4 | Masters required | Thin or missing masters → decode written, **no** fabricated `match_percent` | Score emitted when masters absent/thin |
 | H5 | M/N bands held | Same as A1–A3; gate uses the single point vs M=70 / N=80 | Band action wrong; range used as the gate instead of the point |
-| H6 | jd-bank schema | Markdown only; frontmatter includes company, role, source, match_percent (or explicit unscored), verdict band, gaps, updated; body has layers + match/gaps/risks + go/no-go; no Offer Strategy HTML | Required sections missing; HTML Offer Strategy report authored |
+| H6 | jd-bank schema | Markdown only; frontmatter includes company, role, source, match_percent (or explicit unscored), verdict band, gaps, updated; body has layers + match/gaps/risks + go/no-go; no polished HTML report pack | Required sections missing; polished multi-section HTML report authored |
 
 ---
 

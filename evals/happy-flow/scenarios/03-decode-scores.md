@@ -24,7 +24,7 @@ Synthetic sample for seam checks — not a live rubric audit. Live JD quality is
    - Hidden signals
    - Level / team / stage
 3. Score with disclosed match rubric → **85%** gate point (optional display range OK; gate uses the point). Persist Must / Nice / Hidden breakdown + gap tiers.
-4. Sole-write `/workspace/agora/jd-bank/helios-data-staff-platform.md` (frontmatter + layers + match/gaps/risks + go/no-go). Markdown only — no Offer Strategy HTML.
+4. Sole-write `/workspace/agora/jd-bank/helios-data-staff-platform.md` (frontmatter + layers + match/gaps/risks + go/no-go). Markdown only — no polished HTML report pack.
 5. Auto-forward: DM Kairos with company, role, path to jd-bank entry.
 6. DM Euodia: match band + jd-bank path.
 
@@ -107,4 +107,4 @@ payload:
 - 85% point → Kairos pointer DM (A3 / H5).
 - No full JD in DM.
 - M/N values are 70/80.
-- No Offer Strategy HTML (H6).
+- No polished HTML report pack (H6).
