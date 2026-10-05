@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!--
+  Kairos shared resume loader (blueprint template).
+  Per-job file under /workspace/agora/applications/:
+    1. Copy this file to resume_<company>_<role>.html
+    2. Set RESUME_MD to the sibling markdown filename (same directory)
+    3. Set document title
+  Loads sibling .md for display. Do not regenerate a full designed resume pack.
+  English only. No third-party brand footers.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resume</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --muted: #555;
+    --rule: #ccc;
+    --bg: #f7f6f3;
+    --paper: #fff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    color: var(--ink);
+    background: linear-gradient(160deg, #eceae4 0%, var(--bg) 45%, #e4e8ec 100%);
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+  main {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 3rem;
+  }
+  .meta {
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+  #resume {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 1.75rem 1.5rem;
+    white-space: pre-wrap;
+    font-size: 0.95rem;
+  }
+  #resume.rendered { white-space: normal; }
+  #resume.rendered h1 { font-size: 1.6rem; margin: 0 0 0.35rem; }
+  #resume.rendered h2 {
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.2rem;
+    margin: 1.25rem 0 0.5rem;
+  }
+  #resume.rendered ul { padding-left: 1.2rem; margin: 0.35rem 0; }
+  #resume.rendered li { margin-bottom: 0.25rem; }
+  #error { color: #8b1e1e; font-family: ui-sans-serif, system-ui, sans-serif; }
+</style>
+</head>
+<body>
+<main>
+  <p class="meta">Kairos loader · sibling markdown</p>
+  <div id="error" hidden></div>
+  <article id="resume">Loading resume…</article>
+</main>
+<script>
+  // Per-job: set to sibling filename only (same directory as this HTML).
+  const RESUME_MD = "resume_EXAMPLE_role.md";
+
+  const el = document.getElementById("resume");
+  const err = document.getElementById("error");
+
+  function escapeHtml(s) {
+    return s
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+
+  // Minimal markdown → HTML (headings, lists, paragraphs). Enough for resume md.
+  function renderMarkdown(src) {
+    const lines = src.replace(/\r\n/g, "\n").split("\n");
+    const out = [];
+    let inList = false;
+    const flushList = () => {
+      if (inList) { out.push("</ul>"); inList = false; }
+    };
+    for (const line of lines) {
+      if (/^###\s+/.test(line)) {
+        flushList();
+        out.push("<h3>" + escapeHtml(line.replace(/^###\s+/, "")) + "</h3>");
+      } else if (/^##\s+/.test(line)) {
+        flushList();
+        out.push("<h2>" + escapeHtml(line.replace(/^##\s+/, "")) + "</h2>");
+      } else if (/^#\s+/.test(line)) {
+        flushList();
+        out.push("<h1>" + escapeHtml(line.replace(/^#\s+/, "")) + "</h1>");
+      } else if (/^[-*]\s+/.test(line)) {
+        if (!inList) { out.push("<ul>"); inList = true; }
+        out.push("<li>" + escapeHtml(line.replace(/^[-*]\s+/, "")) + "</li>");
+      } else if (line.trim() === "") {
+        flushList();
+      } else {
+        flushList();
+        out.push("<p>" + escapeHtml(line) + "</p>");
+      }
+    }
+    flushList();
+    return out.join("\n");
+  }
+
+  fetch(RESUME_MD)
+    .then((r) => {
+      if (!r.ok) throw new Error("Could not load " + RESUME_MD + " (" + r.status + ")");
+      return r.text();
+    })
+    .then((text) => {
+      el.classList.add("rendered");
+      el.innerHTML = renderMarkdown(text);
+      document.title = (text.match(/^#\s+(.+)$/m) || [, "Resume"])[1];
+    })
+    .catch((e) => {
+      el.hidden = true;
+      err.hidden = false;
+      err.textContent = String(e.message || e) +
+        ". Open this HTML via a local server next to the .md, or read the sibling markdown directly.";
+    });
+</script>
+</body>
+</html>

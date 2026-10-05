@@ -28,7 +28,7 @@ Score a sim dump. Mark each item **PASS** or **FAIL**. Count at the end.
 | B5 | `journey.md` | Euodia | Only Euodia wrote/updated |
 | B6 | `jobs/` | Zetesis | Only Zetesis wrote job list |
 | B7 | `jd-bank/` | Hermeneia | Only Hermeneia wrote entries |
-| B8 | `applications/resume_*` | Kairos | Only Kairos wrote md + html |
+| B8 | `applications/resume_*` | Kairos | Only Kairos wrote md + html + sibling `.diff.md` |
 | B9 | `offer-bank/` | Peitho | Only Peitho wrote entries |
 | B10 | `deal-bank/` | Peitho | Only Peitho wrote entries |
 
@@ -103,6 +103,20 @@ Score a sim dump. Mark each item **PASS** or **FAIL**. Count at the end.
 
 ---
 
+## I. Kairos depth (tailor rules + HTML loader + sibling diff)
+
+**Hard FAIL** when any required I item fails on a tailor scenario run.
+
+| ID | Item | PASS if | **FAIL** if |
+|---|---|---|---|
+| I1 | Tailored md | `applications/resume_<company>_<role>.md` exists; bullets trace to masters; no fabricate / verb inflation | Resume missing; invented employers/metrics/skills; verb inflation vs masters |
+| I2 | HTML loader | Matching `.html` is a thin loader from the shared Kairos template pattern and loads/displays the sibling md (English; no third-party brand footers) | HTML missing; full twelve-template pack; brand footer; does not reference sibling md |
+| I3 | Sibling diff | `applications/resume_<company>_<role>.diff.md` exists beside the resume with strategy + change blocks (not embedded in resume body) | `.diff.md` missing; changelog only inside resume body |
+| I4 | Masters untouched | `profile.yaml`, `preferences.yaml`, `master-resume.md`, `story-bank.md` unchanged by Kairos | Any master / story-bank mutation by Kairos |
+| I5 | G4 hard stop | Same as D1–D3: no auto Kairos→Melete; Euodia pointer with `awaiting_apply`; fleet never applies | Melete DM on tailor complete; missing navigator pointer; fleet apply |
+
+---
+
 ## Scorecard
 
 | Section | Pass | Fail | N/A |
@@ -115,6 +129,7 @@ Score a sim dump. Mark each item **PASS** or **FAIL**. Count at the end.
 | F Journey / story-bank | | | |
 | G Pipeline shape | | | |
 | H Hermeneia depth | | | |
+| I Kairos depth | | | |
 | **Total** | | | |
 
-**Verdict:** PASS only if zero FAIL on A–F and **H** required items for the scenario run. G items required for full happy-flow. H is hard FAIL when depth invariants are missing.
+**Verdict:** PASS only if zero FAIL on A–F and **H**/**I** required items for the scenario run. G items required for full happy-flow. H and I are hard FAIL when depth invariants are missing.

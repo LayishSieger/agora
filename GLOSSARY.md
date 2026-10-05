@@ -17,7 +17,9 @@ _Avoid_: telling the user to type `need`; saying Agora keeps career info (that i
 
 **disclosed framework** — Disk file under `bots/<slug>/frameworks/` (or `references/`) read when needed; not an extra Grok skill slot.
 
-**Kairos (Καιρός)** — Resume Tailor. Adapts master profile into a job-specific resume under `applications/`. Writes matching simple HTML loader. Lazy-created by Agora on demand. Does not auto-forward to Melete.
+**Kairos (Καιρός)** — Resume Tailor. Adapts master profile into a job-specific resume under `applications/`. Writes matching thin HTML loader from a shared blueprint template and a sibling **tailor diff**. Lazy-created by Agora on demand. Does not auto-forward to Melete.
+
+**tailor diff** — Sibling changelog `applications/resume_<company>_<role>.diff.md` written by Kairos beside the tailored resume. Records strategy and per-edit changes from the master story; not embedded in the resume body.
 
 **Melete (Μελέτη)** — Interview Coach. Interview prep, practice, feedback. Proposes stories for the story bank. Lazy-created by Agora on demand. Engaged after apply-commit by user or navigator.
 
@@ -102,7 +104,7 @@ _Avoid_: installer Add event, fetch telemetry
 
 **jd-bank/** — Decoded JD + match entries. Hermeneia sole-writes. Path: `/workspace/agora/jd-bank/`.
 
-**resume_<company>_<role>.md** — Job-specific presentation of the story. Kairos sole-writes. Path: `/workspace/agora/applications/resume_<company>_<role>.md`. Matching `.html` loader is also Kairos.
+**resume_<company>_<role>.md** — Job-specific presentation of the story. Kairos sole-writes. Path: `/workspace/agora/applications/resume_<company>_<role>.md`. Matching `.html` loader and sibling `.diff.md` (**tailor diff**) are also Kairos.
 
 **offer-bank/** — Offer facts. Peitho sole-writes. Path: `/workspace/agora/offer-bank/`.
 

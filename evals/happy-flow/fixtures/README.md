@@ -15,7 +15,7 @@ cp -R fixtures/agora/. /tmp/agora-happy-flow/workspace/agora/
 | `story-bank.md` | Mneme | Empty stories section |
 | `jobs/` | Zetesis | Empty until hunt |
 | `jd-bank/` | Hermeneia | Empty until decode |
-| `applications/` | Kairos | Empty until tailor |
+| `applications/` | Kairos | Empty until tailor (`resume_*.md` + `.html` + `.diff.md`) |
 | `offer-bank/` | Peitho | Empty until offer |
 | `deal-bank/` | Peitho | Empty until negotiate |
 
