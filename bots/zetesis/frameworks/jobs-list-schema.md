@@ -2,7 +2,7 @@
 
 Minimal durable shape for `/workspace/agora/jobs/<search-slug>.md`. Markdown only. **No hunt HTML.**
 
-Zetesis sole-writes. Append across continues. Optional `/workspace/agora/jobs/_index.md` may list searches.
+Zetesis sole-writes. Append across continues. This file is the **single source of truth** for durable row columns; evidence-labels.md defines label meanings only.
 
 ---
 
@@ -69,4 +69,4 @@ On continue (~3 more):
 
 ## Optional index
 
-`_index.md` rows: search_id, path, updated, status, row count. Keep short.
+`/workspace/agora/jobs/_index.md` may list searches (search_id, path, updated, status, row count). Optional only — not required for a valid hunt.

@@ -49,18 +49,19 @@ Find and list relevant openings. Public hunt → durable markdown under `/worksp
 2. **Gather search inputs** — Use `target_roles`, markets, work_mode, must_haves, deal_breakers, salary_floor from preferences or the chat.
 3. **Build query matrix** — Using query-matrix: roles × markets × mode, plus must-haves / deal-breakers / salary floor filters.
 4. **Public hunt** — Using hunt-persona: fetch/browse openings for those queries (outcome-only). On wall → stop that path; never fabricate. Collect a pool; keep overflow for continue.
-5. **Write or append job list** — Sole-write under `/workspace/agora/jobs/` per jobs-list-schema. First batch: create the file. Continue: **append** ~3 more rows to the same file (do not replace prior rows). Each row: company, role, location/mode, link or source, evidence label, short why-listed, date noted, batch number. **No match % column. No hunt HTML.**
+5. **Write or append job list** — Sole-write under `/workspace/agora/jobs/` per jobs-list-schema. First batch: create the file. Continue: **append** ~3 more rows to the same file (do not replace prior rows). Each durable row: `id`, company, role, mode, source, evidence, why-listed, date, `batch`. **No match % column. No hunt HTML.**
 6. **Present batch of three** — Show ~3 matching/directional rows with evidence labels visible. Ask which to decode **or** continue (~3 more). **Do not forward roles the user did not pick (G2).**
-7. **Forward picked roles (G2)** — For each user-picked role, DM Hermeneia with pointer: company, role, path/id into the job list or JD URL/file. If Hermeneia is missing: message Agora `need Hermeneia`; when create confirmed, **continue** (G9). Tell the user to open Hermeneia.
-8. **DM navigator** — On gate complete (list written + picks forwarded or user stopped / waiting), DM Euodia with stage note + path to the job list (pointer only).
+7. **DM navigator after hunt** — After the jobs file is written or appended (this batch), DM Euodia with stage `search` + path to the job list (pointer only). Do this even while waiting for pick/continue — do not wait for Hermeneia forward.
+8. **Forward picked roles (G2)** — For each user-picked role, DM Hermeneia with pointer: company, role, path/id into the job list or JD URL/file. If Hermeneia is missing: message Agora `need Hermeneia`; when create confirmed, **continue** (G9). Tell the user to open Hermeneia. If user continues instead: return to step 4 for the next batch (skip G1).
 
 ### Completion criteria
 
 - [ ] G1 confirmed once for the chain (or skipped on continue / prior navigator confirm).
 - [ ] Queries built from prefs/chat via disclosed query matrix.
 - [ ] Public hunt attempted; walls stop without fabricate.
-- [ ] Durable markdown jobs list written or appended under `/workspace/agora/jobs/` (schema fields + evidence labels).
+- [ ] Durable markdown jobs list written or appended under `/workspace/agora/jobs/` (schema fields + evidence labels; `id` + `batch` on rows).
 - [ ] Presented batch is ~3 matching/directional; pick-or-continue asked.
+- [ ] Euodia pointer DM sent after hunt write/append (path to jobs list).
 - [ ] No match % on list; no hunt HTML authored.
 - [ ] Only user-picked roles forwarded to Hermeneia (or user chose none / still browsing — stop or wait).
 - [ ] Pointer DMs used; no full JD body in DM.

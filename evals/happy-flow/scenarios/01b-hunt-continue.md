@@ -21,13 +21,13 @@
 
 ## Expected append (assert)
 
-After continue, the jobs file contains **prior rows plus ~3 new rows** (total ~6). Prior companies (Helios / Orbis / Redline) still present. New sample rows (labeled fixtures OK):
+After continue, the jobs file contains **prior rows plus ~3 new rows** (total ~6). Prior companies (Helios / Orbis / Redline) still present with `batch: 1`. New sample rows (`batch: 2`; labeled fixtures OK):
 
-| company | role | mode | source | evidence |
-|---|---|---|---|---|
-| Northwind Labs | Staff Platform Engineer | hybrid Berlin | sim://jobs/northwind-platform | seen |
-| Cobalt Systems | Senior Backend Engineer | remote-EU | sim://jobs/cobalt-backend | directional |
-| Meridian Cloud | Platform Engineer | hybrid Berlin | sim://jobs/meridian-platform | seen |
+| id | company | role | mode | source | evidence | why-listed | date | batch |
+|---|---|---|---|---|---|---|---|---|
+| northwind-labs | Northwind Labs | Staff Platform Engineer | hybrid Berlin | sim://jobs/northwind-platform | seen | Platform IC; Berlin hybrid | 2026-10-05 | 2 |
+| cobalt-systems | Cobalt Systems | Senior Backend Engineer | remote-EU | sim://jobs/cobalt-backend | directional | Title fit; JD unread | 2026-10-05 | 2 |
+| meridian-cloud | Meridian Cloud | Platform Engineer | hybrid Berlin | sim://jobs/meridian-platform | seen | Platform scope match | 2026-10-05 | 2 |
 
 ## Forbidden
 
