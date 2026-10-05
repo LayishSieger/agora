@@ -72,10 +72,10 @@ Do **not** re-grill: install telemetry rounds 1–3, blueprint fetch contract (e
 - `fetch-blueprint.md` today: unknown name, **`Agora`**, or any other folder → **stop**. Child extract is the **whole** `bots/<slug>/` tree; fail closed if `profile.md` is missing. Installed path: `/workspace/bots/<slug>/` + `RELEASE` (ADR 0008). Need-bot still **refuses CreateAgent Agora** — that is unchanged; self-materialize is disk fetch, not CreateAgent.
 - First-run already resolves latest Release **once** before Euodia/Mneme fetch. A self-materialize step can share that resolve (author-time; not a user question).
 
-### Language to sharpen later (after close — do not invent in CONTEXT.md this PR)
+### Language to sharpen later (after close — do not invent in GLOSSARY.md this PR)
 
 - Glossary **installer template** remains the Add link. Q4 **A** means there is **no** separate gallery blurb.
-- Q1 override **does** split: **frozen recipe** (what Add copies: persona + three steward skills) vs **authorship tree** `bots/agora/` vs **installed** `/workspace/bots/agora/` (playbooks, at least `prompts/out-of-scope.md`). Installed-blueprint language already exists for children; Agora-on-disk is the same machine path with a lifted slug. Do **not** invent `export pack` in `CONTEXT.md` until implement.
+- Q1 override **does** split: **frozen recipe** (what Add copies: persona + three steward skills) vs **authorship tree** `bots/agora/` vs **installed** `/workspace/bots/agora/` (playbooks, at least `prompts/out-of-scope.md`). Installed-blueprint language already exists for children; Agora-on-disk is the same machine path with a lifted slug. Do **not** invent `export pack` in `GLOSSARY.md` until implement.
 - After close: ADR **0015** records the **Not Agora** lift (0011–0014 are the fetch contract). Glossary: **template recipe**, **Agora self-materialize**. Mint checklist: `docs/agents/agora-template-mint.md`. Do **not** invent `export pack`.
 
 ---

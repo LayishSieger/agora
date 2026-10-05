@@ -14,4 +14,4 @@ Default role strings: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-fo
 
 ### Domain docs
 
-Single-context: root `CONTEXT.md` plus `docs/adr/`. See `docs/agents/domain.md`.
+Single-context: root `GLOSSARY.md` plus `docs/adr/`. See `docs/agents/domain.md`.

@@ -8,4 +8,4 @@ Career-fleet source of truth for Grok Bot.
 
 Owner: Layish Sieger.
 
-See `AGORA-PLAN.md` and `CONTEXT.md`.
+See `AGORA-PLAN.md` and `GLOSSARY.md`.

@@ -1,4 +1,4 @@
-# CONTEXT.md
+# GLOSSARY.md
 
 ## Glossary
 
