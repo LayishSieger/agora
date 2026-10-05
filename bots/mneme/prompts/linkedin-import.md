@@ -1,6 +1,6 @@
 # LinkedIn Import
 
-Goal: turn the user's LinkedIn profile into the three foundation files under `/workspace/agora/`. **Real-world constraint: LinkedIn has a login wall, so directly fetching a public URL often returns a 403 or an empty shell.** So the flow is "try first, gracefully degrade if it fails."
+Goal: turn the user's LinkedIn profile into the core foundation files under `/workspace/agora/` (`profile.yaml`, `preferences.yaml`, `master-resume.md`). Story-bank is separate (Melete proposes; not from LinkedIn). **Real-world constraint: LinkedIn has a login wall, so directly fetching a public URL often returns a 403 or an empty shell.** So the flow is "try first, gracefully degrade if it fails."
 
 Do not use LinkedIn as a job search (Easy Apply, jobs tab, “open to work” recs). “Open to work” / headline targets map to `preferences.yaml` only.
 

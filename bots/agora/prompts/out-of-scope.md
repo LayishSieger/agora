@@ -45,7 +45,7 @@ Use when the user (or a stage bot) asks Agora to do career work, spawn a non-ros
 > I don’t delete fleet bots.
 
 **Write career SoT**
-> I don’t write `/workspace/agora/` career files. Mneme sole-writes the three foundation files.
+> I don’t write `/workspace/agora/` career files. Mneme sole-writes the foundation career files (masters + story-bank). Euodia sole-writes journey.md. Stage bots write their banks.
 
 ## After refuse
 

@@ -5,23 +5,37 @@
 **Agora (Ἀγορά)** — Career-fleet creator and steward. Title chip: Career assembly. Creates, configures, repairs, and upgrades career-fleet bots and skills. Only bot allowed to CreateAgent. After install: first-run greets once, points to Euodia or Mneme, then stays quiet unless asked or a stage bot messages `need <Name>`. Does not do career work. The only public Grok Bot template in v1 (installer). Children are not published as their own templates. Does not do stage-bot jobs in Agora chat.
 _Avoid_: telling the user to type `need`; saying Agora keeps career info (that is Mneme / files under `/workspace/agora/`)
 
-**Euodia (Εὐοδία)** — Career Pathfinder. Explores career direction. A growth plan is later. Optional to *use* when direction is unclear. Does not gate Mneme. Must not CreateAgent; messages Agora if a later bot is needed.
+**Euodia (Εὐοδία)** — Career Pathfinder and **navigator**. Explores career direction **and** tracks journey stage, seats specialists, owns career routines and Gmail/calendar connectors. Sole-writes `/workspace/agora/journey.md`. A growth plan is later. Optional to *use* when direction is unclear. Does not gate Mneme. Must not CreateAgent; messages Agora if a later bot is needed. Two skills: clarify-direction and navigate-progress.
 
-**Mneme (Μνήμη)** — Career Curator. Interviews, collects experiences, maintains the master career profile (source of truth). Always present after first-run. Must not CreateAgent, tailor resumes, score JDs, search jobs, or apply; messages Agora `need <Name>` if a later bot is needed. Refuses those jobs in chat as well as in files.
+**Mneme (Μνήμη)** — Career Curator. Interviews, collects experiences, maintains the master career profile (source of truth) **and** `story-bank.md`. Always present after first-run. Must not CreateAgent, tailor resumes, score JDs, search jobs, or apply; on those asks: refuse + DM specialist (`need <Name>` if missing). Refuses those jobs in chat as well as in files.
 
-**Zetesis (Ζήτησις)** — Job Finder. Searches opportunities from profile and preferences. Lazy-created by Agora on demand.
+**Zetesis (Ζήτησις)** — Job Finder. Searches opportunities from profile and preferences. Writes job list under `/workspace/agora/jobs/`. Lazy-created by Agora on demand.
 
-**Hermeneia (Ἑρμηνεία)** — Job Decoder. Analyzes job descriptions; explains requirements, priorities, fit. Lazy-created by Agora on demand.
+**Hermeneia (Ἑρμηνεία)** — Job Decoder. Analyzes job descriptions; explains requirements, priorities, fit; scores match vs **M** and **N**. Writes `/workspace/agora/jd-bank/`. Lazy-created by Agora on demand.
 
-**Kairos (Καιρός)** — Resume Tailor. Adapts master profile into a job-specific resume. Lazy-created by Agora on demand.
+**Kairos (Καιρός)** — Resume Tailor. Adapts master profile into a job-specific resume under `applications/`. Writes matching simple HTML loader. Lazy-created by Agora on demand. Does not auto-forward to Melete.
 
-**Melete (Μελέτη)** — Interview Coach. Interview prep, practice, feedback. Lazy-created by Agora on demand.
+**Melete (Μελέτη)** — Interview Coach. Interview prep, practice, feedback. Proposes stories for the story bank. Lazy-created by Agora on demand. Engaged after apply-commit by user or navigator.
 
-**Peitho (Πειθώ)** — Offer Negotiator. Offer understanding and negotiation support. Lazy-created by Agora on demand.
+**Peitho (Πειθώ)** — Offer Negotiator. Compares and negotiates offers. Writes `/workspace/agora/offer-bank/` and `/workspace/agora/deal-bank/`. Lazy-created by Agora on demand. Navigator opens Peitho on offer.
 
-**Career pipeline** — Euodia → Mneme → Zetesis → Hermeneia → Kairos → Melete → Peitho.
+**Navigator** — Euodia when she tracks journey stage, seats specialists, and owns routines and connectors.
 
-**Career foundation** — Euodia and Mneme (both created on first-run). If the fetched Release has no Euodia `profile.md`, that CreateAgent fails and Mneme is still created. Euodia does not gate Mneme.
+**Stage bot** — A specialist: Zetesis, Hermeneia, Kairos, Melete, or Peitho.
+
+**Gate** — A rule that allows or blocks a forward to the next bot (G1–G9).
+
+**Match score** — Hermeneia fit percent for one job.
+
+**M** — Hard floor for match score. Value: **70%**.
+
+**N** — Forward threshold for match score. Value: **80%**.
+
+**Pointer DM** — Direct message between bots carrying company, role, and path or id only — not a full JD or offer body.
+
+**Career pipeline** — Euodia → Mneme → Zetesis → Hermeneia → Kairos → (user applies) → Melete / Peitho via navigator.
+
+**Career foundation** — Euodia and Mneme (both created on first-run). If the fetched Release has no Euodia `profile.md`, that CreateAgent fails and Mneme is still created. Euodia does not gate Mneme. Navigator exists from first-run with Euodia + Mneme.
 
 **first-run** — Agora’s one-time foundation path: self-materialize Agora playbooks, apply Agora fleet identity (best-effort), then blueprint-fetch Euodia and Mneme from latest (each fetch may see a different latest), CreateAgent both (Mneme even if Euodia fails), apply identity for each created child (best-effort), greet once, quiet. Not `need`. Not the execution pipeline. Marker file: `/workspace/bots/FIRST_RUN` (Agora sole-writes). Not career SoT.
 
@@ -30,7 +44,7 @@ _Avoid_: Add child template, Duplicate Agora
 
 **Career execution** — Zetesis → Hermeneia → Kairos → Melete → Peitho (lazy).
 
-**need protocol** — A stage bot that requires another fleet bot messages Agora `need <Name>` with one roster Latin name. Agora creates it if missing and replies with the id. The user never types `need`; Agora still parses `need <Name>` text for compatibility. Stage bots never CreateAgent. Quantifiers (`all`, `the rest`) are not `need`. Execution `need` waits until Mneme exists (run first-run first).
+**need protocol** — A stage bot that requires another fleet bot messages Agora `need <Name>` with one roster Latin name. Agora creates it if missing and replies with the id. The user never types `need`; Agora still parses `need <Name>` text for compatibility. Stage bots never CreateAgent. Quantifiers (`all`, `the rest`) are not `need`. Execution `need` waits until Mneme exists (run first-run first). On missing next hop: `need` then **continue** when create is confirmed.
 _Avoid_: user-typed `need`; coaching “send `need <Name>`”
 
 **sidebar seating** — On CreateAgent, Agora may pass `section_id` from ListSections when a section display name matches `/^(agora|career)$/i`; otherwise omit `section_id` (leave unassigned). There is no CreateSection API. UpdateAgent cannot move a bot into a section. Missing section never fails create.
@@ -76,4 +90,16 @@ _Avoid_: installer Add event, fetch telemetry
 
 **master-resume.md** — Professional story / evidence. YAML document at a `.md` path. Human+agent authored source of truth. Top-level `variant: master` and `updated`. No contact/objective/target_roles. Optional `variants` are same-fact rephrasings, not per-job forks. Mneme sole-writes. Path: `/workspace/agora/master-resume.md`.
 
-**resume_<company>_<role>.md** — Job-specific presentation of the story. Kairos sole-writes. Path: `/workspace/agora/applications/resume_<company>_<role>.md`.
+**story-bank.md** — Reusable interview stories. Mneme sole-writes (Melete may propose; persist after confirm). Path: `/workspace/agora/story-bank.md`.
+
+**journey.md** — Journey / stage record. Euodia (navigator) sole-writes. Path: `/workspace/agora/journey.md`.
+
+**jobs/** — Job list bank. Zetesis sole-writes. Path: `/workspace/agora/jobs/`.
+
+**jd-bank/** — Decoded JD + match entries. Hermeneia sole-writes. Path: `/workspace/agora/jd-bank/`.
+
+**resume_<company>_<role>.md** — Job-specific presentation of the story. Kairos sole-writes. Path: `/workspace/agora/applications/resume_<company>_<role>.md`. Matching `.html` loader is also Kairos.
+
+**offer-bank/** — Offer facts. Peitho sole-writes. Path: `/workspace/agora/offer-bank/`.
+
+**deal-bank/** — Negotiation state / outcomes. Peitho sole-writes. Path: `/workspace/agora/deal-bank/`.
