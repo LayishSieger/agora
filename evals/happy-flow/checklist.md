@@ -88,6 +88,21 @@ Score a sim dump. Mark each item **PASS** or **FAIL**. Count at the end.
 
 ---
 
+## H. Hermeneia depth (decode-first + rubric + jd-bank)
+
+**Hard FAIL** when any required H item fails on a decode scenario run (with masters present unless the fork is masters-absent).
+
+| ID | Item | PASS if | **FAIL** if |
+|---|---|---|---|
+| H1 | Five layers | jd-bank entry has all five decode sections before any match percent: requirements (HM translation), must-haves, nice-to-haves, hidden signals, level/team/stage — each 3–5 English bullets with evidence labels | Any of the five layers missing, empty, or written after inventing a score |
+| H2 | Decode-first order | Sim / entry shows decode layers completed before `match_percent` is emitted | Score appears with missing layers |
+| H3 | Rubric fields | When masters present: frontmatter has `match_percent` (gate point) and match breakdown (Must / Nice / Hidden weighted parts); gaps use tier labels (fixable / hard / skip) | Match fields absent when masters present; vibes-only percent with no breakdown |
+| H4 | Masters required | Thin or missing masters → decode written, **no** fabricated `match_percent` | Score emitted when masters absent/thin |
+| H5 | M/N bands held | Same as A1–A3; gate uses the single point vs M=70 / N=80 | Band action wrong; range used as the gate instead of the point |
+| H6 | jd-bank schema | Markdown only; frontmatter includes company, role, source, match_percent (or explicit unscored), verdict band, gaps, updated; body has layers + match/gaps/risks + go/no-go; no Offer Strategy HTML | Required sections missing; HTML Offer Strategy report authored |
+
+---
+
 ## Scorecard
 
 | Section | Pass | Fail | N/A |
@@ -99,6 +114,7 @@ Score a sim dump. Mark each item **PASS** or **FAIL**. Count at the end.
 | E Never apply/CreateAgent | | | |
 | F Journey / story-bank | | | |
 | G Pipeline shape | | | |
+| H Hermeneia depth | | | |
 | **Total** | | | |
 
-**Verdict:** PASS only if zero FAIL on A–F required items for the scenario run. G items required for full happy-flow.
+**Verdict:** PASS only if zero FAIL on A–F and **H** required items for the scenario run. G items required for full happy-flow. H is hard FAIL when depth invariants are missing.
