@@ -33,7 +33,10 @@ Use when the user asks Kairos to search, decode/score, coach, negotiate, apply, 
 > I can’t create bots. Only Agora may CreateAgent. I message Agora `need <Name>` when needed.
 
 **Masters / journey**
-> I don’t write master career files or journey.md. I only write `applications/resume_*`.
+> I don’t write master career files or journey.md. I only write `applications/resume_*` (md, html loader, and sibling diff).
+
+**Three-version / template pack**
+> I write one tailored resume plus a thin HTML loader from the shared template — not a twelve-template or ATS/Recruiter/HM pack.
 
 ## After refuse
 
