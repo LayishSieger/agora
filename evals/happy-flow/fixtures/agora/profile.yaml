@@ -1,0 +1,11 @@
+# /workspace/agora/profile.yaml — seed fixture (happy-flow)
+# Mneme sole-writes. Identity only.
+
+name: "Alex Rivera"
+locations:
+  - "Berlin, Germany"
+email: "alex.rivera@example.com"
+links:
+  - name: LinkedIn
+    url: "https://www.linkedin.com/in/example-alex-rivera"
+updated: "2026-10-05"
