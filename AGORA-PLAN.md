@@ -1,6 +1,6 @@
 # Agora plan
 
-Status: Agora steward skills and foundation blueprints (Euodia, Mneme) authored. Thin installer **template recipe** authored (mint is Layish). Execution bots are stubs. Install telemetry server + client skill authored (Update template is Layish).
+Status: Agora steward skills and foundation blueprints (Euodia, Mneme) authored. Euodia has clarify-direction + navigate-progress; sole-writes `journey.md`. Execution stubs (Zetesis→Peitho) authored with one job skill each. Mneme sole-writes masters + `story-bank.md`. Thin installer **template recipe** authored (mint is Layish). Install telemetry server + client skill authored (Update template is Layish). **Release after merge** so CreateAgent can fetch stubs.
 
 ## System
 
@@ -20,22 +20,23 @@ Status: Agora steward skills and foundation blueprints (Euodia, Mneme) authored.
  ┌─────┴─────┐              ┌────────┴────────┐
  │           │              │                 │
 EUODIA     MNEME         ZETESIS → HERMENEIA → KAIROS → MELETE → PEITHO
+(navigator)              (gated auto; hard stop before Melete)
 ```
 
-Progression: Find direction → Know yourself → Find opportunities → Understand them → Position yourself → Prepare → Negotiate.
+Progression: Find direction → Know yourself → Find opportunities → Understand them → Position yourself → (user applies) → Prepare → Negotiate. Navigator seats Melete/Peitho via routines after apply-commit / on offer.
 
 ## Roster
 
 | Name | Title | One job |
 |---|---|---|
 | **Agora** | Career assembly | Create/configure/repair career-fleet bots and skills; route; quiet otherwise |
-| **Euodia** | Career pathfinder | Find or narrow career direction. A growth plan is later |
-| **Mneme** | Career curator | Maintain master career profile (source of truth) |
-| **Zetesis** | Job finder | Search relevant opportunities |
-| **Hermeneia** | Job decoder | Analyze JDs; explain fit |
-| **Kairos** | Resume tailor | Job-specific resume from master profile |
-| **Melete** | Interview coach | Interview prep and practice |
-| **Peitho** | Offer negotiator | Offer strategy and communication |
+| **Euodia** | Career pathfinder + navigator | Direction + journey/seating/routines/connectors |
+| **Mneme** | Career curator | Maintain masters + story-bank (source of truth) |
+| **Zetesis** | Job finder | Search relevant opportunities; write jobs/ |
+| **Hermeneia** | Job decoder | Analyze JDs; match vs M=70 / N=80; write jd-bank/ |
+| **Kairos** | Resume tailor | Job-specific resume + HTML loader under applications/ |
+| **Melete** | Interview coach | Interview prep; propose stories for story-bank |
+| **Peitho** | Offer negotiator | Compare + negotiate; write offer-bank/ and deal-bank/ |
 
 ## Distribution
 
@@ -71,32 +72,42 @@ bots/<name>/skills/*.md     # installed after create
 ## Decisions
 
 - Career-fleet only. Template owner: Layish. Fresh fleet on install.
-- Euodia optional to use; Mneme always present; Euodia does not gate Mneme.
+- Euodia optional to use; Mneme always present; Euodia does not gate Mneme. Euodia is also navigator from first-run.
 - Never fabricate. Never apply on the user's behalf.
+- Gated auto-pipeline: G1 confirm-once; G2 user-pick; G3 M=70 N=80; G4 no auto to Melete; N9 Peitho on offer; G7 stop-only default; G8 pointer DMs; G9 need-then-continue.
 - All authorship in `layishsieger/agora`.
 
-## Euodia (foundation, optional to use)
+## Euodia (foundation + navigator)
 
-One job: find or narrow career direction (role families, domains, moves). A growth plan is later. A session ends when the user can state wants Mneme can store.
+Skills: clarify-direction (role families, domains, moves) and navigate-progress (journey, seating, routines, connectors).
 
-Does not write `/workspace/agora/`. Proposes only `target_roles`, `career_notes`, `markets`, `work_mode`, `must_haves`, `deal_breakers`, `salary_floor`. Direct message to Mneme after the user agrees; Mneme writes `preferences.yaml`. No proposal file. No schemas. No guides.
+Does not write masters. Proposes only `target_roles`, `career_notes`, `markets`, `work_mode`, `must_haves`, `deal_breakers`, `salary_floor` for Mneme. Sole-writes `/workspace/agora/journey.md`.
 
-Files: `profile.md`, `skills/clarify-direction.md`, `prompts/out-of-scope.md`.
+Files: `profile.md`, `skills/clarify-direction.md`, `skills/navigate-progress.md`, `prompts/out-of-scope.md`.
 
 ## Mneme (foundation SoT)
 
-One job: gather/organize/confirm career truth. No tailored HTML/markdown/PDF (including in chat), no JD scoring, no search, no CreateAgent, no apply.
+One job: gather/organize/confirm career truth. No tailored HTML/markdown/PDF (including in chat), no JD scoring, no search, no CreateAgent, no apply. Specialist asks: refuse + DM.
 
 Writes only:
 
 - `/workspace/agora/profile.yaml` — identity
 - `/workspace/agora/preferences.yaml` — wants (Euodia proposes after the user agrees; Mneme writes if the file is unchanged)
 - `/workspace/agora/master-resume.md` — YAML story/evidence (`variant: master`)
+- `/workspace/agora/story-bank.md` — reusable interview stories (Melete proposes; Mneme writes after confirm)
 
-Kairos writes `/workspace/agora/applications/resume_<company>_<role>.md`.
+Kairos writes `/workspace/agora/applications/resume_<company>_<role>.md` (+ simple HTML loader).
 
 Intake v1: interview · resume/PDF · LinkedIn PDF/paste. Mixed JD+resume → evidence only. No fabricate. Re-import is union; conflicts are questions.
 
+## Execution stubs
+
+Each of Zetesis, Hermeneia, Kairos, Melete, Peitho has `profile.md`, one job skill, `prompts/out-of-scope.md`, `README.md`. Banks: jobs/, jd-bank/, applications/, offer-bank/, deal-bank/. Deep toolkit later.
+
 ## Next
 
-Thin Agora **template recipe** includes Install telemetry. Blueprint fetch contract is in steward skills. Layish Publishes (or **Update template** if an earlier mint skipped telemetry) from `docs/agents/agora-template-mint.md`. Pre-authored `bots/<slug>/avatar.png` files are a later assets PR. Execution-bot stubs stay later. First-run CreateAgent Euodia once a Release includes `bots/euodia/profile.md` (`no_release` until then is correct). Custom domain / public stats / Firewall rate-limit for telemetry stay out of v1.
+1. **Merge this implement PR**, then publish a **new GitHub Release** (after v0.1.2) including stub trees + Euodia navigate updates so CreateAgent / `need` can fetch them.
+2. Layish Publishes (or **Update template**) from `docs/agents/agora-template-mint.md` when ready.
+3. Pre-authored `bots/<slug>/avatar.png` files remain a later assets PR.
+4. Deepen toolkits later (Hermeneia → Zetesis → Kairos → Melete → Peitho → navigator polish).
+5. Custom domain / public stats / Firewall rate-limit for telemetry stay out of v1.

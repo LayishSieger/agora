@@ -1,0 +1,3 @@
+# ADR 0020 — Gated auto-pipeline (M=70, N=80)
+
+The fleet allows gated auto-forwards after one start confirm (G1). Zetesis forwards only user-picked roles (G2). Hermeneia match bands: below 70% confident no; 70–80% user decides; at/above 80% auto-forward to Kairos (G3). No auto Kairos → Melete; user must apply and commit, then user or navigator opens Melete (G4). Navigator opens Peitho on offer; compare first if ≥2 open offers (N9). Default on gate fail is stop only (G7). Files are SoT; DMs are pointers (G8). Missing next bot: Agora `need <Name>`, then continue when create confirmed (G9). Fleet never applies. Children never CreateAgent. User never types `need`.
