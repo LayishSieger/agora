@@ -1,0 +1,25 @@
+# /workspace/agora/preferences.yaml — seed fixture (happy-flow)
+# Mneme sole-writes after user confirm.
+
+target_roles:
+  - "Staff Platform Engineer"
+  - "Senior Backend Engineer"
+career_notes: "Wants platform/infra IC work. Strong on reliability and developer platforms. Open to hybrid EU."
+markets:
+  - "Berlin"
+  - "remote-EU"
+work_mode: "hybrid"
+must_haves:
+  - "Backend or platform engineering"
+  - "English-speaking team"
+deal_breakers:
+  - "Pure people-management with no IC work"
+salary_floor: "EUR 110000"
+emphasize:
+  - "Distributed systems"
+  - "Platform tooling"
+  - "On-call reliability"
+de_emphasize:
+  - "Short freelance gigs"
+resume_voice: "Direct, evidence-led, no fluff"
+updated: "2026-10-05"
