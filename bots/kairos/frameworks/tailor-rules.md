@@ -2,7 +2,7 @@
 
 Disclosed framework. Read when selecting evidence and rewriting bullets.
 
-Agora-adapted from the public offer-toolkit resume-tailoring rules. English only. No third-party branding. **One** job-specific resume per company/role (not a three-version pack).
+Disclosed Kairos tailor rules. English only. No third-party branding. **One** job-specific resume per company/role (not a multi-version pack).
 
 ---
 
