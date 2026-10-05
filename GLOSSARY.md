@@ -11,7 +11,11 @@ _Avoid_: telling the user to type `need`; saying Agora keeps career info (that i
 
 **Zetesis (Ζήτησις)** — Job Finder. Searches opportunities from profile and preferences. Writes job list under `/workspace/agora/jobs/`. Lazy-created by Agora on demand.
 
-**Hermeneia (Ἑρμηνεία)** — Job Decoder. Analyzes job descriptions; explains requirements, priorities, fit; scores match vs **M** and **N**. Writes `/workspace/agora/jd-bank/`. Lazy-created by Agora on demand.
+**Hermeneia (Ἑρμηνεία)** — Job Decoder. Analyzes job descriptions; **decode-first** five layers; scores match vs **M** and **N** with a disclosed rubric when masters allow. Writes `/workspace/agora/jd-bank/`. Lazy-created by Agora on demand.
+
+**decode-first** — Hermeneia finishes all five JD layers (requirements, must-haves, nice-to-haves, hidden signals, level/team/stage) before emitting any match percent.
+
+**disclosed framework** — Disk file under `bots/<slug>/frameworks/` (or `references/`) read when needed; not an extra Grok skill slot.
 
 **Kairos (Καιρός)** — Resume Tailor. Adapts master profile into a job-specific resume under `applications/`. Writes matching simple HTML loader. Lazy-created by Agora on demand. Does not auto-forward to Melete.
 

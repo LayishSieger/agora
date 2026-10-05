@@ -46,10 +46,12 @@ cp -R fixtures/agora/. "$SIM/"
 
 ## Out of scope here
 
-- Deep JD rubric math
+- Live JD fetch quality / subjective rubric correctness (manual acceptance)
 - STAR curriculum quality
 - Real Grok API / CreateAgent / Release publish
 - Apply / submit simulation as fleet action (user applies; fleet never does)
+
+Structural Hermeneia depth (five layers, masters-required scoring, jd-bank schema, M/N bands) is checklist section **H**.
 
 ## Related
 
