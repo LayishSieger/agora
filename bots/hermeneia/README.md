@@ -11,4 +11,4 @@ Job Decoder. One job: intake JD (URL→paste), decode-first five layers, score m
 | `frameworks/jd-bank-schema.md` | Markdown entry shape + optional index |
 | `prompts/out-of-scope.md` | Refusal scripts |
 
-Sole-writes: `/workspace/agora/jd-bank/`. Does not write masters, journey, jobs list, applications, offer/deal banks. No Offer Strategy HTML. Outcome-only tools (get JD); no connector catalog.
+Sole-writes: `/workspace/agora/jd-bank/`. Does not write masters, journey, jobs list, applications, offer/deal banks. No polished HTML report packs. Outcome-only tools (get JD); no connector catalog.

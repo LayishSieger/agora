@@ -1,6 +1,6 @@
 # Happy-flow seam evals
 
-Seam checks for the gated fleet pipeline. Not toolkit-quality evals.
+Seam checks for the gated fleet pipeline. Not depth/quality evals for decode or tailor craft — seam checks only.
 
 **Pipeline:** Euodia (direction) → Mneme (masters) → Zetesis → Hermeneia (M/N) → Kairos → **hard stop (G4)** → Euodia navigate → Melete / Peitho.
 

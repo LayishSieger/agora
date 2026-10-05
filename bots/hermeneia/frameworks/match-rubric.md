@@ -2,7 +2,7 @@
 
 Disclosed framework. Read when scoring. Do not invent a vibes percent.
 
-Agora-adapted from the public offer-toolkit match rubric. English only. No third-party branding.
+Disclosed Hermeneia match rubric. English only. No third-party branding.
 
 **Gate rule (Agora):** compute a single **match score** point. Gate against **M=70** / **N=80** using that point. Optional `match_range` (±5–8 points) is display-only — never gate on the range.
 
