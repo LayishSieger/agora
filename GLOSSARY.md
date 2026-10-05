@@ -9,7 +9,11 @@ _Avoid_: telling the user to type `need`; saying Agora keeps career info (that i
 
 **Mneme (Μνήμη)** — Career Curator. Interviews, collects experiences, maintains the master career profile (source of truth) **and** `story-bank.md`. Always present after first-run. Must not CreateAgent, tailor resumes, score JDs, search jobs, or apply; on those asks: refuse + DM specialist (`need <Name>` if missing). Refuses those jobs in chat as well as in files.
 
-**Zetesis (Ζήτησις)** — Job Finder. Searches opportunities from profile and preferences. Writes job list under `/workspace/agora/jobs/`. Lazy-created by Agora on demand.
+**Zetesis (Ζήτησις)** — Job Finder. Public hunt from profile and preferences; presents a **batch of three** with **evidence labels**; appends across continues. Writes markdown job list under `/workspace/agora/jobs/`. Lazy-created by Agora on demand.
+
+**batch of three** — Zetesis presents ~3 matching/directional jobs per turn; user picks for Hermeneia or continues (~3 more). Durable `jobs/` list appends across continues. No match % on the hunt list.
+
+**evidence labels** — On hunt rows (and elsewhere when claimed): mark what was **seen/verified** vs **inferred/directional**. Never present inferred facts as verified.
 
 **Hermeneia (Ἑρμηνεία)** — Job Decoder. Analyzes job descriptions; **decode-first** five layers; scores match vs **M** and **N** with a disclosed rubric when masters allow. Writes `/workspace/agora/jd-bank/`. Lazy-created by Agora on demand.
 
