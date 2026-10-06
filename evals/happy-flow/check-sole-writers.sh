@@ -61,6 +61,30 @@ if [[ -n "$DM_LOG" && -f "$DM_LOG" ]]; then
     fail=$((fail + 1))
   fi
 
+  # J7: when jobs/ is populated, require a Zetesis→Euodia pointer DM block
+  if [[ -d "$ROOT/jobs" ]] && compgen -G "$ROOT/jobs/*" > /dev/null; then
+    if awk '
+      BEGIN { in_block=0; from_z=0; to_e=0; found=0 }
+      /^```/ {
+        if (in_block && from_z && to_e) found=1
+        in_block = !in_block
+        from_z=0; to_e=0
+        next
+      }
+      in_block && /^from:[[:space:]]*Zetesis[[:space:]]*$/ { from_z=1 }
+      in_block && from_z && /^to:[[:space:]]*Euodia[[:space:]]*$/ { to_e=1 }
+      END { if (in_block && from_z && to_e) found=1; exit found ? 0 : 1 }
+    ' "$DM_LOG"; then
+      echo "PASS  Zetesis→Euodia pointer DM present (J7)"
+      pass=$((pass + 1))
+    else
+      echo "FAIL  jobs/ populated but no Zetesis→Euodia pointer DM (J7)"
+      fail=$((fail + 1))
+    fi
+  else
+    echo "INFO  jobs/ empty — skip J7 Euodia-after-hunt check"
+  fi
+
   # G4: fail only if a fenced/code DM block has from:Kairos then to:Melete
   # (ignore prose comments and section headers)
   if awk '
@@ -91,7 +115,7 @@ if [[ -n "$DM_LOG" && -f "$DM_LOG" ]]; then
   fi
 else
   echo ""
-  echo "INFO  no dm-log provided — skip pointer/G4 heuristics"
+  echo "INFO  no dm-log provided — skip pointer/G4/J7 heuristics"
 fi
 
 echo ""
