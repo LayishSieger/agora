@@ -51,7 +51,7 @@ cp -R fixtures/agora/. "$SIM/"
 - Real Grok API / CreateAgent / Release publish
 - Apply / submit simulation as fleet action (user applies; fleet never does)
 
-Structural Hermeneia depth (five layers, masters-required scoring, jd-bank schema, M/N bands) is checklist section **H**. Structural Kairos depth (tailored md, HTML loader, sibling `.diff.md`, masters untouched, G4) is checklist section **I**. Structural Zetesis depth (**batch of three**, evidence labels, no match % on hunt list, append-on-continue, markdown-only jobs list, walls stop without fabricate) is checklist section **J** — hard FAIL when those invariants are missing. Live board hunt / tailor / decode craft quality remains manual.
+Structural Hermeneia depth (five layers, masters-required scoring, jd-bank schema, M/N bands) is checklist section **H**. Structural Kairos depth (tailored md, HTML loader, sibling `.diff.md`, masters untouched, G4) is checklist section **I**. Structural Zetesis depth (**batch of three** with durable file matching the presented batch, evidence labels, no match % on hunt list, append-on-continue, markdown-only jobs list, walls stop without fabricate, Euodia pointer after every write/append) is checklist section **J** — hard FAIL when those invariants are missing. Live board hunt / tailor / decode craft quality remains manual.
 
 ## Related
 

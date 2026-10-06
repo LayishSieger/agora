@@ -53,7 +53,7 @@ Add or drop rows from real prefs. Prefer exact titles first; then close synonyms
 2. Build the matrix table (brief; can stay in working notes).
 3. For each query: fetch/browse public results (outcome-only).
 4. On wall → skip that source (hunt-persona); continue other queries.
-5. Collect candidates into a pool; present only a **batch of three** (matching/directional). Keep overflow for continue.
+5. Collect candidates into a pool (working notes). Present and **durably write** only a **batch of three** (matching/directional). Keep overflow for continue — do not dump the pool into `jobs/`.
 
 ---
 

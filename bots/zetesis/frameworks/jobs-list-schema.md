@@ -52,11 +52,11 @@ batch_size: 3
 
 ## Append (continue)
 
-On continue (~3 more):
+On continue (~3 more only):
 
 1. Keep the same file path.
-2. Append new rows with the next `batch` number.
-3. Do **not** delete or rewrite prior rows.
+2. Append **only** those ~3 new rows with the next `batch` number.
+3. Do **not** delete or rewrite prior rows; do **not** dump remaining pool rows.
 4. Bump `updated` in frontmatter.
 
 ---
@@ -65,8 +65,6 @@ On continue (~3 more):
 
 `YYYY-MM-DD-search.md` or `<slug>-search.md` — one active list per search chain unless the user starts a new search.
 
----
+## Batch vs file
 
-## Optional index
-
-`/workspace/agora/jobs/_index.md` may list searches (search_id, path, updated, status, row count). Optional only — not required for a valid hunt.
+Each write/append persists **only** the ~3 rows for that presented batch (`batch_size: 3`). Keep the rest of the hunt pool in working notes for continue — do not dump the full pool into the durable file on first write.

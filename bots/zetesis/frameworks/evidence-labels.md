@@ -21,16 +21,9 @@ Aliases allowed in tables: `seen`, `verified`, `inferred`, `directional`. Prefer
 
 ## Row rules
 
-Every durable + presented row must include an evidence field. Canonical columns live in [`jobs-list-schema.md`](jobs-list-schema.md). Evidence-relevant minimum:
+Every durable + presented row must include an **evidence** field using a label above. Durable column set and other field rules: [`jobs-list-schema.md`](jobs-list-schema.md) (single SoT — do not re-list columns here).
 
-```markdown
-| id | company | role | mode | source | evidence | why-listed | date | batch |
-```
-
-- **source** — URL, path, or `sim://…` id. Required.
-- **evidence** — one of the labels above. Required.
-- **why-listed** — one short line; if directional, say what was inferred.
-- **id** / **batch** — required on durable rows (stable pointer slug; continue batch number).
+In **why-listed**, say what was seen vs guessed. If directional, say what was inferred.
 
 ### Forbidden
 

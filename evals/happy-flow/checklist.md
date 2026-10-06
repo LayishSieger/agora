@@ -123,12 +123,13 @@ Score a sim dump. Mark each item **PASS** or **FAIL**. Count at the end.
 
 | ID | Item | PASS if | **FAIL** if |
 |---|---|---|---|
-| J1 | Batch of three | Presented batch is **~3** matching/directional jobs; user asked to pick for Hermeneia **or** continue | Presented list is not ~3 (e.g. full dump of 30 with no batch UX); no pick-or-continue ask |
+| J1 | Batch of three | Presented batch is **~3** matching/directional jobs; user asked to pick for Hermeneia **or** continue; durable `jobs/` rows written this turn match that batch (~3), not a full hunt-pool dump | Presented list is not ~3 (e.g. full dump of 30 with no batch UX); no pick-or-continue ask; durable file gets the whole pool while chat shows ~3 |
 | J2 | Evidence labels | Each listed row carries a disclosed evidence label (`seen` / `verified` or `inferred` / `directional`) | Rows missing evidence labels; unlabeled “verified” claims |
 | J3 | No match % | Hunt list / presentation has **no** Hermeneia-style match percent, fit %, or score column | `match_percent` / match % / fit % shown on hunt list |
 | J4 | Append continue | After user says continue, durable `jobs/` markdown **appends** ~3 more; prior batch rows remain | Continue replaces the file; prior rows deleted; new batch not appended |
 | J5 | Markdown only | Durable artifact is markdown under `/workspace/agora/jobs/`; **no** hunt HTML report authored | Hunt HTML file / polished HTML jobs pack written |
 | J6 | Walls / never fabricate | On auth / CAPTCHA / anti-bot wall, hunt **stops** without inventing openings (sim may use labeled fixtures when fetch is allowed) | Fabricated openings after a wall; unlabeled invented postings |
+| J7 | Euodia after write/append | After every hunt **write** and every **append**, Zetesis DMs Euodia a pointer (`stage: search` + jobs path). Required on continue — not optional | Missing Euodia pointer after first write or after continue append |
 
 ---
 
