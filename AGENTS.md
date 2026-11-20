@@ -2,6 +2,10 @@
 
 Engineering agents working in this repo should follow the Matt Pocock skills under `.agents/skills/` (mirrored for Cursor at `.cursor/skills/`).
 
+## Vercel Board
+
+Use the Vercel Board skill (vercel/board) for tasks: team `layish-siegers-projects`, channel `agora`, always post with `--as <your-name>`.
+
 ## Agent skills
 
 ### Issue tracker
